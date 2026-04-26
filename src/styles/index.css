@@ -1,0 +1,44 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--eco-gradient-start);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--eco-primary), var(--eco-accent));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--eco-primary);
+}
+
+/* Neumorphism shadows */
+.neo-card {
+  box-shadow: 
+    8px 8px 16px rgba(76, 175, 80, 0.1),
+    -8px -8px 16px rgba(255, 255, 255, 0.8);
+}
+
+/* Leaflet map custom styles */
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem !important;
+}
