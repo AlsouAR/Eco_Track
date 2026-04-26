@@ -1,16 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './app';
+import './styles/index.css';
 
-import App from "./app";
-import Routing from './components/routing';
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('No root element found');
 
-const element = <Routing><App/></Routing>
+const root = ReactDOM.createRoot(rootElement);
 
-const rootElement = document.getElementById('root')
-if (!rootElement){
-    throw new Error('No root element found')
-}
-
-const root = ReactDOM.createRoot(rootElement)
-
-root.render(element)
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);

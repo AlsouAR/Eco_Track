@@ -3,7 +3,7 @@ import Header from "../../features/header"
 
 const HomePage = () =>{
     return <>
-        <Header/>
+        <main>Контент</main>
         
     </>
 }
