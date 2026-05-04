@@ -12,7 +12,7 @@ const CalendarCard = styled(motion.div)`
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); 
   border: 1px solid var(--border);
   width: 100%;
-  max-width: 860px; 
+  max-width: 1000px; 
   margin: 0;
 `;
 
@@ -99,7 +99,7 @@ const CalendarWrapper = styled.div`
   }
 
   .react-calendar__tile {
-    height: 75px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
