@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import {EcoImpact} from '../../features/dashboard/EcoImpact';
 import {Progress} from '../../features/dashboard/Progress';
 import {WeeklyActivity} from '../../features/dashboard/WeekActivity';
-import {MetricCard} from '../../features/dashboard/MetricCard';
 
 // import {EcoCalendar} from "../../features/calendar/index";
 const PageContainer = styled.div`
@@ -14,6 +13,7 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  background: transparent;
 `;
 
 const DashboardPage = () => {
@@ -22,7 +22,6 @@ const DashboardPage = () => {
             <EcoImpact />
             <Progress />
             <WeeklyActivity />
-            <MetricCard />
         </PageContainer>
     );
 };
