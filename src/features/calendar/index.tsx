@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Calendar from 'react-calendar';
 import { motion } from 'framer-motion';
 import { Leaf } from 'lucide-react';
+import { format, isToday } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
+import 'react-calendar/dist/Calendar.css';
 
 const CalendarCard = styled(motion.div)`
   background: var(--card);
-  border-radius: 40px;
-  padding: 40px;
+  border-radius: 1.875rem;
+  padding: 1.5rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); 
   border: 1px solid var(--border);
   width: 100%;
-  max-width: 1000px; 
-  margin: 0;
+  
+  @media (min-width: 1024px) {
+    padding: 2.5rem;
+  }
 `;
 
 const HeaderSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 48px;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 
   .logo-icon-box {
     width: 3rem;
     height: 3rem;
     border-radius: 1rem;
-    background: #66bb6a;
+    background: var(--primary); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,14 +45,14 @@ const HeaderSection = styled.div`
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #1b5e20;
+    color: var(--foreground);
     margin: 0;
   }
 
   p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--muted-foreground);
     margin: 0;
   }
@@ -63,73 +70,92 @@ const CalendarWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
-    gap: 12px;
+    margin-bottom: 2rem;
+    gap: 8px;
     
     button {
       background: none;
       border: none;
-      color: #1b5e20;
+      color: var(--primary);
       cursor: pointer;
-      font-size: 20px;
+      font-size: 1.25rem;
       min-width: 44px;
+      border-radius: 0.5rem;
       
-      &:hover { opacity: 0.6; }
+      &:hover { background: var(--muted); }
+      &:disabled { color: var(--muted-foreground); }
     }
 
     .react-calendar__navigation__label {
       flex-grow: 0 !important;
       font-weight: 700;
-      font-size: 18px;
-      color: #1b5e20;
-      margin: 0 40px; 
+      font-size: 1.125rem;
+      color: var(--foreground);
+      margin: 0 1rem; 
     }
   }
 
   .react-calendar__month-view__weekdays {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
     abbr {
       text-decoration: none;
       font-weight: 700;
-      color: #4caf50;
-      font-size: 14px;
-      border-bottom: 1px dotted #4caf50;
+      color: var(--primary);
+      font-size: 0.875rem;
     }
   }
+
 
   .react-calendar__tile {
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    color: #444;
-    border-radius: 16px;
+    font-size: 1rem;
+    color: var(--foreground);
+    border-radius: 0.75rem;
     transition: all 0.2s;
     
-    &:hover { background: #f1f8e9; }
+    &:hover { background: var(--muted); }
   }
 
   .react-calendar__month-view__days__day--weekend {
-    color: #d32f2f !important; 
+    color: var(--destructive) !important; 
   }
 
   .react-calendar__tile--active {
-    background: #66bb6a !important;
-    color: white !important;
+    background: var(--primary) !important;
+    color: var(--primary-foreground) !important;
     font-weight: 700;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(102, 187, 106, 0.3);
+    box-shadow: 0 8px 16px rgba(76, 175, 80, 0.2);
   }
 
   .react-calendar__month-view__days__day--neighboringMonth {
-    color: #bdbdbd !important;
+    color: var(--muted-foreground) !important;
+    opacity: 0.5;
+  }
+
+  .react-calendar__tile--now {
+    background: var(--accent);
+    color: var(--foreground);
   }
 `;
 
 export function EcoCalendar() {
-  const [date, setDate] = useState(new Date(2026, 3, 29));
+  const [date, setDate] = useState(new Date());
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+  
+      if (now.getDate() !== date.getDate()) {
+        setDate(now);
+      }
+    }, 1000 * 60);
+
+    return () => clearInterval(timer);
+  }, [date]);
 
   return (
     <CalendarCard
@@ -142,7 +168,7 @@ export function EcoCalendar() {
         </div>
         <div className="text-container">
           <h2>Календарь привычек</h2>
-          <p>Отслеживайте свой прогресс</p>
+          <p>Сегодня: {format(new Date(), 'd MMMM yyyy', { locale: ru })}</p>
         </div>
       </HeaderSection>
 
@@ -151,10 +177,9 @@ export function EcoCalendar() {
           onChange={(val) => setDate(val as Date)}
           value={date}
           locale="ru-RU"
-          prevLabel="‹"
-          nextLabel="›"
-          prev2Label="«"
-          next2Label="»"
+          tileClassName={({ date: tileDate }) => {
+            return isToday(tileDate) ? 'today-tile' : null;
+          }}
           formatShortWeekday={(locale, date) => {
             const days = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
             const index = date.getDay() === 0 ? 6 : date.getDay() - 1;
@@ -165,4 +190,5 @@ export function EcoCalendar() {
     </CalendarCard>
   );
 }
+
 export default EcoCalendar;
