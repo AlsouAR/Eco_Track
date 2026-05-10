@@ -1,0 +1,73 @@
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;                /* ← вместо max-width */
+  padding: 24px 20px 32px;
+  background: #FFFFFF;
+  border-radius: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  max-width: 360px; 
+}
+/* ОБЩИЕ стили для ОБЕИХ кнопок (форма одинаковая) */
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 20px;        /* одинаковая форма */
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+
+  /* ========== СТИЛИ ДЛЯ ПЕРВОЙ КНОПКИ (Экспорт) ========== */
+  background: #4CAF50;        /* зелёный фон */
+  color: #ffffff;             /* белый текст */
+}
+
+/* Иконка внутри кнопки */
+.action-btn svg {
+  transition: transform 0.2s ease;
+  color: #ffffff;             /* белая иконка */
+}
+
+/* Текст кнопки */
+.action-btn span {
+  transition: transform 0.2s ease;
+}
+
+/* При наведении на любую кнопку - увеличиваем иконку и текст */
+.action-btn:hover svg {
+  transform: scale(1.15);
+}
+.action-btn:hover span {
+  transform: scale(1.02);
+}
+
+/* При клике - эффект нажатия (для любой кнопки) */
+.action-btn:active {
+  transform: scale(0.98);
+}
+
+.action-btn:hover {
+  background: #3d9c41;        /* тёмно-зелёный при наведении */
+}
+
+/* ========== СТИЛИ ДЛЯ ВТОРОЙ КНОПКИ (Сброс) ========== */
+.reset-btn {
+  background: #F5F7F0;        /* светлый фон (как у статистики) */
+  color: #1B5E20;             /* тёмно-зелёный текст */
+}
+
+.reset-btn svg {
+  color: #1B5E20;             /* тёмно-зелёная иконка */
+}
+
+.reset-btn:hover {
+  background: #E8EDE0;        /* чуть темнее при наведении */
+}
