@@ -4,12 +4,14 @@ import HomePage from "./pages/home";
 import Header from "./features/header";
 import DashboardPage from "./pages/dashboard";
 import ProfilePage from "./pages/Profile";
+import { BackgroundLeaves } from './components/BackgroundLeaves';
 
 const NotFound = () => <div style={{padding: '20px'}}><h1>404: Страница не найдена</h1></div>;
 
 const App = () => {
     return (
         <>
+            <BackgroundLeaves />
             <Header /> {}
             <Routes>
                 {}
