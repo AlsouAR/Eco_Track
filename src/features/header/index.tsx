@@ -85,6 +85,34 @@ const ActiveBackground = styled(motion.div)`
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 `;
 
+// styled-компонент для мобильной навигации
+const MobileNavLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+// Стиль для одной мобильной кнопки-иконки
+const MobileNavItem = styled(motion.div)<{ isActive: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  position: relative;
+  transition: all 0.2s;
+  color: ${props => props.isActive ? '#ffffff' : 'var(--foreground)'};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.isActive ? 'transparent' : 'rgba(200, 230, 201, 0.3)'};
+  }
+`;
+
 
 export function Header() {
   const location = useLocation();
@@ -147,6 +175,28 @@ export function Header() {
               );
             })}
           </NavLinks>
+
+          {/* Мобильная навигация */}
+          <MobileNavLinks>
+            {navItems.map((item) => {
+              const isActive = item.path === "/"
+                ? location.pathname === "/"
+                : location.pathname.startsWith(item.path);
+              const Icon = item.icon;
+
+              return (
+                <Link key={item.path} to={item.path} style={{ textDecoration: 'none', position: 'relative' }}>
+                  <MobileNavItem
+                    isActive={isActive}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {isActive && <ActiveBackground />}
+                    <Icon size={20} style={{ position: 'relative', zIndex: 10 }} />
+                  </MobileNavItem>
+                </Link>
+              );
+            })}
+          </MobileNavLinks>
 
         </FlexWrapper>
       </NavInner>

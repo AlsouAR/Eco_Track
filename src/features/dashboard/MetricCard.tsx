@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { Droplet, Leaf, TreeDeciduous, Award, TrendingUp, Zap } from "lucide-react";
 
 const ContentCard = styled.div`
+  font-family: sans-serif;
   align-items: left;
   text-align: left;
   gap: 16px;
@@ -14,32 +14,25 @@ const ContentCard = styled.div`
     display: flex;
     flex-direction: column;
   }
-  
-//   .IconWrapper {
-//    margin-bottom: 16px;
-//    display: flex;
-//    justify-content: left;
-//    }
 
   h1 {
-    font-family: sans-serif;
     font-size: 30px;
     font-weight: 700;
-    color: #1B5E20;
+    color: var(--secondary-foreground);
     margin: 0;
     }
 
   h3 {
     font-size: 14px;
     font-weight: 600;
-    color: #558B2F;              
+    color: var(--muted-foreground);             
     margin: 0;
     font-size: 14px;
     margin-bottom: 8px;
   }
 
   p {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--muted-foreground);  /* #558B2F */
     margin: 0;
   }
@@ -47,7 +40,7 @@ const ContentCard = styled.div`
   span {
     font-size: 14px;
     font-weight: normal;
-    color: #338B2F;
+    color: var(--muted-foreground);  /* #558B2F */
     margin: 0;
   }
 `;
