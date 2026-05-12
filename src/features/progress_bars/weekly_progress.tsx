@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import styled from "@emotion/styled";
 
+import { useAppSelector } from '../../store/hooks';
+import { selectWeeklyStats } from '../habits/store/selectors';
+
 interface WeeklyStat {
   day: string;
   completed: number;
@@ -76,18 +79,13 @@ const ProgressBar = styled(motion.div)`
   border-radius: 9999px;
 `;
 
-export const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ 
-  stats = [
-    { day: "ПН", completed: 4 },
-    { day: "ВТ", completed: 5 },
-    { day: "СР", completed: 3 },
-    { day: "ЧТ", completed: 5 },
-    { day: "ПТ", completed: 4 },
-    { day: "СБ", completed: 2 },
-    { day: "ВС", completed: 0 },
-  ],
-  totalHabits = 5 
-}) => {
+export const WeeklyProgress: React.FC = () => {
+  // 1. Достаем общее количество привычек, чтобы считать %
+  const totalHabits = useAppSelector((state) => state.habits.habits.length);
+
+  // 2. Достаем вычисленную статистику за неделю
+  const stats = useAppSelector(selectWeeklyStats);
+
   return (
     <StatsContainer>
       <Header>
@@ -97,10 +95,9 @@ export const WeeklyProgress: React.FC<WeeklyProgressProps> = ({
       
       <div>
         {stats.map((stat, index) => {
-          const percentage = (stat.completed / totalHabits) * 100;
-          
+          const percentage = totalHabits > 0 ? (stat.completed / totalHabits) * 100 : 0;
           return (
-            <DayRow key={stat.day}>
+            <DayRow key={`${stat.day}-${index}`}>
               <DayInfo>
                 <DayLabel>{stat.day}</DayLabel>
                 <CountLabel>

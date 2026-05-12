@@ -3,10 +3,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from "lucide-react";
+import { Check, ShoppingBag, Bike, Recycle, Droplet, Leaf } from "lucide-react";
 import { Checkbox } from "../../components/ui/checkbox/checkbox"; 
 import { Progress } from "../../components/ui/progress/progress";
 
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { toggleHabit, saveDay } from './store/habits_slice';
+
+// Маппинг строк из Redux в компоненты Lucide
+const IconMap: Record<string, any> = {
+  ShoppingBag,
+  Bike,
+  Recycle,
+  Droplet,
+  Leaf
+};
 
 interface Habit {
   id: string;
@@ -51,7 +62,7 @@ const List = styled.div`
   }
 `;
 
-const HabitCard = styled(motion.div)<{ isCompleted: boolean }>`
+const HabitCard = styled(motion.div)<{ $isCompleted: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -69,7 +80,7 @@ const HabitCard = styled(motion.div)<{ isCompleted: boolean }>`
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.12);
   }
 
-  ${props => props.isCompleted && `
+  ${props => props.$isCompleted && `
     background: var(--muted); 
     border-color: var(--primary);
   `}
@@ -80,7 +91,7 @@ const HabitCard = styled(motion.div)<{ isCompleted: boolean }>`
   }
 `;
 
-const IconBox = styled.div<{ isCompleted: boolean }>`
+const IconBox = styled.div<{ $isCompleted: boolean }>`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.75rem;
@@ -88,13 +99,13 @@ const IconBox = styled.div<{ isCompleted: boolean }>`
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  background: ${props => props.isCompleted ? 'var(--primary)' : 'var(--input-background)'};
+  background: ${props => props.$isCompleted ? 'var(--primary)' : 'var(--input-background)'};
 
   svg {
     width: 1.25rem;
     height: 1.25rem;
     transition: color 0.2s ease;
-    color: ${props => props.isCompleted ? 'var(--primary-foreground)' : 'var(--primary)'};
+    color: ${props => props.$isCompleted ? 'var(--primary-foreground)' : 'var(--primary)'};
   }
 
   @media (min-width: 1024px) {
@@ -103,13 +114,13 @@ const IconBox = styled.div<{ isCompleted: boolean }>`
   }
 `;
 
-const HabitLabel = styled.span<{ isCompleted: boolean }>`
+const HabitLabel = styled.span<{ $isCompleted: boolean }>`
   flex: 1;
   font-size: 1rem;
   font-weight: var(--font-weight-medium);
   color: var(--foreground);
   transition: opacity 0.2s ease;
-  opacity: ${props => props.isCompleted ? 0.7 : 1};
+  opacity: ${props => props.$isCompleted ? 0.7 : 1};
 `;
 
 const CheckBadge = styled(motion.div)`
@@ -183,9 +194,30 @@ const SaveButton = styled(motion.button)<{ progress: number }>`
 `;
 
 
-export const TodayActions: React.FC<TodayActionsProps> = ({ habits, onToggle }) => {
-  const completedCount = habits.filter((h) => h.completed).length;
-  const progressValue = habits.length > 0 ? (completedCount / habits.length) * 100 : 0;
+export const TodayActions: React.FC = () => {
+  const dispatch = useAppDispatch();
+  
+  // 1. Берем привычки и ЧЕРНОВИК вместо истории
+  const { habits, currentDraft, history, selectedDate } = useAppSelector((state) => state.habits);
+  // 2. Определяем список выполненных ID для текущей даты
+  const completedIds = history[selectedDate] || [];
+
+  const hasChanges = JSON.stringify(currentDraft) !== JSON.stringify(history[selectedDate] || []);
+
+  // 3. Формируем массив привычек с актуальным статусом completed
+  const currentHabits = habits.map(habit => ({
+    ...habit,
+    completed: currentDraft.includes(habit.id), // Работаем с черновиком
+    iconComponent: IconMap[habit.icon] || Leaf 
+  }));
+
+  const completedCount = currentHabits.filter((h) => h.completed).length;
+  const progressValue = currentHabits.length > 0 ? (completedCount / currentHabits.length) * 100 : 0;
+
+  // 4. Обработчик клика
+  const handleToggle = (id: string) => {
+    dispatch(toggleHabit(id));
+  };
 
   return (
     <Container
@@ -196,13 +228,13 @@ export const TodayActions: React.FC<TodayActionsProps> = ({ habits, onToggle }) 
       <Title>Сегодняшние действия</Title>
 
       <List>
-        {habits.map((habit, index) => {
-          const Icon = habit.icon;
+        {currentHabits.map((habit, index) => {
+          const Icon = habit.iconComponent;
           return (
             <HabitCard
               key={habit.id}
-              isCompleted={habit.completed}
-              onClick={() => onToggle(habit.id)}
+              $isCompleted={habit.completed}
+              onClick={() => handleToggle(habit.id)}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -210,15 +242,15 @@ export const TodayActions: React.FC<TodayActionsProps> = ({ habits, onToggle }) 
             >
               <Checkbox
                 checked={habit.completed}
-                onCheckedChange={() => onToggle(habit.id)}
+                onCheckedChange={() => handleToggle(habit.id)}
                 onClick={(e) => e.stopPropagation()} 
               />
 
-              <IconBox isCompleted={habit.completed}>
+              <IconBox $isCompleted={habit.completed}>
                 <Icon />
               </IconBox>
 
-              <HabitLabel isCompleted={habit.completed}>
+              <HabitLabel $isCompleted={habit.completed}>
                 {habit.label}
               </HabitLabel>
 
@@ -242,17 +274,19 @@ export const TodayActions: React.FC<TodayActionsProps> = ({ habits, onToggle }) 
       <Footer>
         <ProgressInfo>
           <span className="label">Дневная цель</span>
-          <span className="count">{completedCount} / {habits.length}</span>
+          <span className="count">{completedCount} / {currentHabits.length}</span>
         </ProgressInfo>
         <Progress value={progressValue} />
       </Footer>
 
       <SaveButton 
         progress={progressValue}
+        onClick={() => dispatch(saveDay())}
+        disabled={!hasChanges}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.97 }}
       >
-        <span>Сохранить день</span>
+        <span>{hasChanges ? "Сохранить изменения" : "Сохранено"}</span>
         <motion.div
           animate={{
             scale: progressValue === 100 ? [1, 1.2, 1] : 1,

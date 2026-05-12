@@ -1,14 +1,12 @@
 "use client";
 
 import React from 'react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Leaf } from "lucide-react";
 import styled from "@emotion/styled";
 
-interface QuickStatsProps {
-  currentStreak?: number;
-  bestStreak?: number;
-}
+import { useAppSelector } from '../../store/hooks';
+import { selectStreakData } from '../habits/store/selectors';
 
 const StatsCard = styled(motion.div)`
   background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -37,6 +35,7 @@ const CurrentValue = styled.div`
   font-weight: 700;
   line-height: 1;
   margin-bottom: 0.25rem;
+  overflow: hidden;
 `;
 
 const Label = styled.div`
@@ -64,11 +63,10 @@ const BestStreakValue = styled.div`
   font-weight: 700;
 `;
 
+export const QuickStats: React.FC = () => {
 
-export const QuickStats: React.FC<QuickStatsProps> = ({ 
-  currentStreak = 24, 
-  bestStreak = 31 
-}) => {
+  const { currentStreak, bestStreak } = useAppSelector(selectStreakData);
+
   return (
     <StatsCard
       initial={{ opacity: 0, y: 10 }}
@@ -80,21 +78,27 @@ export const QuickStats: React.FC<QuickStatsProps> = ({
       </IconWrapper>
 
       <CurrentValue>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {currentStreak}
-        </motion.span>
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={currentStreak}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ display: 'inline-block' }}
+          >
+            {currentStreak}
+          </motion.span>
+        </AnimatePresence>
       </CurrentValue>
       
-      <Label>дней подряд</Label>
+      <Label>{getDaysLabel(currentStreak)} подряд</Label>
 
       <Footer>
         <BestStreakLabel>Лучшая серия</BestStreakLabel>
         <BestStreakValue>
           <motion.span
+            key={bestStreak}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -109,7 +113,9 @@ export const QuickStats: React.FC<QuickStatsProps> = ({
 
 const getDaysLabel = (days: number) => {
   const lastDigit = days % 10;
-  if (days >= 11 && days <= 14) return 'дней';
+  const lastTwoDigits = days % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'дней';
   if (lastDigit === 1) return 'день';
   if (lastDigit >= 2 && lastDigit <= 4) return 'дня';
   return 'дней';
