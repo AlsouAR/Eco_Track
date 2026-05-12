@@ -5,10 +5,12 @@ import styled from '@emotion/styled';
 import Calendar from 'react-calendar';
 import { motion } from 'framer-motion';
 import { Leaf } from 'lucide-react';
-import { format, isToday } from 'date-fns';
+import { format, isToday, parseISO } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
 import 'react-calendar/dist/Calendar.css';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setSelectedDate } from '../habits/store/habits_slice';
 
 const CalendarCard = styled(motion.div)`
   background: var(--card);
@@ -143,19 +145,36 @@ const CalendarWrapper = styled.div`
 `;
 
 export function EcoCalendar() {
-  const [date, setDate] = useState(new Date());
+  const dispatch = useAppDispatch();
+
+  // 1. Берем выбранную дату из Redux
+  const selectedDateString = useAppSelector((state) => state.habits.selectedDate);
   
+  // 2. Превращаем строку из Redux обратно в объект Date для календаря
+  const date = parseISO(selectedDateString);
+
+  // 3. Обработчик изменения даты
+  const handleDateChange = (value: any) => {
+    const newDate = value as Date;
+    // Форматируем Date в строку '2026-05-12' и отправляем в Redux
+    const formattedDate = format(newDate, 'yyyy-MM-dd');
+    dispatch(setSelectedDate(formattedDate));
+  };
+  
+  // Эффект для обновления "сегодняшней" даты
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-  
-      if (now.getDate() !== date.getDate()) {
-        setDate(now);
+      const todayFormatted = format(now, 'yyyy-MM-dd');
+      
+      // Если наступил новый день, а в сторе всё еще старая дата "сегодня"
+      if (todayFormatted !== selectedDateString && isToday(now)) {
+        dispatch(setSelectedDate(todayFormatted));
       }
     }, 1000 * 60);
 
     return () => clearInterval(timer);
-  }, [date]);
+  }, [selectedDateString, dispatch]);
 
   return (
     <CalendarCard
@@ -174,7 +193,7 @@ export function EcoCalendar() {
 
       <CalendarWrapper>
         <Calendar
-          onChange={(val) => setDate(val as Date)}
+          onChange={handleDateChange}
           value={date}
           locale="ru-RU"
           tileClassName={({ date: tileDate }) => {
