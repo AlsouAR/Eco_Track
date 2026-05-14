@@ -4,6 +4,7 @@ import HomePage from "./pages/home";
 import Header from "./features/header";
 import DashboardPage from "./pages/dashboard";
 import ProfilePage from "./pages/Profile";
+import MapPage from './pages/map/MapPage';
 import { BackgroundLeaves } from './components/BackgroundLeaves';
 
 const NotFound = () => <div style={{padding: '20px'}}><h1>404: Страница не найдена</h1></div>;
@@ -19,6 +20,10 @@ const App = () => {
                 
                 {}
                 <Route path="/dashboard" element={<DashboardPage />} />
+
+                {}
+                <Route path="/map" element={<MapPage />} />
+
                 {}
                 <Route path="/profile" element={<ProfilePage />} />
 
