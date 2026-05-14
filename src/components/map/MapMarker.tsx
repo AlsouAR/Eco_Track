@@ -2,6 +2,7 @@ import { Marker, Popup } from "react-leaflet";
 import { EcoLocation } from "../../features/map/types";
 import { getMarkerIcon } from "../../features/map/lib/getMarketIcon";
 import { MapPopup } from "./MapPopup";
+import "./MapMarker.css";
 
 export function MapMarker({ location }: { location: EcoLocation }) {
   return (

@@ -1,15 +1,16 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import { MapMarker } from "./MapMarker";
 import { EcoLocation } from "../../features/map/types";
+import "./MapContainerBlock.css";
 
 export function MapContainerBlock({ locations }: { locations: EcoLocation[] }) {
     return (
-        <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-[var(--border)]">
-            <div className="rounded-2xl overflow-hidden" style={{ minHeight: 450, height: 450 }}>
+        <div className="map-container-block">
+            <div className="map-container-block__inner">
                 <MapContainer
                     center={[55.7558, 37.6173]}
-                    zoom={12}
-                    style={{ height: "100%", width: "100%" }}
+                    zoom={14}
+                    className="map-container-block__map"
                 >
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,10 +1,56 @@
 import { useState } from "react";
+import styled from '@emotion/styled';
 import { MapFilters } from "../../components/map/MapFilters";
 import { MapContainerBlock } from "../../components/map/MapContainerBlock";
 import { AddLocationModal } from "../../components/map/AddLocationModal";
 import { locations } from "../../features/map/data/locations";
 import { LocationType } from "../../features/map/types";
-import MapHeader from "../../components/map/MapHeader";
+
+
+// Container для группировки компонентов
+const PageContainer = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+const HeaderSection = styled.div`
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+
+const Title = styled.h1`
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1B5E20;
+  margin-bottom: 0.5rem;
+`;
+
+const Subtitle = styled.p`
+  font-size: 1rem;
+  color: #558B2F;
+`;
+
+const FilterSection = styled.div`
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.12);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  padding: 1.5rem;
+`;
+
+const MapCard = styled.div`
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.12);
+  border-radius: 1rem;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+  padding: 1.25rem;
+`;
 
 export default function MapPage() {
     const [selectedType, setSelectedType] = useState<LocationType | "all">("all");
@@ -15,23 +61,25 @@ export default function MapPage() {
         : locations.filter((l) => l.type === selectedType);
 
     return (
-        <main className="page-wrapper">
-            <div className="mx-auto max-w-6xl space-y-6">
-                <div className="rounded-[2rem] border border-[rgba(16,185,129,0.18)] bg-white/90 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl">
-                    <MapHeader />
-                    <MapFilters
-                        selectedType={selectedType}
-                        setSelectedType={setSelectedType}
-                        openModal={() => setShowModal(true)}
-                    />
-                </div>
+        <PageContainer>
+            <HeaderSection>
+                <Title>Карта эко-инициатив</Title>
+                <Subtitle>Найдите ближайшие точки для эко-действий</Subtitle>
+            </HeaderSection>
 
-                <section className="map-frame rounded-[2rem] border border-[rgba(16,185,129,0.14)] bg-white/95 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.07)]">
-                    <MapContainerBlock locations={filtered} />
-                </section>
+            <FilterSection>
+                <MapFilters
+                    selectedType={selectedType}
+                    setSelectedType={setSelectedType}
+                    openModal={() => setShowModal(true)}
+                />
+            </FilterSection>
 
-                {showModal && <AddLocationModal close={() => setShowModal(false)} />}
-            </div>
-        </main>
+            <MapCard>
+                <MapContainerBlock locations={filtered} />
+            </MapCard>
+
+            {showModal && <AddLocationModal close={() => setShowModal(false)} />}
+        </PageContainer>
     );
 }
