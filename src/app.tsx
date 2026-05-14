@@ -3,13 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from "./pages/home";
 import Header from "./features/header";
 import DashboardPage from "./pages/dashboard";
-import Map from "./pages/map";
+import ProfilePage from "./pages/Profile";
+import { BackgroundLeaves } from './components/BackgroundLeaves';
 
 const NotFound = () => <div style={{padding: '20px'}}><h1>404: Страница не найдена</h1></div>;
 
 const App = () => {
     return (
         <>
+            <BackgroundLeaves />
             <Header /> {}
             <Routes>
                 {}
@@ -17,9 +19,8 @@ const App = () => {
                 
                 {}
                 <Route path="/dashboard" element={<DashboardPage />} />
-
                 {}
-                <Route path="/map" element={<Map />} />
+                <Route path="/profile" element={<ProfilePage />} />
 
                 {}
                 <Route path="*" element={<NotFound />} />

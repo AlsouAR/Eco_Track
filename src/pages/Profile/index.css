@@ -1,0 +1,39 @@
+/* ОСНОВНОЙ КОНТЕЙНЕР */
+.app {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+/* HeaderProfile - по центру */
+.app > :first-child {
+  align-self: center;
+}
+
+/* КОНТЕЙНЕР С ДВУМЯ КОЛОНКАМИ */
+.two-columns {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* ЛЕВАЯ КОЛОНКА */
+.left-column {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+/* ПРАВАЯ КОЛОНКА */
+.right-column {
+  flex: 2.2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

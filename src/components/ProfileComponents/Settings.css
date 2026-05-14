@@ -1,0 +1,66 @@
+.settings-container {
+  background: #FFFFFF;
+  border-radius: 28px;
+  padding: 24px 20px 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+.settings-title {
+  font-size: 22px;
+  font-weight: 650;
+  color: #1B5E20;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #EFF3E6;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #FCFDF9;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #EDF2E3;
+}
+
+.settings-item:hover {
+  background: #F3F8EC;
+  border-color: #C8E0B0;
+}
+
+.settings-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F5F7F0;
+  border-radius: 50%;
+  color: #4CAF50;
+}
+
+.settings-info {
+  flex: 1;
+}
+
+.settings-item-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1B5E20;
+  margin-bottom: 4px;
+}
+
+.settings-item-description {
+  font-size: 12px;
+  color: #7B8C6E;
+}
