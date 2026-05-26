@@ -3,81 +3,24 @@
 import React from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { Leaf } from "lucide-react";
-import styled from "@emotion/styled";
-
 import { useAppSelector } from '../../store/hooks';
 import { selectStreakData } from '../habits/store/selectors';
-
-const StatsCard = styled(motion.div)`
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  border-radius: 1.875rem;
-  padding: 1.5rem;
-  color: var(--primary-foreground); 
-  box-shadow: 0 8px 30px rgba(76, 175, 80, 0.15);
-  display: flex;
-  flex-direction: column;
-  height: 100%; 
-`;
-
-const IconWrapper = styled.div`
-  margin-bottom: 1rem;
-  opacity: 0.9;
-  
-  svg {
-    width: 2rem;
-    height: 2rem;
-    color: var(--primary-foreground);
-  }
-`;
-
-const CurrentValue = styled.div`
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 0.25rem;
-  overflow: hidden;
-`;
-
-const Label = styled.div`
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
-  opacity: 0.9;
-`;
-
-const Footer = styled.div`
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-`;
-
-const BestStreakLabel = styled.div`
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  opacity: 0.8;
-  margin-bottom: 0.25rem;
-`;
-
-const BestStreakValue = styled.div`
-  font-size: 1.5rem; 
-  font-weight: 700;
-`;
+import * as S from './quick_stats_styles';
 
 export const QuickStats: React.FC = () => {
-
   const { currentStreak, bestStreak } = useAppSelector(selectStreakData);
 
   return (
-    <StatsCard
+    <S.StatsCard
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <IconWrapper>
+      <S.IconWrapper>
         <Leaf />
-      </IconWrapper>
+      </S.IconWrapper>
 
-      <CurrentValue>
+      <S.CurrentValue>
         <AnimatePresence mode="wait">
           <motion.span
             key={currentStreak}
@@ -90,13 +33,13 @@ export const QuickStats: React.FC = () => {
             {currentStreak}
           </motion.span>
         </AnimatePresence>
-      </CurrentValue>
+      </S.CurrentValue>
       
-      <Label>{getDaysLabel(currentStreak)} подряд</Label>
+      <S.Label>{getDaysLabel(currentStreak)} подряд</S.Label>
 
-      <Footer>
-        <BestStreakLabel>Лучшая серия</BestStreakLabel>
-        <BestStreakValue>
+      <S.Footer>
+        <S.BestStreakLabel>Лучшая серия</S.BestStreakLabel>
+        <S.BestStreakValue>
           <motion.span
             key={bestStreak}
             initial={{ opacity: 0 }}
@@ -105,9 +48,9 @@ export const QuickStats: React.FC = () => {
           >
             {bestStreak} {getDaysLabel(bestStreak)}
           </motion.span>
-        </BestStreakValue>
-      </Footer>
-    </StatsCard>
+        </S.BestStreakValue>
+      </S.Footer>
+    </S.StatsCard>
   );
 };
 

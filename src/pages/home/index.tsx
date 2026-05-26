@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Добавили useState
+import React, { useState } from 'react'; 
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 
@@ -72,10 +72,7 @@ const HomePage = () => {
             transition={{ delay: 0.2 }}
           >
 
-            <TodayActions 
-              habits={habits} 
-              onToggle={handleToggleHabit} 
-            />
+            <TodayActions/>
           </motion.div>
         </LeftColumn>
 
@@ -93,7 +90,7 @@ const HomePage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <QuickStats currentStreak={24} bestStreak={31} />
+            <QuickStats/>
           </motion.div>
         </RightColumn>
       </MainGrid>
