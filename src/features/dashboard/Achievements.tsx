@@ -46,14 +46,14 @@ const Subtitle = styled.p`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);   // 6 колонок по умолчанию
+  grid-template-columns: repeat(6, 1fr);
   gap: 24px;
 
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr); // планшет
+    grid-template-columns: repeat(3, 1fr);
   }
   @media (max-width: 640px) {
-    grid-template-columns: repeat(2, 1fr); // телефон
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
@@ -106,7 +106,7 @@ const AchievementDesc = styled.p`
   margin: 0;
 `;
 
-// ==================== Данные ====================
+// ==================== Типы ====================
 
 interface Achievement {
   id: number;
@@ -115,18 +115,70 @@ interface Achievement {
   unlocked: boolean;
 }
 
-const achievements: Achievement[] = [
-  { id: 1, title: 'Эко-новичок', description: 'Первые 7 дней\n1000л сэкономлено', unlocked: true },
-  { id: 2, title: 'Хранитель воды', description: '1000л сэкономлено', unlocked: true },
-  { id: 3, title: 'Зелёный воин', description: '30 дней подряд', unlocked: false },
-  { id: 4, title: 'Лидер планеты', description: '100 дней подряд', unlocked: false },
-  { id: 5, title: 'Посадил лес', description: '50 деревьев', unlocked: false },
-  { id: 6, title: 'Net Zero', description: '100кг CO₂', unlocked: false },
+interface AchievementsProps {
+  streak?: number;
+  waterSaved?: number;
+  treesPlanted?: number;
+  co2Saved?: number;
+}
+
+// ==================== Функция вычисления достижений ====================
+
+const getAchievements = (
+  streak = 0,
+  waterSaved = 0,
+  treesPlanted = 0,
+  co2Saved = 0
+): Achievement[] => [
+  {
+    id: 1,
+    title: 'Эко-новичок',
+    description: 'Первые 7 дней',
+    unlocked: streak >= 7 ,
+  },
+  {
+    id: 2,
+    title: 'Хранитель воды',
+    description: '1000л сэкономлено',
+    unlocked: waterSaved >= 1000,
+  },
+  {
+    id: 3,
+    title: 'Зелёный воин',
+    description: '30 дней подряд',
+    unlocked: streak >= 30,
+  },
+  {
+    id: 4,
+    title: 'Лидер планеты',
+    description: '100 дней подряд',
+    unlocked: streak >= 100,
+  },
+  {
+    id: 5,
+    title: 'Посадил лес',
+    description: '50 деревьев',
+    unlocked: treesPlanted >= 50,
+  },
+  {
+    id: 6,
+    title: 'Net Zero',
+    description: '100кг CO₂',
+    unlocked: co2Saved >= 100,
+  },
 ];
 
 // ==================== Компонент ====================
 
-export function Achievements() {
+export function Achievements({
+  streak = 0,
+  waterSaved = 0,
+  treesPlanted = 0,
+  co2Saved = 0,
+}: AchievementsProps) {
+  // Пересчитываем список достижений на основе переданных данных
+  const achievements = getAchievements(streak, waterSaved, treesPlanted, co2Saved);
+
   return (
     <AchievementsCard
       initial={{ opacity: 0, y: 20 }}

@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-// ===== Styled компоненты =====
+// Styled компоненты 
 
 const ProgressCard = styled(motion.div)`
   background: var(--card, #ffffff);
@@ -52,7 +52,7 @@ const IconBox = styled.div`
   justify-content: center;
 `;
 
-// все для тултипа на графике
+// Тултип
 
 const TooltipWrapper = styled.div`
   background: white;
@@ -91,7 +91,8 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
   return null;
 };
 
-// Отключение обводки при фокусе на графике для лучшего UX
+// Обёртка для отключения обводки 
+
 const StyledResponsiveContainer = styled(ResponsiveContainer)`
   & :focus {
     outline: none !important;
@@ -101,16 +102,32 @@ const StyledResponsiveContainer = styled(ResponsiveContainer)`
   }
 `;
 
+// Статический массив 
 
-const progressData = [
+const staticProgressData = [
   { month: 'Янв', co2: 24 },
   { month: 'Фев', co2: 40 },
   { month: 'Мар', co2: 35 },
   { month: 'Апр', co2: 46 },
 ];
 
+// Интерфейс пропсов 
 
-export function Progress() {
+interface ProgressProps {
+  data?: { month: string; value: number }[];
+}
+
+// Компонент 
+
+export function Progress({ data }: ProgressProps) {
+  // Преобразуем переданные данные в формат, ожидаемый графиком (поле co2)
+  const chartData = data
+    ? data.map(item => ({ month: item.month, co2: item.value }))
+    : staticProgressData;
+
+  // Максимальное значение для оси Y: либо из данных, либо 60
+  const maxY = Math.max(60, ...chartData.map(d => d.co2));
+
   return (
     <ProgressCard
       initial={{ opacity: 0, x: -20 }}
@@ -128,7 +145,7 @@ export function Progress() {
       </HeaderSection>
 
       <StyledResponsiveContainer width="100%" height={280}>
-        <AreaChart data={progressData}>
+        <AreaChart data={chartData}>
           <defs>
             <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />
@@ -137,7 +154,7 @@ export function Progress() {
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
           <XAxis dataKey="month" stroke="#888" />
-          <YAxis stroke="#888" domain={[0, 60]} />
+          <YAxis stroke="#888" domain={[0, maxY]} />
           <Tooltip content={<CustomTooltip />} />
           <Area
             type="monotone"
