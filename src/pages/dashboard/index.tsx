@@ -5,6 +5,9 @@ import { Progress } from '../../features/dashboard/Progress';
 import { WeeklyActivity } from '../../features/dashboard/WeekActivity';
 import { GrowingTreeAnimation } from '../../features/dashboard/GrowingTreeAnimation';
 import { Achievements } from '../../features/dashboard/Achievements';
+import { useAppSelector } from '../../store/hooks';
+import { calculateMetrics } from '../../features/dashboard/calculateMetrics';
+import { selectStreakData } from '../../features/habits/store/selectors';
 
 const PageContainer = styled.div`
   max-width: 1440px;
@@ -18,25 +21,41 @@ const PageContainer = styled.div`
 
 const ChartsRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;   /* две равные колонки */
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
 
-  /* На экранах уже 1024px (планшеты и меньше) — всё в колонку */
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const DashboardPage = () => {
+  //  Получаем данные из Redux
+  const habits = useAppSelector(state => state.habits.habits);
+  const history = useAppSelector(state => state.habits.history);
+  const { bestStreak  } = useAppSelector(selectStreakData); // текущая серия
+
+  // Вычисляем все метрики
+  const { metricsCards, monthlyProgress, weeklyActivity, treesPlanted } = calculateMetrics(habits, history);
+
+  // Извлекаем числовые значения для ачивок (из metricsCards)
+  const waterSaved = parseFloat(metricsCards.find(m => m.title === 'Сэкономлено воды')?.value.replace(/\s/g, '') || '0');
+  const co2Saved = parseFloat(metricsCards.find(m => m.title === 'Сокращено CO₂')?.value.replace(',', '.') || '0');
+
   return (
     <PageContainer>
-      <EcoImpact />
+      <EcoImpact metrics={metricsCards} />
       <ChartsRow>
-        <Progress />
-        <WeeklyActivity />
+        <Progress data={monthlyProgress} />
+        <WeeklyActivity data={weeklyActivity} />
       </ChartsRow>
-      <GrowingTreeAnimation />
-      <Achievements />
+      <GrowingTreeAnimation trees={treesPlanted} />
+      <Achievements 
+        streak={bestStreak }
+        waterSaved={waterSaved}
+        treesPlanted={treesPlanted}
+        co2Saved={co2Saved}
+      />
     </PageContainer>
   );
 };

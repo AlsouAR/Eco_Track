@@ -11,7 +11,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-
 const ActivityCard = styled(motion.div)`
   background: var(--card, #ffffff);
   border-radius: 40px;
@@ -53,7 +52,7 @@ const TooltipValue = styled.p`
 `;
 // Отключение обводки при фокусе на графике для лучшего UX
 const StyledResponsiveContainer = styled(ResponsiveContainer)`
-& :focus {
+  & :focus {
     outline: none !important;
   }
   .recharts-wrapper:focus {
@@ -79,7 +78,8 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
   return null;
 };
 
-const weeklyData = [
+// Статический массив по умолчанию – используется, если пропс data не передан
+const defaultWeeklyData = [
   { day: 'ПН', value: 85 },
   { day: 'ВТ', value: 92 },
   { day: 'СР', value: 78 },
@@ -89,8 +89,13 @@ const weeklyData = [
   { day: 'ВС', value: 65 },
 ];
 
+interface WeeklyActivityProps {
+  data?: { day: string; value: number }[];
+}
 
-export function WeeklyActivity() {
+export function WeeklyActivity({ data }: WeeklyActivityProps) {
+  const weeklyData = data || defaultWeeklyData;
+
   return (
     <ActivityCard
       initial={{ opacity: 0, x: 20 }}
@@ -112,7 +117,7 @@ export function WeeklyActivity() {
           {/* Сетка и оси */}
           <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
           <XAxis dataKey="day" stroke="#888" />
-          <YAxis stroke="#888" domain={[0, 100]} />
+          <YAxis stroke="#888" domain={[0, 5]} />
           <Tooltip content={<CustomTooltip />} />
           <Bar
             dataKey="value"

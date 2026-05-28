@@ -62,8 +62,11 @@ const leafConfigs: LeafConfig[] = [
   { left: '95%', top: '70%', delay: 1.5 },
 ];
 
+interface GrowingTreeProps {
+  trees?: number;
+}
 
-export function GrowingTreeAnimation() {
+export function GrowingTreeAnimation({ trees = 12 }: GrowingTreeProps) {
   return (
     <CardWrapper
       initial={{ opacity: 0, y: 20 }}  // начальное состояние: прозрачный, сдвинут вниз на 20px
@@ -82,7 +85,7 @@ export function GrowingTreeAnimation() {
         >
           <TreeDeciduous size={96} color="white" />  
         </IconContainer>
-        <Title>Вы посадили эквивалент 12 деревьев! 🌳</Title>
+        <Title>Вы сохранили эквивалент {trees.toFixed(2)} деревьев! 🌳</Title>
         <Subtitle>Ваши действия очищают воздух и помогают планете дышать</Subtitle>
       </Content>
 
