@@ -1,39 +1,85 @@
-/* ОСНОВНОЙ КОНТЕЙНЕР */
 .app {
   max-width: 1300px;
   margin: 0 auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 24px;
   align-items: center;
 }
 
-/* HeaderProfile - по центру */
 .app > :first-child {
   align-self: center;
 }
 
-/* КОНТЕЙНЕР С ДВУМЯ КОЛОНКАМИ */
 .two-columns {
-  display: flex;
-  gap: 16px;
-  width: 100%;
-  align-items: flex-start;
-}
-
-/* ЛЕВАЯ КОЛОНКА */
-.left-column {
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-
-/* ПРАВАЯ КОЛОНКА */
-.right-column {
-  flex: 2.2;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+}
+
+.left-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.right-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .two-columns {
+    gap: 24px;
+  }
+  
+  .left-column {
+    gap: 20px;
+  }
+  
+  .right-column {
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .two-columns {
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  
+  .left-column {
+    flex: 1.2;
+    width: auto;
+  }
+  
+  .right-column {
+    flex: 2.2;
+    width: auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .app {
+    gap: 32px;
+  }
+  
+  .two-columns {
+    gap: 32px;
+  }
+  
+  .left-column {
+    flex: 1;
+  }
+  
+  .right-column {
+    flex: 2;
+  }
 }

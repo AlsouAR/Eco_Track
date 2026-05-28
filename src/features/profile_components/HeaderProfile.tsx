@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Header() {
-  // Стили вынесены в объект с явным типом
   const styles: { [key: string]: React.CSSProperties } = {
     header: {
       display: 'flex',

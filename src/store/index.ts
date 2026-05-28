@@ -1,7 +1,7 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
 import habitsReducer from '../features/habits/store/habits_slice';
 import authReducer from '../features/auth/store/auth_slice';
-
+import profileReducer from '../features/profile/store/profile_slice';
 // 1. Создаем Middleware для сохранения данных
 const localStorageMiddleware: Middleware = (storeApi) => (next) => (action: any) => {
   // Сначала даем экшену выполниться, чтобы обновить состояние в Redux
@@ -34,6 +34,7 @@ export const store = configureStore({
   reducer: {
     habits: habitsReducer,
     auth: authReducer,
+    profile: profileReducer,
   },
   // Добавляем прослойку к стандартным
   middleware: (getDefaultMiddleware) =>

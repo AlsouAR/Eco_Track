@@ -4,10 +4,11 @@ import { useAppSelector } from './store/hooks';
 import HomePage from "./pages/home";
 import Header from "./features/header";
 import DashboardPage from "./pages/dashboard";
-import ProfilePage from "./pages/Profile";
+import ProfilePage from "./pages/profile";
 import MapPage from './pages/map/MapPage';
 import { BackgroundLeaves } from './components/BackgroundLeaves';
 import { AuthForm } from './features/auth/auth_form'
+import MainPage from './pages/main/main_page';
 
 const NotFound = () => <div style={{padding: '20px'}}><h1>404: Страница не найдена</h1></div>;
 

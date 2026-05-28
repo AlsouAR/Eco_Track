@@ -9,11 +9,10 @@ interface AvatarProps {
 }
 function Avatar({ name, avatarImage }: AvatarProps) {
   const [image, setImage] = useState<string | null | undefined>(avatarImage);
-  // Берем первую букву имени для заглушки
   const firstLetter = name ? name.charAt(0).toUpperCase() : '?';
 
 const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];  // ?. безопасно проверяет наличие файлов
+    const file = event.target.files?.[0];  
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImage(imageUrl);
@@ -23,14 +22,12 @@ const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     <div 
       className="avatar-container"
     >
-      {/* Показываем фото или букву */}
       {image ? (
         <img src={image} alt="Аватар" className="avatar-image" />
       ) : (
         <div className="avatar-letter">{firstLetter}</div>
       )}
       
-      {/* Иконка фотоаппарата */}
       <label className="avatar-camera">
         <Camera size={16} strokeWidth={2} />  
         <input 
