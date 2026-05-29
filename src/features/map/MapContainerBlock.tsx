@@ -5,7 +5,6 @@ import "leaflet/dist/leaflet.css";
 import "./MapContainerBlock.css";
 import { useEffect } from "react";
 
-// Компонент для управления центром карты
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
     const map = useMap();
 
@@ -14,6 +13,18 @@ function MapController({ center, zoom }: { center: [number, number]; zoom: numbe
             map.setView(center, zoom);
         }
     }, [center, map, zoom]);
+
+    useEffect(() => {
+        const handleCenterOnUser = (event: Event) => {
+            const customEvent = event as CustomEvent<{ lat: number; lng: number }>;
+            if (customEvent.detail) {
+                map.setView([customEvent.detail.lat, customEvent.detail.lng], 15);
+            }
+        };
+
+        window.addEventListener("centerOnUser", handleCenterOnUser);
+        return () => window.removeEventListener("centerOnUser", handleCenterOnUser);
+    }, [map]);
 
     return null;
 }
@@ -26,12 +37,11 @@ type MapContainerBlockProps = {
 };
 
 export function MapContainerBlock({ locations, userLocation, locationError, deleteLocation }: MapContainerBlockProps) {
-  // Центр карты: если есть геолокация - показываем её, иначе Москва по умолчанию
   const center: [number, number] = userLocation
     ? [userLocation.lat, userLocation.lng]
     : [55.7558, 37.6173];
   
-  const zoom = userLocation ? 15 : 12; // Приближаем ближе, если есть геолокация
+  const zoom = userLocation ? 15 : 12;
 
   return (
     <div className="map-container-block">

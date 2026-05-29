@@ -1,4 +1,3 @@
-// MapPage.tsx
 import { useState } from "react";
 import styled from '@emotion/styled';
 import { MapFilters } from "../../features/map/MapFilters";
@@ -10,7 +9,6 @@ import { useGeolocation } from "../../store/useGeolocation";
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
   
   @media (min-width: 1440px) {
     max-width: 1440px;

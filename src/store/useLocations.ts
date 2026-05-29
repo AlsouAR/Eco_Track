@@ -37,7 +37,6 @@ export function useLocations() {
     return locationToAdd;
   };
 
-  // Функция удаления локации (на будущее)
   const deleteLocation = (id: number) => {
     const updatedLocations = locations.filter(l => l.id !== id);
     setLocations(updatedLocations);

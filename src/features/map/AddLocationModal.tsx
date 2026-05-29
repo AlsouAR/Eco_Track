@@ -4,7 +4,6 @@ import { X, Plus, Search, Loader2 } from "lucide-react";
 import { EcoLocation, LocationType } from "../../components/map/types";
 import "./AddLocationModal.css";
 
-// Тип для данных формы
 type FormData = {
   name: string;
   type: LocationType;
@@ -31,7 +30,6 @@ export function AddLocationModal({
   const [isGeocoding, setIsGeocoding] = useState(false);
   const [geocodeError, setGeocodeError] = useState<string>("");
 
-  // Функция для получения координат по адресу (геокодинг)
   const geocodeAddress = async (address: string): Promise<{ lat: number; lng: number } | null> => {
     try {
       setIsGeocoding(true);
@@ -60,25 +58,41 @@ export function AddLocationModal({
     }
   };
 
-  // Обработчик изменения полей
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
-    // Если меняется адрес - очищаем ошибку геокодинга
     if (name === 'address') {
       setGeocodeError("");
     }
 
-    // Очищаем ошибку для этого поля
     if (errors[name as keyof FormData]) {
       setErrors(prev => ({ ...prev, [name as keyof FormData]: undefined }));
     }
   };
 
-  // Функция для добавления точки на карту
   const handleAddToMyMap = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const validationErrors: Partial<FormData> = {};
+
+    if (!formData.name.trim()) {
+      validationErrors.name = "Укажите название точки.";
+    }
+    if (!formData.address.trim()) {
+      validationErrors.address = "Укажите адрес.";
+    }
+    if (!formData.description.trim()) {
+      validationErrors.description = "Добавьте краткое описание.";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({});
+    setGeocodeError("");
 
     const coords = await geocodeAddress(formData.address);
 
@@ -87,7 +101,6 @@ export function AddLocationModal({
       return;
     }
 
-    // Отправляем данные с полученными координатами
     onAdd({
       name: formData.name,
       type: formData.type,
@@ -98,11 +111,9 @@ export function AddLocationModal({
       lng: coords.lng,
     });
 
-    // Закрываем модальное окно
     close();
   };
 
-  // Функция для отправки предложения (пока не работает)
   const handleSendSuggestion = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Эта функция пока не работает. Используйте 'Добавить себе'");
@@ -169,7 +180,7 @@ export function AddLocationModal({
             </select>
           </div>
 
-          {/* Адрес (главное поле) */}
+          {/* Адрес */}
           <div>
             <label className="add-location-modal__field-label">
               Адрес <span style={{ color: 'red' }}>*</span>
@@ -183,11 +194,6 @@ export function AddLocationModal({
                 placeholder="Например: Москва, ул. Тверская, 15"
                 className={`add-location-modal__input ${errors.address || geocodeError ? 'error' : ''}`}
               />
-              {isGeocoding && (
-                <div className="geocoding-spinner">
-                  <Loader2 className="w-4 h-4 spin" />
-                </div>
-              )}
               {isGeocoding && (
                 <div className="geocoding-spinner">
                   <Loader2 className="w-4 h-4 spin" />

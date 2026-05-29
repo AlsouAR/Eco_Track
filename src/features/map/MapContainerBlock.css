@@ -1,4 +1,3 @@
-/* MapContainerBlock.css */
 .map-container-block {
   width: 100%;
   height: 100%;
@@ -14,11 +13,6 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-}
-
-/* Убираем белые края у карты */
-.leaflet-container {
-  background: #e8f5e9 !important;
 }
 
 .location-error-banner {
@@ -63,7 +57,6 @@
   transform: scale(1.05);
 }
 
-/* Адаптив для попапов на мобильных */
 @media (max-width: 768px) {
   .leaflet-popup-content {
     min-width: 200px !important;
