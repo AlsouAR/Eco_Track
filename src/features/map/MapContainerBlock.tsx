@@ -22,9 +22,10 @@ type MapContainerBlockProps = {
     locations: EcoLocation[];
     userLocation?: { lat: number; lng: number } | null;
     locationError?: string | null;
+  deleteLocation?: (id: number) => void;
 };
 
-export function MapContainerBlock({ locations, userLocation, locationError }: MapContainerBlockProps) {
+export function MapContainerBlock({ locations, userLocation, locationError, deleteLocation }: MapContainerBlockProps) {
   // Центр карты: если есть геолокация - показываем её, иначе Москва по умолчанию
   const center: [number, number] = userLocation
     ? [userLocation.lat, userLocation.lng]
@@ -57,7 +58,7 @@ export function MapContainerBlock({ locations, userLocation, locationError }: Ma
           <MapController center={center} zoom={zoom} />
           
           {locations.map((loc) => (
-            <MapMarker key={loc.id} location={loc} />
+            <MapMarker key={loc.id} location={loc} onDelete={deleteLocation} />
           ))}
         </MapContainer>
       </div>

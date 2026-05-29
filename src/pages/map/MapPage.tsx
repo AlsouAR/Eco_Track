@@ -140,7 +140,7 @@ export default function MapPage() {
   const [selectedType, setSelectedType] = useState<LocationType | "all">("all");
   const [showModal, setShowModal] = useState(false);
   
-  const { locations, addLocation } = useLocations();
+  const { locations, addLocation, deleteLocation } = useLocations();
   const { latitude, longitude, error: geoError, loading: geoLoading } = useGeolocation();
 
   const filtered = selectedType === "all"
@@ -182,6 +182,7 @@ export default function MapPage() {
               locations={filtered} 
               userLocation={userLocation}
               locationError={geoError}
+              deleteLocation={deleteLocation}
             />
             
             {!geoLoading && userLocation && (

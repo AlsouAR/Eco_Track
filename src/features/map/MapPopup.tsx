@@ -2,7 +2,20 @@ import { EcoLocation } from "../../components/map/types";
 import { MapPin, Clock } from "lucide-react";
 import "./MapPopup.css";
 
-export function MapPopup({ location }: { location: EcoLocation }) {
+export function MapPopup({
+  location,
+  onDelete,
+}: {
+  location: EcoLocation;
+  onDelete?: () => void;
+}) {
+  const handleDelete = () => {
+    if (!onDelete) return;
+    if (window.confirm("Удалить эту метку? Это действие нельзя отменить.")) {
+      onDelete();
+    }
+  };
+
   return (
     <div className="map-popup">
       <div className="map-popup__header">
@@ -41,6 +54,10 @@ export function MapPopup({ location }: { location: EcoLocation }) {
           <span>{location.hours}</span>
         </div>
       </div>
+
+      <button className="map-popup__button" onClick={handleDelete}>
+        Удалить метку
+      </button>
     </div>
   );
 }
