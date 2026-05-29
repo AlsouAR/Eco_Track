@@ -108,3 +108,19 @@ export const selectDayProgress = createSelector(
     return Math.round((currentDraft.length / habits.length) * 100);
   }
 );
+
+// 4. Селектор для общего количества дней с активностью (всего дней)
+export const selectTotalActiveDays = createSelector(
+  [selectHabitState],
+  (habitsState) => {
+    const { history } = habitsState;
+    
+    // Считаем количество дней, где есть хотя бы одна отметка
+    const totalDays = Object.keys(history).filter(key => {
+      const completions = history[key];
+      return completions && completions.length > 0;
+    }).length;
+    
+    return totalDays;
+  }
+);

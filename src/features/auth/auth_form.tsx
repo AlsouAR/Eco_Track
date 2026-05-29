@@ -3,7 +3,7 @@ import { Leaf } from 'lucide-react';
 import { useAppDispatch } from '../../store/hooks';
 import { loginSuccess } from './store/auth_slice';
 import * as S from './auth_styles';
-
+import { updateUserData } from '../profile_components/userData';
 export const AuthForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -24,6 +24,7 @@ export const AuthForm: React.FC = () => {
 
     if (isLoginMode) {
       if (users[username] && users[username] === password) {
+        updateUserData(username);
         dispatch(loginSuccess(username));
       } else {
         setError('Неверное имя пользователя или пароль');
@@ -33,6 +34,7 @@ export const AuthForm: React.FC = () => {
         setError('Пользователь с таким именем уже существует');
       } else {
         users[username] = password;
+        updateUserData(username);
         localStorage.setItem('eco_users', JSON.stringify(users));
         dispatch(loginSuccess(username));
       }

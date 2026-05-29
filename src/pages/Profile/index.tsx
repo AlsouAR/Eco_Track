@@ -1,24 +1,21 @@
 import './index.css';
-import HeaderProfile from '../../components/ProfileComponents/HeaderProfile';
-import ProfileCard from '../../components/ProfileComponents/ProfileCard';
-import ActionButtons from '../../components/ProfileComponents/ActionButtons';
-import EcoGoals from '../../components/ProfileComponents/EcoGoals';
-import Settings from '../../components/ProfileComponents/Settings';
-import ReportPreview from '../../components/ProfileComponents/ReportPreview';
+import HeaderProfile from '../../features/profile_components/HeaderProfile';
+import ProfileCard from '../../features/profile_components/ProfileCard';
+import ActionButtons from '../../features/profile_components/ActionButtons';
+import EcoGoals from '../../features/profile_components/EcoGoals';
+import Settings from '../../features/profile_components/Settings';
+import ReportPreview from '../../features/profile_components/ReportPreview';
+import ExitButton from '../../features/auth/exit_button';
 
 function ProfilePage() {
   return (
     <div className="app">
-      {/* HeaderProfile - по центру сверху */}
       <HeaderProfile />
-
-      {/* ДВЕ КОЛОНКИ ПОД НИМ */}
       <div className="two-columns">
         {/* ЛЕВАЯ КОЛОНКА */}
         <div className="left-column">
           <ProfileCard />
           <ActionButtons />
-          {/* сюда будут добавляться будущие элементы */}
         </div>
 
         {/* ПРАВАЯ КОЛОНКА */}
@@ -26,6 +23,7 @@ function ProfilePage() {
           <EcoGoals />
           <Settings/>
           <ReportPreview/>
+          <ExitButton/>
         </div>
       </div>
     </div>

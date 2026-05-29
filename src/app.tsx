@@ -4,10 +4,11 @@ import { useAppSelector } from './store/hooks';
 import HomePage from "./pages/home";
 import Header from "./features/header";
 import DashboardPage from "./pages/dashboard";
-import ProfilePage from "./pages/Profile";
+import ProfilePage from "./pages/profile";
 import MapPage from './pages/map/MapPage';
 import { BackgroundLeaves } from './components/BackgroundLeaves';
 import { AuthForm } from './features/auth/auth_form'
+import MainPage from './pages/main/main_page';
 
 const NotFound = () => <div style={{padding: '20px'}}><h1>404: Страница не найдена</h1></div>;
 
@@ -18,8 +19,12 @@ const App = () => {
     if (!isAuthenticated) {
         return (
             <>
-                <BackgroundLeaves/>
-                <AuthForm/>
+                <BackgroundLeaves />
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/login" element={<AuthForm />} />
+                </Routes>
+
             </>
         );
     }
@@ -38,7 +43,10 @@ const App = () => {
 
                 <Route path="/profile" element={<ProfilePage />} />
 
-                <Route path="*" element={<NotFound />} />
+                <Route path="/main" element={<MainPage />} />
+                <Route path="/auth" element={<AuthForm />} />
+
+                <Route path="*" element={<HomePage />} />
             </Routes>
         </>
     );
