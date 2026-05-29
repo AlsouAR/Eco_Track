@@ -19,8 +19,12 @@ const App = () => {
     if (!isAuthenticated) {
         return (
             <>
-                <BackgroundLeaves/>
-                <AuthForm/>
+                <BackgroundLeaves />
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/login" element={<AuthForm />} />
+                </Routes>
+
             </>
         );
     }
@@ -39,7 +43,10 @@ const App = () => {
 
                 <Route path="/profile" element={<ProfilePage />} />
 
-                <Route path="*" element={<NotFound />} />
+                <Route path="/main" element={<MainPage />} />
+                <Route path="/auth" element={<AuthForm />} />
+
+                <Route path="*" element={<HomePage />} />
             </Routes>
         </>
     );

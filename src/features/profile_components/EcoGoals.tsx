@@ -107,7 +107,6 @@ const PriorityHabits = () => {
   );
 };
 
-// ==================== ОСНОВНОЙ КОМПОНЕНТ ====================
 const EcoGoals = () => {
   return (
     <div className="eco-goals-card">

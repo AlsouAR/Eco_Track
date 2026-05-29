@@ -53,7 +53,6 @@ const MainPage = () => {
   return (
     <div className="main-page">
       
-      {/* Hero секция */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">
@@ -86,7 +85,6 @@ const MainPage = () => {
         </div>
       </section>
 
-      {/* Features секция */}
       <section id="features" className="features-section">
         <div className="section-header">
           <h2>
@@ -108,7 +106,6 @@ const MainPage = () => {
         </div>
       </section>
 
-      {/* Как это работает */}
       <section className="how-it-works">
         <div className="section-header">
           <h2>

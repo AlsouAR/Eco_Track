@@ -53,7 +53,6 @@ function ReportPreview() {
         </div>
       </div>
 
-      {/* Кнопка скачивания */}
       <button className="report-download-btn" onClick={() => console.log('Скачать отчёт за март')}>
         <Download size={18} strokeWidth={1.8} />
         <span>Скачать отчёт за март</span>

@@ -7,9 +7,9 @@ const ExitButton = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout()); // Вызываем action из Redux
+    dispatch(logout());
     console.log('Выход из аккаунта');
-    //window.location.href = '/tracker';
+    window.location.href = '/login';
   };
   
 
