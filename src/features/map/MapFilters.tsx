@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { MapPin, Recycle, Bike, Leaf, Plus } from "lucide-react";
-import { LocationType } from "../../features/map/types";
+import { LocationType } from "../../components/map/types";
 import "./MapFilters.css";
 
 type Props = {

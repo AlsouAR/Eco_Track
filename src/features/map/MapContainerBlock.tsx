@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import { MapMarker } from "./MapMarker";
-import { EcoLocation } from "../../features/map/types";
+import { EcoLocation } from "../../components/map/types";
 import "./MapContainerBlock.css";
 
 export function MapContainerBlock({ locations }: { locations: EcoLocation[] }) {

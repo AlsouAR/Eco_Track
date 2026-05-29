@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from '@emotion/styled';
-import { MapFilters } from "../../components/map/MapFilters";
-import { MapContainerBlock } from "../../components/map/MapContainerBlock";
-import { AddLocationModal } from "../../components/map/AddLocationModal";
-import { locations } from "../../features/map/data/locations";
-import { LocationType } from "../../features/map/types";
+import { MapFilters } from "../../features/map/MapFilters";
+import { MapContainerBlock } from "../../features/map/MapContainerBlock";
+import { AddLocationModal } from "../../features/map/AddLocationModal";
+import { locations } from "../../components/map/data/locations";
+import { LocationType } from "../../components/map/types";
 
 
 // Container для группировки компонентов

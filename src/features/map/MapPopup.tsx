@@ -1,4 +1,4 @@
-import { EcoLocation } from "../../features/map/types";
+import { EcoLocation } from "../../components/map/types";
 import { MapPin, Clock } from "lucide-react";
 import "./MapPopup.css";
 
