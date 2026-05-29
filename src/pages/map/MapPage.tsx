@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { MapFilters } from "../../features/map/MapFilters";
 import { MapContainerBlock } from "../../features/map/MapContainerBlock";
 import { AddLocationModal } from "../../features/map/AddLocationModal";
-import { locations } from "../../components/map/data/locations";
-import { LocationType } from "../../components/map/types";
+import { EcoLocation, LocationType } from "../../components/map/types";
+import { useLocations } from "../../store/useLocations";
 
 
 // Container для группировки компонентов
@@ -56,9 +56,16 @@ export default function MapPage() {
     const [selectedType, setSelectedType] = useState<LocationType | "all">("all");
     const [showModal, setShowModal] = useState(false);
 
+    const { locations, addLocation } = useLocations();
+
     const filtered = selectedType === "all"
         ? locations
         : locations.filter((l) => l.type === selectedType);
+
+    const handleAddLocation = (newLocationData: Omit<EcoLocation, 'id'>) => {
+      addLocation(newLocationData);
+      setShowModal(false);
+    }
 
     return (
         <PageContainer>
@@ -79,7 +86,11 @@ export default function MapPage() {
                 <MapContainerBlock locations={filtered} />
             </MapCard>
 
-            {showModal && <AddLocationModal close={() => setShowModal(false)} />}
+            {showModal && 
+              <AddLocationModal 
+              close={() => setShowModal(false)}
+              onAdd={handleAddLocation}
+              />}
         </PageContainer>
     );
 }
