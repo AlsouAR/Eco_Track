@@ -1,43 +1,7 @@
-.map-container-block {
-  width: 100%;
-  margin: 0;
-  padding: 24px 20px 32px;
-  background: #FFFFFF;
-  border-radius: 28px;
-  position: relative;
-  z-index: 0;
-}
-
-.map-container-block__inner {
-  border-radius: 16px;
-  overflow: hidden;
-  min-height: 450px;
-  height: 700px;
-}
-
-.map-container-block__map {
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-}
-
-.map-container-block .leaflet-pane,
-.map-container-block .leaflet-container,
-.map-container-block .leaflet-tile-pane,
-.map-container-block .leaflet-overlay-pane,
-.map-container-block .leaflet-shadow-pane,
-.map-container-block .leaflet-marker-pane,
-.map-container-block .leaflet-popup-pane,
-.map-container-block .leaflet-control-pane {
-  z-index: 0 !important;
-}
-
 /* MapContainerBlock.css */
 .map-container-block {
   width: 100%;
-  height: 500px;
-  border-radius: 0.75rem;
-  overflow: hidden;
+  height: 100%;
 }
 
 .map-container-block__inner {
@@ -49,7 +13,12 @@
 .map-container-block__map {
   width: 100%;
   height: 100%;
-  border-radius: 0.75rem;
+  z-index: 1;
+}
+
+/* Убираем белые края у карты */
+.leaflet-container {
+  background: #e8f5e9 !important;
 }
 
 .location-error-banner {
@@ -59,14 +28,20 @@
   transform: translateX(-50%);
   background: #ff9800;
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 2rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: center;
   z-index: 1000;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  
+  @media (min-width: 768px) {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
 }
 
 .location-error-banner button {
@@ -77,28 +52,25 @@
   cursor: pointer;
   color: #ff9800;
   font-weight: 600;
+  font-size: 0.75rem;
+  
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+  }
 }
 
 .location-error-banner button:hover {
   transform: scale(1.05);
 }
 
-/* Стили для кнопки использования геолокации в модалке */
-.use-location-btn {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-}
-
-.use-location-btn:hover {
-  background: rgba(76, 175, 80, 0.1);
-  transform: translateY(-50%) scale(1.1);
+/* Адаптив для попапов на мобильных */
+@media (max-width: 768px) {
+  .leaflet-popup-content {
+    min-width: 200px !important;
+    max-width: 250px !important;
+  }
+  
+  .leaflet-popup-content-wrapper {
+    border-radius: 0.75rem !important;
+  }
 }

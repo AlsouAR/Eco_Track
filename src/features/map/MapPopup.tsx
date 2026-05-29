@@ -41,8 +41,6 @@ export function MapPopup({ location }: { location: EcoLocation }) {
           <span>{location.hours}</span>
         </div>
       </div>
-
-      <button className="map-popup__button">Проложить маршрут</button>
     </div>
   );
 }

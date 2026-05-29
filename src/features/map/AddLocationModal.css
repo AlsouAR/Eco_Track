@@ -315,3 +315,60 @@
   margin-top: 0.25rem;
   display: block;
 }
+
+/* Добавьте в конец AddLocationModal.css */
+
+/* Адаптив для модального окна */
+@media (max-width: 768px) {
+  .add-location-modal__card {
+    width: 90%;
+    max-width: 90%;
+    margin: 1rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .add-location-modal__form {
+    padding: 1rem;
+  }
+  
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .add-location-modal__submit {
+    width: 100%;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .add-location-modal__header {
+    padding: 1rem;
+  }
+  
+  .add-location-modal__title {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-location-modal__card {
+    width: 95%;
+    margin: 0.5rem;
+  }
+  
+  .add-location-modal__field-label {
+    font-size: 0.813rem;
+  }
+  
+  .add-location-modal__input,
+  .add-location-modal__select,
+  .add-location-modal__textarea {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}
