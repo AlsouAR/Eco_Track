@@ -1,0 +1,267 @@
+.add-location-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.add-location-modal__card {
+  position: relative;
+  z-index: 10000;
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 1.75rem;
+  box-shadow: 0 30px 90px rgba(15, 23, 42, 0.14);
+  padding: 2rem;
+}
+
+.add-location-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-location-modal__title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-location-modal__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--eco-primary), var(--eco-accent));
+  box-shadow: 0 18px 50px rgba(76, 175, 80, 0.2);
+  color: #ffffff;
+}
+
+.add-location-modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.add-location-modal__close {
+  width: 40px;
+  height: 40px;
+  border-radius: 1rem;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-location-modal__close:hover {
+  background: #f3f7f0;
+}
+
+.add-location-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.add-location-modal__field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.add-location-modal__input,
+.add-location-modal__select,
+.add-location-modal__textarea {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  border: 2px solid var(--border);
+  background: #fbfdf9;
+  color: var(--foreground);
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1rem;
+}
+
+.add-location-modal__input:focus,
+.add-location-modal__select:focus,
+.add-location-modal__textarea:focus {
+  border-color: var(--eco-primary);
+  box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.1);
+}
+
+.add-location-modal__textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+/* Стили для поля адреса */
+.address-input-wrapper {
+  position: relative;
+}
+
+.geocoding-spinner {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4CAF50;
+}
+
+.address-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.geocode-error {
+  color: #ef4444;
+  background-color: #fef2f2;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Анимация спиннера */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.add-location-modal__submit--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.add-location-modal__submit {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.add-location-modal__submit--primary {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  color: white;
+}
+
+.add-location-modal__submit--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.add-location-modal__submit--secondary {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.add-location-modal__submit--secondary:hover {
+  background: #dcfce7;
+  transform: translateY(-2px);
+}
+
+.add-location-modal__input.error,
+.add-location-modal__textarea.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Адаптив для модального окна */
+@media (max-width: 768px) {
+  .add-location-modal__card {
+    width: 90%;
+    max-width: 90%;
+    margin: 1rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .add-location-modal__form {
+    padding: 1rem;
+  }
+  
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .add-location-modal__submit {
+    width: 100%;
+  }
+  
+  .add-location-modal__header {
+    padding: 1rem;
+  }
+  
+  .add-location-modal__title {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-location-modal__card {
+    width: 95%;
+    margin: 0.5rem;
+  }
+  
+  .add-location-modal__field-label {
+    font-size: 0.813rem;
+  }
+  
+  .add-location-modal__input,
+  .add-location-modal__select,
+  .add-location-modal__textarea {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}

@@ -1,16 +1,25 @@
 import { motion } from "motion/react";
 import { MapPin, Recycle, Bike, Leaf, Plus } from "lucide-react";
-import { LocationType } from "../../features/map/types";
+import { LocationType } from "../../components/map/types";
 import "./MapFilters.css";
 
+type FilterType = LocationType | "all";
+
+type Filter = {
+    type: FilterType;
+    label: string;
+    icon: typeof MapPin;
+    color: string;
+};
+
 type Props = {
-    selectedType: LocationType | "all";
-    setSelectedType: (t: LocationType | "all") => void;
+    selectedType: FilterType;
+    setSelectedType: (t: FilterType) => void;
     openModal: () => void;
 };
 
 export function MapFilters({ selectedType, setSelectedType, openModal }: Props) {
-    const filters = [
+    const filters: Filter[] = [
         { type: "all", label: "Все", icon: MapPin, color: "#4CAF50" },
         { type: "recycle", label: "Приём пластика", icon: Recycle, color: "#29B6F6" },
         { type: "bike", label: "Велопарковки", icon: Bike, color: "#66BB6A" },
@@ -37,7 +46,7 @@ export function MapFilters({ selectedType, setSelectedType, openModal }: Props) 
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => setSelectedType(filter.type as any)}
+                            onClick={() => setSelectedType(filter.type)}
                             className={`map-filter-button ${isActive ? "map-filter-button--active" : "map-filter-button--inactive"}`}
                             style={{
                                 background: isActive
