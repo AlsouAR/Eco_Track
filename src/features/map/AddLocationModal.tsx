@@ -36,15 +36,15 @@ export function AddLocationModal({
     try {
       setIsGeocoding(true);
       setGeocodeError("");
-      
+
       // Используем Nominatim API (OpenStreetMap)
       const encodedAddress = encodeURIComponent(address);
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
       );
-      
+
       const data = await response.json();
-      
+
       if (data && data.length > 0) {
         return {
           lat: parseFloat(data[0].lat),
@@ -64,44 +64,29 @@ export function AddLocationModal({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Если меняется адрес - очищаем ошибку геокодинга
     if (name === 'address') {
       setGeocodeError("");
     }
-    
+
     // Очищаем ошибку для этого поля
     if (errors[name as keyof FormData]) {
       setErrors(prev => ({ ...prev, [name as keyof FormData]: undefined }));
     }
   };
 
-  // Валидация формы
-  const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-
-    if (!formData.name.trim()) newErrors.name = "Название обязательно";
-    if (!formData.address.trim()) newErrors.address = "Адрес обязателен";
-    if (!formData.description.trim()) newErrors.description = "Описание обязательно";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   // Функция для добавления точки на карту
   const handleAddToMyMap = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validate()) return;
-    
-    // Получаем координаты по адресу
+
     const coords = await geocodeAddress(formData.address);
-    
+
     if (!coords) {
       setGeocodeError("Не удалось определить координаты по указанному адресу. Пожалуйста, уточните адрес.");
       return;
     }
-    
+
     // Отправляем данные с полученными координатами
     onAdd({
       name: formData.name,
@@ -112,7 +97,7 @@ export function AddLocationModal({
       lat: coords.lat,
       lng: coords.lng,
     });
-    
+
     // Закрываем модальное окно
     close();
   };
@@ -198,6 +183,11 @@ export function AddLocationModal({
                 placeholder="Например: Москва, ул. Тверская, 15"
                 className={`add-location-modal__input ${errors.address || geocodeError ? 'error' : ''}`}
               />
+              {isGeocoding && (
+                <div className="geocoding-spinner">
+                  <Loader2 className="w-4 h-4 spin" />
+                </div>
+              )}
               {isGeocoding && (
                 <div className="geocoding-spinner">
                   <Loader2 className="w-4 h-4 spin" />

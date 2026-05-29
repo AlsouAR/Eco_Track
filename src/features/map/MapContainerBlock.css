@@ -31,3 +31,74 @@
 .map-container-block .leaflet-control-pane {
   z-index: 0 !important;
 }
+
+/* MapContainerBlock.css */
+.map-container-block {
+  width: 100%;
+  height: 500px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.map-container-block__inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-container-block__map {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+}
+
+.location-error-banner {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff9800;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 1000;
+  font-size: 0.875rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.location-error-banner button {
+  background: white;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  color: #ff9800;
+  font-weight: 600;
+}
+
+.location-error-banner button:hover {
+  transform: scale(1.05);
+}
+
+/* Стили для кнопки использования геолокации в модалке */
+.use-location-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.use-location-btn:hover {
+  background: rgba(76, 175, 80, 0.1);
+  transform: translateY(-50%) scale(1.1);
+}

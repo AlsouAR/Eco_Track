@@ -5,6 +5,7 @@ import { MapContainerBlock } from "../../features/map/MapContainerBlock";
 import { AddLocationModal } from "../../features/map/AddLocationModal";
 import { EcoLocation, LocationType } from "../../components/map/types";
 import { useLocations } from "../../store/useLocations";
+import { useGeolocation } from "../../store/useGeolocation";
 
 
 // Container для группировки компонентов
@@ -52,45 +53,103 @@ const MapCard = styled.div`
   padding: 1.25rem;
 `;
 
+const GeolocationStatus = styled.div<{ isActive: boolean }>`
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: ${props => props.isActive ? '#4CAF50' : '#ff9800'};
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const MapWrapper = styled.div`
+  position: relative;
+`;
+
 export default function MapPage() {
-    const [selectedType, setSelectedType] = useState<LocationType | "all">("all");
-    const [showModal, setShowModal] = useState(false);
+  const [selectedType, setSelectedType] = useState<LocationType | "all">("all");
+  const [showModal, setShowModal] = useState(false);
 
-    const { locations, addLocation } = useLocations();
+  const { locations, addLocation } = useLocations();
+  const { latitude, longitude, error: geoError, loading: geoLoading } = useGeolocation();
 
-    const filtered = selectedType === "all"
-        ? locations
-        : locations.filter((l) => l.type === selectedType);
+  const filtered = selectedType === "all"
+    ? locations
+    : locations.filter((l) => l.type === selectedType);
 
-    const handleAddLocation = (newLocationData: Omit<EcoLocation, 'id'>) => {
-      addLocation(newLocationData);
-      setShowModal(false);
+  const handleAddLocation = (newLocationData: Omit<EcoLocation, 'id'>) => {
+    addLocation(newLocationData);
+    setShowModal(false);
+  }
+
+  const userLocation = latitude && longitude ? { lat: latitude, lng: longitude } : null;
+
+  // Функция для центрирования карты на текущем местоположении
+  const centerOnUser = () => {
+    if (userLocation) {
+      // Эту функцию можно передать в MapContainerBlock через ref
+      window.dispatchEvent(new CustomEvent('centerOnUser', { detail: userLocation }));
     }
+  };
 
-    return (
-        <PageContainer>
-            <HeaderSection>
-                <Title>Карта эко-инициатив</Title>
-                <Subtitle>Найдите ближайшие точки для эко-действий</Subtitle>
-            </HeaderSection>
+  return (
+    <PageContainer>
+      <HeaderSection>
+        <Title>Карта эко-инициатив</Title>
+        <Subtitle>Найдите ближайшие точки для эко-действий</Subtitle>
+      </HeaderSection>
 
-            <FilterSection>
-                <MapFilters
-                    selectedType={selectedType}
-                    setSelectedType={setSelectedType}
-                    openModal={() => setShowModal(true)}
-                />
-            </FilterSection>
+      <FilterSection>
+        <MapFilters
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+          openModal={() => setShowModal(true)}
+        />
+      </FilterSection>
 
-            <MapCard>
-                <MapContainerBlock locations={filtered} />
-            </MapCard>
+      <MapWrapper>
+        <MapCard>
+          <MapContainerBlock
+            locations={filtered}
+            userLocation={userLocation}
+            locationError={geoError}
+          />
+        </MapCard>
 
-            {showModal && 
-              <AddLocationModal 
-              close={() => setShowModal(false)}
-              onAdd={handleAddLocation}
-              />}
-        </PageContainer>
-    );
+        {!geoLoading && userLocation && (
+          <GeolocationStatus isActive={true} onClick={centerOnUser}>
+            <span>📍</span>
+            <span>Моё местоположение</span>
+          </GeolocationStatus>
+        )}
+
+        {!geoLoading && geoError && (
+          <GeolocationStatus isActive={false}>
+            <span>⚠️</span>
+            <span>{geoError}</span>
+          </GeolocationStatus>
+        )}
+      </MapWrapper>
+
+      {showModal && (
+        <AddLocationModal
+          close={() => setShowModal(false)}
+          onAdd={handleAddLocation}
+        />
+      )}
+    </PageContainer>
+  );
 }
