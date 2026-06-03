@@ -29,11 +29,11 @@ const savedHabits = loadFromLocalStorage();
 
 // Начальные привычки (из вашего habits_slice)
 const defaultHabits: PriorityHabit[] = [
-  { id: 'plastic', name: 'Отказ от пластика', completed: false },
-  { id: 'bike', name: 'Использование велосипеда', completed: false },
-  { id: 'water', name: 'Экономия воды', completed: false },
-  { id: 'local', name: 'Местные продукты', completed: false },
-  { id: 'sort', name: 'Раздельный сбор', completed: false },
+  { id: 'plastic', name: 'Отказ от пластика', completed: true },
+  { id: 'bike', name: 'Использование велосипеда', completed: true },
+  { id: 'water', name: 'Экономия воды', completed: true },
+  { id: 'local', name: 'Местные продукты', completed: true },
+  { id: 'sort', name: 'Раздельный сбор', completed: true },
 ];
 
 const initialState: ProfileState = {
@@ -56,7 +56,7 @@ export const profileSlice = createSlice({
       }
     },
     resetPriorityHabits: (state) => {
-      state.priorityHabits = state.priorityHabits.map(h => ({ ...h, completed: false }));
+      state.priorityHabits = state.priorityHabits.map(h => ({ ...h, completed: true }));
       if (typeof window !== 'undefined') {
         localStorage.setItem('eco_profile_habits', JSON.stringify(state.priorityHabits));
       }

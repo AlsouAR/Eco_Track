@@ -4,11 +4,24 @@ import { subDays, format, startOfDay, parseISO, startOfToday, isSameDay, addDays
 import { ru } from "date-fns/locale";
 
 const selectHabitState = (state: RootState) => state.habits;
+// Селектор для получения списка настроек отображения из профиля
+const selectProfilePriorityHabits = (state: RootState) => state.profile.priorityHabits;
+
+// НОВЫЙ СЕЛЕКТОР: Отдает только те привычки, у которых в профиле стоит чекбокс
+export const selectVisibleHabits = createSelector(
+  [selectHabitState, selectProfilePriorityHabits],
+  (habitsState, profileHabits) => {
+    // Находим ID тех привычек, которые активны в профиле (completed === true)
+    const activeIds = profileHabits.filter(h => h.completed).map(h => h.id);
+    // Возвращаем из глобального списка привычек только выбранные пользователем
+    return habitsState.habits.filter(habit => activeIds.includes(habit.id));
+  }
+);
 
 // 1. Селектор для недельной статистики
 export const selectWeeklyStats = createSelector(
-  [selectHabitState],
-  (habitsState) => {
+  [selectHabitState, selectVisibleHabits],
+  (habitsState, visibleHabits) => {
     const { history, selectedDate, currentDraft } = habitsState;
     const baseDate = startOfDay(parseISO(selectedDate));
     
@@ -18,10 +31,12 @@ export const selectWeeklyStats = createSelector(
       const dayName = format(date, 'EEEEEE', { locale: ru }).toUpperCase();
       
       const isSelected = dateKey === selectedDate;
-      // Добавили ?. и ?? 0 для защиты от undefined
+      
+      // Для выбранного дня берем длину черновика, но фильтруем только те, 
+      // которые сейчас активны в профиле (чтобы не перегружать интерфейс старыми скрытыми данными)
       const completedCount = isSelected 
-        ? currentDraft.length 
-        : (history[dateKey]?.length ?? 0);
+        ? currentDraft.filter(id => visibleHabits.some(vh => vh.id === id)).length 
+        : (history[dateKey]?.filter(id => visibleHabits.some(vh => vh.id === id)).length ?? 0);
       
       return {
         day: dayName,
@@ -42,11 +57,9 @@ export const selectStreakData = createSelector(
     let currentStreak = 0;
     let bestStreak = 0;
 
-    // --- Расчет текущей серии ---
     let checkDate = today;
     const todayKey = format(today, 'yyyy-MM-dd');
     
-    // Если за сегодня еще нет записей, начинаем проверку со вчера
     if ((history[todayKey]?.length ?? 0) === 0) {
       checkDate = subDays(today, 1);
     }
@@ -61,8 +74,6 @@ export const selectStreakData = createSelector(
       }
     }
 
-    // --- Расчет лучшей серии ---
-    // Фильтруем только дни с активностью и сортируем их
     const datesWithActivity = Object.keys(history)
       .filter(key => (history[key]?.length ?? 0) > 0)
       .sort();
@@ -72,7 +83,6 @@ export const selectStreakData = createSelector(
       let currentLength = 1;
 
       for (let i = 1; i < datesWithActivity.length; i++) {
-        // Извлекаем значения в переменные
         const prevStr = datesWithActivity[i - 1];
         const currStr = datesWithActivity[i];
 
@@ -88,7 +98,6 @@ export const selectStreakData = createSelector(
           currentLength = 1;
         }
       }
-      // Финальное сравнение
       bestStreak = Math.max(longest, currentLength, currentStreak);
     }
 
@@ -99,13 +108,20 @@ export const selectStreakData = createSelector(
   }
 );
 
-// 3. Селектор для общего прогресса (в %)
+
+// 3. Селектор для общего прогресса (в %) — ТЕПЕРЬ СЧИТАЕТ ОТ КОЛИЧЕСТВА ВЫБРАННЫХ ПРИВЫЧЕК
 export const selectDayProgress = createSelector(
-  [selectHabitState],
-  (habitsState) => {
-    const { habits, currentDraft } = habitsState;
-    if (habits.length === 0) return 0;
-    return Math.round((currentDraft.length / habits.length) * 100);
+  [selectVisibleHabits, selectHabitState],
+  (visibleHabits, habitsState) => {
+    const { currentDraft } = habitsState;
+    if (visibleHabits.length === 0) return 0;
+    
+    // Считаем только те выполненные привычки, которые сейчас отображаются на экране
+    const visibleCompletedCount = currentDraft.filter(id => 
+      visibleHabits.some(vh => vh.id === id)
+    ).length;
+
+    return Math.round((visibleCompletedCount / visibleHabits.length) * 100);
   }
 );
 
@@ -115,7 +131,6 @@ export const selectTotalActiveDays = createSelector(
   (habitsState) => {
     const { history } = habitsState;
     
-    // Считаем количество дней, где есть хотя бы одна отметка
     const totalDays = Object.keys(history).filter(key => {
       const completions = history[key];
       return completions && completions.length > 0;

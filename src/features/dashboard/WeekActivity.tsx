@@ -91,10 +91,14 @@ const defaultWeeklyData = [
 
 interface WeeklyActivityProps {
   data?: { day: string; value: number }[];
+  maxTicks?: number;
 }
 
-export function WeeklyActivity({ data }: WeeklyActivityProps) {
+export function WeeklyActivity({ data, maxTicks }: WeeklyActivityProps) {
+
   const weeklyData = data || defaultWeeklyData;
+
+  const yAxisMax = maxTicks && maxTicks > 0 ? maxTicks : 5;
 
   return (
     <ActivityCard
@@ -117,7 +121,7 @@ export function WeeklyActivity({ data }: WeeklyActivityProps) {
           {/* Сетка и оси */}
           <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
           <XAxis dataKey="day" stroke="#888" />
-          <YAxis stroke="#888" domain={[0, 5]} />
+          <YAxis stroke="#888" domain={[0, yAxisMax]} allowDecimals={false} />
           <Tooltip content={<CustomTooltip />} />
           <Bar
             dataKey="value"
