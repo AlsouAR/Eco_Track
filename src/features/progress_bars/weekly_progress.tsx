@@ -3,11 +3,14 @@
 import React from 'react';
 import { TrendingUp } from "lucide-react";
 import { useAppSelector } from '../../store/hooks';
-import { selectWeeklyStats } from '../habits/store/selectors';
+// Добавляем импорт селектора видимых привычек
+import { selectWeeklyStats, selectVisibleHabits } from '../habits/store/selectors';
 import * as S from './weekly_progress_styles';
 
 export const WeeklyProgress: React.FC = () => {
-  const totalHabits = useAppSelector((state) => state.habits.habits.length);
+  const visibleHabits = useAppSelector(selectVisibleHabits);
+  const totalHabits = visibleHabits.length;
+  
   const stats = useAppSelector(selectWeeklyStats);
 
   return (

@@ -4,7 +4,7 @@ import { useAppSelector } from './store/hooks';
 import HomePage from "./pages/home";
 import Header from "./features/header";
 import DashboardPage from "./pages/dashboard";
-import ProfilePage from "./pages/profile";
+import ProfilePage from "./pages/Profile";
 import MapPage from './pages/map/MapPage';
 import { BackgroundLeaves } from './components/BackgroundLeaves';
 import { AuthForm } from './features/auth/auth_form'

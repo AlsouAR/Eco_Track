@@ -1,6 +1,6 @@
 import { RootState } from '../../../store';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectWeeklyStats } from '../../habits/store/selectors';
+import { selectWeeklyStats, selectVisibleHabits } from '../../habits/store/selectors';
 
 const selectProfileState = (state: RootState) => state.profile;
 
@@ -17,8 +17,8 @@ export const selectTotalWeeklyActions = createSelector(
 );
 
 export const selectMaxWeeklyActions = createSelector(
-  [(state: RootState) => state.habits.habits],
-  (habits) => habits.length * 7 
+  [selectVisibleHabits],
+  (visibleHabits) => visibleHabits.length * 7 
 );
 
 export const selectWeeklyProgressPercent = createSelector(

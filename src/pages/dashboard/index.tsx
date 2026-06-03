@@ -7,7 +7,7 @@ import { GrowingTreeAnimation } from '../../features/dashboard/GrowingTreeAnimat
 import { Achievements } from '../../features/dashboard/Achievements';
 import { useAppSelector } from '../../store/hooks';
 import { calculateMetrics } from '../../features/dashboard/calculateMetrics';
-import { selectStreakData } from '../../features/habits/store/selectors';
+import { selectStreakData, selectVisibleHabits } from '../../features/habits/store/selectors';
 
 const PageContainer = styled.div`
   max-width: 1440px;
@@ -35,8 +35,15 @@ const DashboardPage = () => {
   const history = useAppSelector(state => state.habits.history);
   const { bestStreak  } = useAppSelector(selectStreakData); // текущая серия
 
-  // Вычисляем все метрики
-  const { metricsCards, monthlyProgress, weeklyActivity, treesPlanted } = calculateMetrics(habits, history);
+  // Достаем массив только тех привычек, которые активны в профиле
+  const visibleHabits = useAppSelector(selectVisibleHabits);
+
+  // Вычисляем все метрики, передавая массив visibleHabits третьим аргументом
+  const { metricsCards, monthlyProgress, weeklyActivity, treesPlanted } = calculateMetrics(
+    habits, 
+    history, 
+    visibleHabits
+  );
 
   // Извлекаем числовые значения для ачивок (из metricsCards)
   const waterSaved = parseFloat(metricsCards.find(m => m.title === 'Сэкономлено воды')?.value.replace(/\s/g, '') || '0');
@@ -47,7 +54,7 @@ const DashboardPage = () => {
       <EcoImpact metrics={metricsCards} />
       <ChartsRow>
         <Progress data={monthlyProgress} />
-        <WeeklyActivity data={weeklyActivity} />
+        <WeeklyActivity data={weeklyActivity} maxTicks={visibleHabits.length} />
       </ChartsRow>
       <GrowingTreeAnimation trees={treesPlanted} />
       <Achievements 

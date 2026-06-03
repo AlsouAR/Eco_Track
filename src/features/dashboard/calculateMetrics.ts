@@ -38,8 +38,12 @@ const countTotalExecutions = (habitId: string, history: Record<string, string[]>
 
 export const calculateMetrics = (
   habits: Habit[],
-  history: Record<string, string[]>
+  history: Record<string, string[]>,
+  visibleHabits: Habit[]
 ) => {
+  // Создаем массив ID только видимых привычек для быстрой фильтрации графиков
+  const visibleIds = visibleHabits.map(h => h.id);
+
   // --- Карточки EcoImpact ---
   const waterCount = countTotalExecutions('water', history);
   const bikeCount = countTotalExecutions('bike', history);
@@ -95,7 +99,7 @@ export const calculateMetrics = (
     let total = 0;
     Object.entries(history).forEach(([dateStr, ids]) => {
       if (dateStr.startsWith(prefix)) {
-        total += ids.length;
+        total += ids.filter(id => visibleIds.includes(id)).length;
       }
     });
 
@@ -122,9 +126,13 @@ export const calculateMetrics = (
     date.setDate(monday.getDate() + i);
     const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const dayHabits = history[dateKey] || [];
+
+    // ТЕПЕРЬ: Фильтруем массив выполненных за день ID, оставляя только видимые привычки
+    const visibleDayHabitsCount = dayHabits.filter(id => visibleIds.includes(id)).length;
+
     weeklyActivity.push({
       day: dayNames[date.getDay()] ?? 'Неизв',
-      value: dayHabits.length,
+      value: visibleDayHabitsCount, // Высота столбца на графике теперь адаптивна!
     });
   }
 

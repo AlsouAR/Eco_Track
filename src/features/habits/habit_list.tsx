@@ -8,6 +8,7 @@ import { Progress } from "../../components/ui/progress/progress";
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { toggleHabit, saveDay } from './store/habits_slice';
+import { selectVisibleHabits } from './store/selectors';
 
 import * as S from './habit_styles';
 
@@ -22,12 +23,15 @@ const IconMap: Record<string, any> = {
 export const TodayActions: React.FC = () => {
   const dispatch = useAppDispatch();
   
-  const { habits, currentDraft, history, selectedDate } = useAppSelector((state) => state.habits);
+  // Получаем только видимые (выбранные в профиле) привычки через селектор
+  const visibleHabits = useAppSelector(selectVisibleHabits);
+
+  const {currentDraft, history, selectedDate } = useAppSelector((state) => state.habits);
   const completedIds = history[selectedDate] || [];
 
   const hasChanges = JSON.stringify(currentDraft) !== JSON.stringify(history[selectedDate] || []);
 
-  const currentHabits = habits.map(habit => ({
+  const currentHabits = visibleHabits.map(habit => ({
     ...habit,
     completed: currentDraft.includes(habit.id),
     iconComponent: IconMap[habit.icon] || Leaf 
