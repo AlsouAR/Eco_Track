@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 import { MapFilters } from "../../features/map/MapFilters";
 import { MapContainerBlock } from "../../features/map/MapContainerBlock";
 import { AddLocationModal } from "../../features/map/AddLocationModal";
-import { LocationType, EcoLocation } from "../../components/map/types";
+import type { LocationType, EcoLocation } from "../../components/map/types";
 import { useLocations } from "../../store/useLocations";
 import { useGeolocation } from "../../store/useGeolocation";
 
@@ -108,7 +108,7 @@ const GeolocationStatus = styled.div<{ isActive: boolean }>`
   position: absolute;
   bottom: 16px;
   right: 16px;
-  background: ${props => props.isActive ? '#4CAF50' : '#ff9800'};
+  background: ${props => props.isActive ? "#4CAF50" : "#ff9800"};
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
@@ -145,16 +145,18 @@ export default function MapPage() {
     ? locations
     : locations.filter((l) => l.type === selectedType);
 
-  const handleAddLocation = (newLocationData: Omit<EcoLocation, 'id'>) => {
+  const handleAddLocation = (newLocationData: Omit<EcoLocation, "id">) => {
     addLocation(newLocationData);
     setShowModal(false);
   };
 
-  const userLocation = latitude && longitude ? { lat: latitude, lng: longitude } : null;
+  const userLocation = latitude != null && longitude != null
+    ? { lat: latitude, lng: longitude }
+    : null;
 
   const centerOnUser = () => {
     if (userLocation) {
-      window.dispatchEvent(new CustomEvent('centerOnUser', { detail: userLocation }));
+      window.dispatchEvent(new CustomEvent("centerOnUser", { detail: userLocation }));
     }
   };
 
@@ -190,7 +192,7 @@ export default function MapPage() {
               </GeolocationStatus>
             )}
             
-            {!geoLoading && geoError && (
+            {!geoLoading && geoError != null && geoError !== "" && (
               <GeolocationStatus isActive={false}>
                 <span>⚠️</span>
                 <span>{geoError}</span>

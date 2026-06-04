@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { EcoLocation, LocationType } from '../components/map/types';
+import type { EcoLocation } from "../components/map/types";
 import { locations as initialLocations } from '../components/map/data/locations';
 
 const STORAGE_KEY = 'eco_locations';
@@ -11,7 +11,7 @@ export function useLocations() {
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     
-    if (saved) {
+    if (saved !== null) {
       // Если есть сохранённые данные - используем их
       setLocations(JSON.parse(saved));
     } else {

@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { EcoImpact } from '../../features/dashboard/EcoImpact';
-import { Progress } from '../../features/dashboard/Progress';
-import { WeeklyActivity } from '../../features/dashboard/WeekActivity';
-import { GrowingTreeAnimation } from '../../features/dashboard/GrowingTreeAnimation';
-import { Achievements } from '../../features/dashboard/Achievements';
-import { useAppSelector } from '../../store/hooks';
-import { calculateMetrics } from '../../features/dashboard/calculateMetrics';
-import { selectStreakData, selectVisibleHabits } from '../../features/habits/store/selectors';
+import React from "react";
+import styled from "@emotion/styled";
+import { EcoImpact } from "../../features/dashboard/EcoImpact";
+import { Progress } from "../../features/dashboard/Progress";
+import { WeeklyActivity } from "../../features/dashboard/WeekActivity";
+import { GrowingTreeAnimation } from "../../features/dashboard/GrowingTreeAnimation";
+import { Achievements } from "../../features/dashboard/Achievements";
+import { useAppSelector } from "../../store/hooks";
+import { calculateMetrics } from "../../features/dashboard/calculateMetrics";
+import { selectStreakData, selectVisibleHabits } from "../../features/habits/store/selectors";
 
 const PageContainer = styled.div`
   max-width: 1440px;
@@ -42,12 +42,12 @@ const DashboardPage = () => {
   const { metricsCards, monthlyProgress, weeklyActivity, treesPlanted } = calculateMetrics(
     habits, 
     history, 
-    visibleHabits
+    visibleHabits,
   );
 
   // Извлекаем числовые значения для ачивок (из metricsCards)
-  const waterSaved = parseFloat(metricsCards.find(m => m.title === 'Сэкономлено воды')?.value.replace(/\s/g, '') || '0');
-  const co2Saved = parseFloat(metricsCards.find(m => m.title === 'Сокращено CO₂')?.value.replace(',', '.') || '0');
+  const waterSaved = parseFloat(metricsCards.find(m => m.title === "Сэкономлено воды")?.value.replace(/\s/g, "") ?? "0");
+  const co2Saved = parseFloat(metricsCards.find(m => m.title === "Сокращено CO₂")?.value.replace(",", ".") ?? "0");
 
   return (
     <PageContainer>

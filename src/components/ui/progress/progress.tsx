@@ -37,7 +37,7 @@ const Progress = React.forwardRef<
       {...props}
     >
       <StyledIndicator
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}
       />
     </StyledRoot>
   );

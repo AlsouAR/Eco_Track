@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, X } from 'lucide-react';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion, AnimatePresence } from "framer-motion";
+import { AlertTriangle } from "lucide-react";
 
 const Overlay = styled(motion.div)`
   position: fixed;

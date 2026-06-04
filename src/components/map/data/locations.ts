@@ -1,4 +1,4 @@
-import { EcoLocation } from "../types";
+import type { EcoLocation } from "../types";
 
 export const locations: EcoLocation[] = [
     {

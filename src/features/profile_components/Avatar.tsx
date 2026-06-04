@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import './Avatar.css';
-import { Camera } from 'lucide-react';
+import { useState, useEffect } from "react";
+import "./Avatar.css";
+import { Camera } from "lucide-react";
 
 interface AvatarProps {
   name: string;
@@ -9,17 +9,15 @@ interface AvatarProps {
 
 function Avatar({ name, avatarImage }: AvatarProps) {
   const [image, setImage] = useState<string | null>(null);
-  const firstLetter = name && name.length > 0 ? name.charAt(0).toUpperCase() : '?';
+  const firstLetter = name.length > 0 ? name.charAt(0).toUpperCase() : "?";
   const getStorageKey = () => `avatar_image_${name}`;
-  
-  console.log('Avatar рендер:', { name, firstLetter, image });
 
   useEffect(() => {
     const savedImage = localStorage.getItem(getStorageKey());
-    
-    if (savedImage && savedImage.startsWith('data:image')) {
+
+    if (savedImage != null && savedImage.startsWith("data:image")) {
       setImage(savedImage);
-    } else if (avatarImage) {
+    } else if (avatarImage != null) {
       setImage(avatarImage);
     } else {
       setImage(null);
@@ -30,7 +28,7 @@ function Avatar({ name, avatarImage }: AvatarProps) {
     const file = event.target.files?.[0];
     if (file) {
       if (file.size > 1 * 1024 * 1024) {
-        alert('Изображение слишком большое. Максимум 1 МБ');
+        alert("Изображение слишком большое. Максимум 1 МБ");
         return;
       }
 
@@ -39,7 +37,7 @@ function Avatar({ name, avatarImage }: AvatarProps) {
         const base64String = reader.result as string;
         const base64Size = new Blob([base64String]).size;
         if (base64Size > 1.5 * 1024 * 1024) {
-          alert('Изображение слишком большое даже после кодирования');
+          alert("Изображение слишком большое даже после кодирования");
           return;
         }
 
@@ -48,21 +46,18 @@ function Avatar({ name, avatarImage }: AvatarProps) {
       
           const oldAvatar = localStorage.getItem(currentKey);
           
-          if (oldAvatar) {
+          if (oldAvatar != null) {
             localStorage.removeItem(currentKey);
-            console.log(`Старый аватар для ${name} удалён`);
           }
-          
+
           localStorage.setItem(currentKey, base64String);
           setImage(base64String);
           
-          console.log(`Новый аватар для ${name} сохранён`);
-          
         } catch (error) {
-          console.error('Ошибка при сохранении аватара:', error);
+          console.error("Ошибка при сохранении аватара:", error);
           
-          if (error === 'QuotaExceededError') {
-            alert('Недостаточно места в хранилище. Попробуйте изображение меньшего размера');
+          if (error === "QuotaExceededError") {
+            alert("Недостаточно места в хранилище. Попробуйте изображение меньшего размера");
           }
         }
       };
@@ -72,7 +67,7 @@ function Avatar({ name, avatarImage }: AvatarProps) {
 
   return (
     <div className="avatar-container">
-      {image ? (
+      {image != null ? (
         <img src={image} alt="Аватар" className="avatar-image" />
       ) : (
         <div className="avatar-letter">{firstLetter}</div>
@@ -84,7 +79,7 @@ function Avatar({ name, avatarImage }: AvatarProps) {
           type="file" 
           accept="image/*" 
           onChange={handlePhotoUpload}
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
         />
       </label>
     </div>

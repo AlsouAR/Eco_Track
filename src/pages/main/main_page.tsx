@@ -1,17 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Leaf, 
   Calendar, 
   BarChart3, 
   Map, 
   User, 
-  Target, 
   TreePine,
   ArrowRight,
-  CheckCircle2
-} from 'lucide-react';
-import './main_page.css';
+} from "lucide-react";
+import "./main_page.css";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -19,35 +17,35 @@ const MainPage = () => {
   const features = [
     {
       icon: <Calendar size={32} />,
-      title: 'Трекер привычек',
-      description: 'Отмечайте ежедневные эко-привычки, следите за прогрессом в календаре и стройте непрерывные серии.',
-      color: '#4CAF50'
+      title: "Трекер привычек",
+      description: "Отмечайте ежедневные эко-привычки, следите за прогрессом в календаре и стройте непрерывные серии.",
+      color: "#4CAF50",
     },
     {
       icon: <BarChart3 size={32} />,
-      title: 'Дашборд достижений',
-      description: 'Визуализируйте свой вклад в экологию: сэкономленная вода, снижение CO₂, спасённые деревья.',
-      color: '#66BB6A'
+      title: "Дашборд достижений",
+      description: "Визуализируйте свой вклад в экологию: сэкономленная вода, снижение CO₂, спасённые деревья.",
+      color: "#66BB6A",
     },
     {
       icon: <Map size={32} />,
-      title: 'Эко-карта',
-      description: 'Находите точки сбора вторсырья, велопарковки и эко-события. Делитесь своими локациями.',
-      color: '#81C784'
+      title: "Эко-карта",
+      description: "Находите точки сбора вторсырья, велопарковки и эко-события. Делитесь своими локациями.",
+      color: "#81C784",
     },
     {
       icon: <User size={32} />,
-      title: 'Личный профиль',
-      description: 'Настраивайте цели, смотрите статистику, экспортируйте отчёты и получайте достижения.',
-      color: '#A5D6A7'
-    }
+      title: "Личный профиль",
+      description: "Настраивайте цели, смотрите статистику, экспортируйте отчёты и получайте достижения.",
+      color: "#A5D6A7",
+    },
   ];
 
   const steps = [
-    { step: '01', title: 'Зарегистрируйтесь', description: 'Создайте аккаунт за 1 минуту' },
-    { step: '02', title: 'Выберите привычки', description: 'Отметьте эко-привычки, которые хотите развивать' },
-    { step: '03', title: 'Отмечайте ежедневно', description: 'Каждый день отмечайте выполненные действия' },
-    { step: '04', title: 'Следите за прогрессом', description: 'Наблюдайте за своим влиянием на экологию' }
+    { step: "01", title: "Зарегистрируйтесь", description: "Создайте аккаунт за 1 минуту" },
+    { step: "02", title: "Выберите привычки", description: "Отметьте эко-привычки, которые хотите развивать" },
+    { step: "03", title: "Отмечайте ежедневно", description: "Каждый день отмечайте выполненные действия" },
+    { step: "04", title: "Следите за прогрессом", description: "Наблюдайте за своим влиянием на экологию" },
   ];
 
   return (
@@ -61,7 +59,7 @@ const MainPage = () => {
           </div>
           
           <h1>
-            Превращайте{' '}
+            Превращайте{" "}
             <span className="gradient-text">эко-привычки</span>
             <br />
             в реальные достижения
@@ -73,11 +71,11 @@ const MainPage = () => {
           </p>
           
           <div className="hero-buttons">
-            <button className="btn-primary" onClick={() => navigate('/login')}>
+            <button className="btn-primary" onClick={() => navigate("/login")}>
               Начать путь <ArrowRight size={18} />
             </button>
             <button className="btn-secondary" onClick={() => {
-              document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
             }}>
               Узнать больше
             </button>
@@ -134,10 +132,10 @@ const MainPage = () => {
           </div>
           <h2>Готовы изменить мир к лучшему?</h2>
           <p>Начните с малого — каждая эко-привычка имеет значение</p>
-          <button className="btn-primary" onClick={() => navigate('/login')}>
+          <button className="btn-primary" onClick={() => navigate("/login")}>
             Создать аккаунт <ArrowRight size={18} />
           </button>
-          <p className="cta-note">Уже есть аккаунт? <span onClick={() => navigate('/login')}>Войти</span></p>
+          <p className="cta-note">Уже есть аккаунт? <span onClick={() => navigate("/login")}>Войти</span></p>
         </div>
       </section>
 

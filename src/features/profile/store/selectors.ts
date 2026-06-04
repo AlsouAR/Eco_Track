@@ -1,4 +1,4 @@
-import { RootState } from '../../../store';
+import type { RootState } from '../../../store';
 import { createSelector } from '@reduxjs/toolkit';
 import { selectWeeklyStats, selectVisibleHabits } from '../../habits/store/selectors';
 

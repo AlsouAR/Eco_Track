@@ -1,8 +1,6 @@
-import React, { useState } from 'react'; 
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-
-import { ShoppingBag, Bike, Recycle, Droplet, Leaf } from "lucide-react";
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 import { WeeklyProgress } from "../../features/progress_bars/weekly_progress";
 import { EcoCalendar } from "../../features/calendar/index";
@@ -40,21 +38,6 @@ const RightColumn = styled.div`
 
 
 const HomePage = () => {
-  const [habits, setHabits] = useState([
-    { id: "1", label: "Отказ от пластика", icon: ShoppingBag, completed: false },
-    { id: "2", label: "Поездка на велосипеде", icon: Bike, completed: false },
-    { id: "3", label: "Сортировка мусора", icon: Recycle, completed: false },
-    { id: "4", label: "Экономия воды", icon: Droplet, completed: false },
-    { id: "5", label: "Местные продукты", icon: Leaf, completed: false },
-  ]);
-
-
-  const handleToggleHabit = (id: string) => {
-    setHabits((prev) =>
-      prev.map((h) => (h.id === id ? { ...h, completed: !h.completed } : h))
-    );
-  };
-
   return (
     <PageContainer>
       <MainGrid>

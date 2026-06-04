@@ -1,11 +1,11 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Leaf } from "lucide-react";
-import { useAppSelector } from '../../store/hooks';
-import { selectStreakData } from '../habits/store/selectors';
-import * as S from './quick_stats_styles';
+import { useAppSelector } from "../../store/hooks";
+import { selectStreakData } from "../habits/store/selectors";
+import * as S from "./quick_stats_styles";
 
 export const QuickStats: React.FC = () => {
   const { currentStreak, bestStreak } = useAppSelector(selectStreakData);
@@ -28,7 +28,7 @@ export const QuickStats: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{ display: 'inline-block' }}
+            style={{ display: "inline-block" }}
           >
             {currentStreak}
           </motion.span>
@@ -58,10 +58,10 @@ const getDaysLabel = (days: number) => {
   const lastDigit = days % 10;
   const lastTwoDigits = days % 100;
 
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'дней';
-  if (lastDigit === 1) return 'день';
-  if (lastDigit >= 2 && lastDigit <= 4) return 'дня';
-  return 'дней';
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {return "дней";}
+  if (lastDigit === 1) {return "день";}
+  if (lastDigit >= 2 && lastDigit <= 4) {return "дня";}
+  return "дней";
 };
 
 export default QuickStats;

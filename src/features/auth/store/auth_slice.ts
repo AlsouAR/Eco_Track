@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface AuthState {
   isAuthenticated: boolean;
@@ -8,8 +9,8 @@ export interface AuthState {
 const checkInitialAuth = (): AuthState => {
   if (typeof window === 'undefined') return { isAuthenticated: false, currentUser: null };
   
-  const session = localStorage.getItem('eco_session');
-  if (session) {
+  const session = localStorage.getItem("eco_session");
+  if (session !== null) {
     return { isAuthenticated: true, currentUser: session };
   }
   return { isAuthenticated: false, currentUser: null };

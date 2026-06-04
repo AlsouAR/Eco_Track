@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { X, Plus, Search, Loader2 } from "lucide-react";
-import { EcoLocation, LocationType } from "../../components/map/types";
+import type { EcoLocation, LocationType } from "../../components/map/types";
 import "./AddLocationModal.css";
 
 type FormData = {
@@ -13,10 +13,10 @@ type FormData = {
 };
 
 export function AddLocationModal({
-  close, onAdd
+  close, onAdd,
 }: {
   close: () => void;
-  onAdd: (location: Omit<EcoLocation, 'id'>) => void;
+  onAdd: (location: Omit<EcoLocation, "id">) => void;
 }) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -38,15 +38,15 @@ export function AddLocationModal({
       // Используем Nominatim API (OpenStreetMap)
       const encodedAddress = encodeURIComponent(address);
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`,
       );
 
       const data = await response.json();
 
-      if (data && data.length > 0) {
+      if (Array.isArray(data) && data.length > 0) {
         return {
           lat: parseFloat(data[0].lat),
-          lng: parseFloat(data[0].lon)
+          lng: parseFloat(data[0].lon),
         };
       }
       return null;
@@ -62,11 +62,11 @@ export function AddLocationModal({
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
-    if (name === 'address') {
+    if (name === "address") {
       setGeocodeError("");
     }
 
-    if (errors[name as keyof FormData]) {
+    if (errors[name as keyof FormData] !== undefined) {
       setErrors(prev => ({ ...prev, [name as keyof FormData]: undefined }));
     }
   };
@@ -150,7 +150,7 @@ export function AddLocationModal({
           {/* Название места */}
           <div>
             <label className="add-location-modal__field-label">
-              Название места <span style={{ color: 'red' }}>*</span>
+              Название места <span style={{ color: "red" }}>*</span>
             </label>
             <input
               type="text"
@@ -158,15 +158,15 @@ export function AddLocationModal({
               value={formData.name}
               onChange={handleChange}
               placeholder="Например: Пункт приёма пластика"
-              className={`add-location-modal__input ${errors.name ? 'error' : ''}`}
+              className={`add-location-modal__input ${errors.name != null && errors.name !== "" ? "error" : ""}`}
             />
-            {errors.name && <span className="error-message">{errors.name}</span>}
+            {errors.name != null && errors.name !== "" && <span className="error-message">{errors.name}</span>}
           </div>
 
           {/* Тип */}
           <div>
             <label className="add-location-modal__field-label">
-              Тип <span style={{ color: 'red' }}>*</span>
+              Тип <span style={{ color: "red" }}>*</span>
             </label>
             <select
               name="type"
@@ -183,7 +183,7 @@ export function AddLocationModal({
           {/* Адрес */}
           <div>
             <label className="add-location-modal__field-label">
-              Адрес <span style={{ color: 'red' }}>*</span>
+              Адрес <span style={{ color: "red" }}>*</span>
             </label>
             <div className="address-input-wrapper">
               <input
@@ -192,7 +192,7 @@ export function AddLocationModal({
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Например: Москва, ул. Тверская, 15"
-                className={`add-location-modal__input ${errors.address || geocodeError ? 'error' : ''}`}
+                className={`add-location-modal__input ${(errors.address != null && errors.address !== "") || geocodeError !== "" ? "error" : ""}`}
               />
               {isGeocoding && (
                 <div className="geocoding-spinner">
@@ -200,8 +200,8 @@ export function AddLocationModal({
                 </div>
               )}
             </div>
-            {errors.address && <span className="error-message">{errors.address}</span>}
-            {geocodeError && <span className="error-message geocode-error">{geocodeError}</span>}
+            {errors.address != null && errors.address !== "" && <span className="error-message">{errors.address}</span>}
+            {geocodeError !== "" && <span className="error-message geocode-error">{geocodeError}</span>}
             <div className="address-hint">
               <Search className="w-3 h-3" />
               <span>Координаты определятся автоматически по адресу</span>
@@ -226,7 +226,7 @@ export function AddLocationModal({
           {/* Описание */}
           <div>
             <label className="add-location-modal__field-label">
-              Описание <span style={{ color: 'red' }}>*</span>
+              Описание <span style={{ color: "red" }}>*</span>
             </label>
             <textarea
               name="description"
@@ -234,9 +234,9 @@ export function AddLocationModal({
               value={formData.description}
               onChange={handleChange}
               placeholder="Расскажите подробнее"
-              className={`add-location-modal__textarea ${errors.description ? 'error' : ''}`}
+              className={`add-location-modal__textarea ${errors.description != null && errors.description !== "" ? "error" : ""}`}
             />
-            {errors.description && <span className="error-message">{errors.description}</span>}
+            {errors.description != null && errors.description !== "" && <span className="error-message">{errors.description}</span>}
           </div>
 
           {/* Кнопки */}
@@ -253,7 +253,7 @@ export function AddLocationModal({
                   Определяем координаты...
                 </>
               ) : (
-                'Добавить себе'
+                "Добавить себе"
               )}
             </button>
 

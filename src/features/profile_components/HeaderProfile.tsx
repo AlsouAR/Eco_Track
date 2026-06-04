@@ -1,31 +1,31 @@
-import React from 'react';
+import React from "react";
 
 export default function Header() {
   const styles: { [key: string]: React.CSSProperties } = {
     header: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '16px',
-      marginBottom: '28px',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "16px",
+      marginBottom: "28px",
     },
     textWrapper: {
-      textAlign: 'center',
+      textAlign: "center",
       flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '4px',
+      display: "flex",
+      flexDirection: "column",
+      gap: "4px",
     },
     title: {
-      fontSize: '40px',
+      fontSize: "40px",
       fontWeight: 650,
-      color: '#1B5E20',
+      color: "#1B5E20",
       margin: 0,
       lineHeight: 1.3,
     },
     subtitle: {
-      fontSize: '20px',
-      color: '#6B8C42',
+      fontSize: "20px",
+      color: "#6B8C42",
       margin: 0,
       fontWeight: 500,
     },

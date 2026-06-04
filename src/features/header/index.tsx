@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Leaf, BarChart3, MapPin, User } from "lucide-react";
-import * as S from './header_styles';
+import * as S from "./header_styles";
 
 export function Header() {
   const location = useLocation();
@@ -23,10 +23,10 @@ export function Header() {
               <Leaf size={28} color="white" />
             </div>
             <div>
-              <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--eco-primary)', lineHeight: 1 }}>
+              <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--eco-primary)", lineHeight: 1 }}>
                 EcoTrack
               </h1>
-              <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', marginTop: '-0.25rem' }}>
+              <p style={{ fontSize: "0.75rem", color: "var(--muted-foreground)", marginTop: "-0.25rem" }}>
                 Ваш эко-путь
               </p>
             </div>
@@ -41,7 +41,7 @@ export function Header() {
               const Icon = item.icon;
 
               return (
-                <Link key={item.path} to={item.path} style={{ textDecoration: 'none', position: 'relative' }}>
+                <Link key={item.path} to={item.path} style={{ textDecoration: "none", position: "relative" }}>
                   <S.NavItemBox
                     isActive={isActive}
                     whileHover={{ scale: 1.05 }}
@@ -53,8 +53,8 @@ export function Header() {
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
-                    <Icon size={20} style={{ position: 'relative', zIndex: 10 }} />
-                    <span style={{ position: 'relative', zIndex: 10, fontWeight: 500 }}>
+                    <Icon size={20} style={{ position: "relative", zIndex: 10 }} />
+                    <span style={{ position: "relative", zIndex: 10, fontWeight: 500 }}>
                       {item.label}
                     </span>
                   </S.NavItemBox>
@@ -71,13 +71,13 @@ export function Header() {
               const Icon = item.icon;
 
               return (
-                <Link key={item.path} to={item.path} style={{ textDecoration: 'none', position: 'relative' }}>
+                <Link key={item.path} to={item.path} style={{ textDecoration: "none", position: "relative" }}>
                   <S.MobileNavItem
                     isActive={isActive}
                     whileTap={{ scale: 0.9 }}
                   >
                     {isActive && <S.ActiveBackground />}
-                    <Icon size={20} style={{ position: 'relative', zIndex: 10 }} />
+                    <Icon size={20} style={{ position: "relative", zIndex: 10 }} />
                   </S.MobileNavItem>
                 </Link>
               );

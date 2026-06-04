@@ -16,7 +16,7 @@ export function useGeolocation() {
   });
 
   useEffect(() => {
-    if (!navigator.geolocation) {
+    if (!("geolocation" in navigator)) {
       setState(prev => ({
         ...prev,
         error: "Ваш браузер не поддерживает геолокацию",

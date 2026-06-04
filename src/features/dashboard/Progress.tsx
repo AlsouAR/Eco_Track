@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { TrendingUp } from 'lucide-react';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { TrendingUp } from "lucide-react";
 import {
   AreaChart,
   Area,
@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 // Styled компоненты 
 
@@ -80,7 +80,7 @@ interface CustomTooltipProps {
 }
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
+  if (active === true && payload != null && payload.length > 0) {
     return (
       <TooltipWrapper>
         <TooltipLabel>{label}</TooltipLabel>
@@ -105,10 +105,10 @@ const StyledResponsiveContainer = styled(ResponsiveContainer)`
 // Статический массив 
 
 const staticProgressData = [
-  { month: 'Янв', co2: 24 },
-  { month: 'Фев', co2: 40 },
-  { month: 'Мар', co2: 35 },
-  { month: 'Апр', co2: 46 },
+  { month: "Янв", co2: 24 },
+  { month: "Фев", co2: 40 },
+  { month: "Мар", co2: 35 },
+  { month: "Апр", co2: 46 },
 ];
 
 // Интерфейс пропсов 

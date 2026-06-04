@@ -1,4 +1,4 @@
-import { Habit } from '../habits/store/habits_slice';
+import type { Habit } from '../habits/store/habits_slice';
 
 // Коэффициенты пересчёта действий в экологические показатели
 const COEFFICIENTS = {
@@ -42,7 +42,7 @@ export const calculateMetrics = (
   visibleHabits: Habit[]
 ) => {
   // Создаем массив ID только видимых привычек для быстрой фильтрации графиков
-  const visibleIds = (visibleHabits || habits || []).map(h => h.id);
+  const visibleIds = (visibleHabits.length > 0 ? visibleHabits : habits).map(h => h.id);
   
   // --- Карточки EcoImpact ---
   const waterCount = countTotalExecutions('water', history);

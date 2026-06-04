@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../store";
+import type { RootState } from "../../../store";
 import { subDays, format, startOfDay, parseISO, startOfToday, isSameDay, addDays } from "date-fns";
 import { ru } from "date-fns/locale";
 import { getAchievements } from '../../../features/dashboard/Achievements';
@@ -88,7 +88,14 @@ export const selectStreakData = createSelector(
         const prevStr = datesWithActivity[i - 1];
         const currStr = datesWithActivity[i];
 
-        if (!prevStr || !currStr) continue;
+        if (
+          prevStr === undefined
+          || currStr === undefined
+          || prevStr.length === 0
+          || currStr.length === 0
+        ) {
+          continue;
+        }
 
         const prevDate = startOfDay(parseISO(prevStr));
         const currDate = startOfDay(parseISO(currStr));
@@ -105,7 +112,7 @@ export const selectStreakData = createSelector(
 
     return {
       currentStreak,
-      bestStreak: bestStreak || currentStreak
+      bestStreak: bestStreak > 0 ? bestStreak : currentStreak,
     };
   }
 );
@@ -135,7 +142,7 @@ export const selectTotalActiveDays = createSelector(
     
     const totalDays = Object.keys(history).filter(key => {
       const completions = history[key];
-      return completions && completions.length > 0;
+      return (completions?.length ?? 0) > 0;
     }).length;
     
     return totalDays;
@@ -148,8 +155,8 @@ export const selectHighestAchievement = createSelector(
     const { habits, history } = habitsState;
     const metrics = calculateMetrics(habits, history, habits);
     
-    const waterSaved = parseFloat(metrics.metricsCards.find(m => m.title === 'Сэкономлено воды')?.value.replace(/\s/g, '') || '0');
-    const co2Saved = parseFloat(metrics.metricsCards.find(m => m.title === 'Сокращено CO₂')?.value.replace(/\s/g, '') || '0');
+    const waterSaved = parseFloat(metrics.metricsCards.find(m => m.title === "Сэкономлено воды")?.value.replace(/\s/g, "") ?? "0");
+    const co2Saved = parseFloat(metrics.metricsCards.find(m => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0");
     const treesPlanted = metrics.treesPlanted;
     const { currentStreak } = streakData;
     
@@ -157,10 +164,10 @@ export const selectHighestAchievement = createSelector(
     
     // Находим самое высокое разблокированное достижение (с максимальным id)
     const highestUnlocked = achievements
-      .filter(a => a.unlocked)
+      .filter(a => a.unlocked === true)
       .sort((a, b) => b.id - a.id)[0];
     
-    if (highestUnlocked) {
+    if (highestUnlocked !== undefined) {
       return {
         title: highestUnlocked.title,
         description: highestUnlocked.description,
@@ -188,7 +195,14 @@ export const selectMonthlyStats = createSelector(
       const year = parts[0];
       const month = parts[1];
       
-      if (!year || !month) return false;
+      if (
+        year === undefined
+        || month === undefined
+        || year.length === 0
+        || month.length === 0
+      ) {
+        return false;
+      }
       
       return parseInt(year, 10) === currentYear && parseInt(month, 10) - 1 === currentMonth;
     });
@@ -197,7 +211,7 @@ export const selectMonthlyStats = createSelector(
     let bestStreakInMonth = 0;
     let currentStreakInMonth = 0;
     let maxActionsInDay = 0;
-    let habitFrequency: Record<string, number> = {};
+    const habitFrequency: Record<string, number> = {};
     
     // Сортируем дни по возрастанию
     const sortedDays = [...monthDays].sort();
@@ -222,7 +236,7 @@ export const selectMonthlyStats = createSelector(
       // Подсчёт частоты привычек
       dayHabits.forEach(habitId => {
         if (visibleHabits.some(vh => vh.id === habitId)) {
-          habitFrequency[habitId] = (habitFrequency[habitId] || 0) + 1;
+          habitFrequency[habitId] = (habitFrequency[habitId] ?? 0) + 1;
         }
       });
       
@@ -268,8 +282,8 @@ export const selectMonthlyStats = createSelector(
     let activeDaysCount = 0;
     for (const dateKey of monthDays) {
       if (!dateKey) continue;
-      const habits = history[dateKey];
-      if (habits && habits.length > 0) {
+      const dayHabitIds = history[dateKey];
+      if ((dayHabitIds?.length ?? 0) > 0) {
         activeDaysCount++;
       }
     }

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import './EcoGoals.css';
-import { Leaf } from 'lucide-react';
-import { useAppSelector } from '../../store/hooks';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import "./EcoGoals.css";
+import { Leaf } from "lucide-react";
+import { useAppSelector } from "../../store/hooks";
 import { 
   selectTotalWeeklyActions, 
   selectMaxWeeklyActions, 
   selectWeeklyProgressPercent,
-  selectPriorityHabits 
-} from '../profile/store/selectors';
-import { togglePriorityHabit } from '../profile/store/profile_slice';
+  selectPriorityHabits, 
+} from "../profile/store/selectors";
+import { togglePriorityHabit } from "../profile/store/profile_slice";
 
 // Заголовок 
 const GoalsHeader = () => {
@@ -59,7 +59,7 @@ const TargetActions = () => {
             readOnly
             className="eco-slider"
             style={{
-              background: `linear-gradient(to right, #4CAF50 ${percentForSlider}%, #E8EED9 ${percentForSlider}%)`
+              background: `linear-gradient(to right, #4CAF50 ${percentForSlider}%, #E8EED9 ${percentForSlider}%)`,
             }}
           />
         </div>

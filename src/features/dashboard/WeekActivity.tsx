@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import {
   BarChart,
   Bar,
@@ -9,7 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 const ActivityCard = styled(motion.div)`
   background: var(--card, #ffffff);
@@ -67,7 +67,7 @@ interface CustomTooltipProps {
 }
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
+  if (active === true && payload != null && payload.length > 0) {
     return (
       <TooltipWrapper>
         <TooltipLabel>{label}</TooltipLabel>
@@ -80,13 +80,13 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
 
 // Статический массив по умолчанию – используется, если пропс data не передан
 const defaultWeeklyData = [
-  { day: 'ПН', value: 85 },
-  { day: 'ВТ', value: 92 },
-  { day: 'СР', value: 78 },
-  { day: 'ЧТ', value: 95 },
-  { day: 'ПТ', value: 88 },
-  { day: 'СБ', value: 70 },
-  { day: 'ВС', value: 65 },
+  { day: "ПН", value: 85 },
+  { day: "ВТ", value: 92 },
+  { day: "СР", value: 78 },
+  { day: "ЧТ", value: 95 },
+  { day: "ПТ", value: 88 },
+  { day: "СБ", value: 70 },
+  { day: "ВС", value: 65 },
 ];
 
 interface WeeklyActivityProps {
@@ -96,9 +96,9 @@ interface WeeklyActivityProps {
 
 export function WeeklyActivity({ data, maxTicks }: WeeklyActivityProps) {
 
-  const weeklyData = data || defaultWeeklyData;
+  const weeklyData = data ?? defaultWeeklyData;
 
-  const yAxisMax = maxTicks && maxTicks > 0 ? maxTicks : 5;
+  const yAxisMax = maxTicks != null && maxTicks > 0 ? maxTicks : 5;
 
   return (
     <ActivityCard

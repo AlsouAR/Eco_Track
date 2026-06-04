@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Download, Trash2 } from 'lucide-react';
-import { useAppDispatch } from '../../store/hooks';
-import { resetAllProgress as resetHabitsProgress } from '../habits/store/habits_slice';
-import { resetAllProgress as resetProfileProgress } from '../profile/store/profile_slice';
-import { DeleteConfirm } from './DeleteConfirm';
-import './ActionButtons.css';
+import { useState } from "react";
+import { Trash2 } from "lucide-react";
+import { useAppDispatch } from "../../store/hooks";
+import { resetAllProgress as resetHabitsProgress } from "../habits/store/habits_slice";
+import { resetAllProgress as resetProfileProgress } from "../profile/store/profile_slice";
+import { DeleteConfirm } from "./DeleteConfirm";
+import "./ActionButtons.css";
 
 function ActionButtons() {
   const dispatch = useAppDispatch();
@@ -14,11 +14,11 @@ function ActionButtons() {
     try {
       dispatch(resetHabitsProgress());
       dispatch(resetProfileProgress());
-      alert('Прогресс успешно сброшен!');
+      alert("Прогресс успешно сброшен!");
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Ошибка при сбросе:', error);
-      alert('Ошибка при сбросе прогресса');
+      console.error("Ошибка при сбросе:", error);
+      alert("Ошибка при сбросе прогресса");
     }
   };
 

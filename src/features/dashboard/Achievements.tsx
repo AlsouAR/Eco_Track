@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { Award } from 'lucide-react';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { Award } from "lucide-react";
 
 // ==================== Styled-компоненты ====================
 
@@ -65,13 +65,13 @@ const AchievementCardStyled = styled(motion.div)<AchievementCardStyledProps>`
   text-align: center;
   padding: 24px 16px;
   border-radius: 16px;
-  border: 2px solid ${({ unlocked }) => (unlocked ? '#FFA726' : '#E5E7EB')};
+  border: 2px solid ${({ unlocked }) => (unlocked ? "#FFA726" : "#E5E7EB")};
   background: ${({ unlocked }) =>
     unlocked
-      ? 'linear-gradient(135deg, #FFF9E6, #FFF3D6)'
-      : '#F9FAFB'};
+      ? "linear-gradient(135deg, #FFF9E6, #FFF3D6)"
+      : "#F9FAFB"};
   opacity: ${({ unlocked }) => (unlocked ? 1 : 0.5)};
-  cursor: ${({ unlocked }) => (unlocked ? 'pointer' : 'default')};
+  cursor: ${({ unlocked }) => (unlocked ? "pointer" : "default")};
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -88,8 +88,8 @@ const AchievementIconBox = styled.div<{ unlocked: boolean }>`
   justify-content: center;
   background: ${({ unlocked }) =>
     unlocked
-      ? 'linear-gradient(135deg, #FFA726, #FF9800)'
-      : '#D1D5DB'};
+      ? "linear-gradient(135deg, #FFA726, #FF9800)"
+      : "#D1D5DB"};
   margin: 0 auto;
 `;
 
@@ -128,42 +128,42 @@ const getAchievements = (
   streak = 0,
   waterSaved = 0,
   treesPlanted = 0,
-  co2Saved = 0
+  co2Saved = 0,
 ): Achievement[] => [
   {
     id: 1,
-    title: 'Эко-новичок',
-    description: 'Первые 7 дней',
+    title: "Эко-новичок",
+    description: "Первые 7 дней",
     unlocked: streak >= 7 ,
   },
   {
     id: 2,
-    title: 'Хранитель воды',
-    description: '1000л сэкономлено',
+    title: "Хранитель воды",
+    description: "1000л сэкономлено",
     unlocked: waterSaved >= 1000,
   },
   {
     id: 3,
-    title: 'Зелёный воин',
-    description: '30 дней подряд',
+    title: "Зелёный воин",
+    description: "30 дней подряд",
     unlocked: streak >= 30,
   },
   {
     id: 4,
-    title: 'Лидер планеты',
-    description: '100 дней подряд',
+    title: "Лидер планеты",
+    description: "100 дней подряд",
     unlocked: streak >= 100,
   },
   {
     id: 5,
-    title: 'Посадил лес',
-    description: '50 деревьев',
+    title: "Посадил лес",
+    description: "50 деревьев",
     unlocked: treesPlanted >= 50,
   },
   {
     id: 6,
-    title: 'Net Zero',
-    description: '100кг CO₂',
+    title: "Net Zero",
+    description: "100кг CO₂",
     unlocked: co2Saved >= 100,
   },
 ];
@@ -208,7 +208,7 @@ export function Achievements({
             <AchievementIconBox unlocked={achievement.unlocked}>
               <Award
                 size={32}
-                color={achievement.unlocked ? 'white' : '#9CA3AF'}
+                color={achievement.unlocked ? "white" : "#9CA3AF"}
               />
             </AchievementIconBox>
             <AchievementTitle>{achievement.title}</AchievementTitle>

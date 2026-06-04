@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Moon, Bell, Shield, X, Eye, EyeOff } from 'lucide-react';
-import { useAppSelector } from '../../store/hooks';
-import './Settings.css';
+import React, { useState } from "react";
+import { Shield, X, Eye, EyeOff } from "lucide-react";
+import { useAppSelector } from "../../store/hooks";
+import "./Settings.css";
 
 interface SettingsItemProps {
   icon: React.ReactNode;
@@ -24,19 +24,19 @@ const SettingsItem = ({ icon, title, description, onClick }: SettingsItemProps) 
 
 const ChangePasswordModal = ({ 
   isOpen, 
-  onClose 
+  onClose, 
 }: { 
   isOpen: boolean; 
   onClose: () => void;
 }) => {
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
@@ -46,62 +46,62 @@ const ChangePasswordModal = ({
   };
 
   const getPasswordError = (password: string): string | null => {
-    if (password.length === 0) return null;
+    if (password.length === 0) {return null;}
     if (password.length < 5) {
-      return 'Пароль должен содержать минимум 5 символов';
+      return "Пароль должен содержать минимум 5 символов";
     }
     if (!/[A-Za-z]/.test(password)) {
-      return 'Пароль должен содержать хотя бы одну латинскую букву';
+      return "Пароль должен содержать хотя бы одну латинскую букву";
     }
     if (!/\d/.test(password)) {
-      return 'Пароль должен содержать хотя бы одну цифру';
+      return "Пароль должен содержать хотя бы одну цифру";
     }
     return null;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      setError('Заполните все поля');
+    if (currentPassword.trim() === "" || newPassword.trim() === "" || confirmPassword.trim() === "") {
+      setError("Заполните все поля");
       return;
     }
-    const users = JSON.parse(localStorage.getItem('eco_users') || '{}');
-    if (currentUser && users[currentUser] !== currentPassword) {
-      setError('Неверный текущий пароль');
+    const users = JSON.parse(localStorage.getItem("eco_users") ?? "{}") as Record<string, string>;
+    if (currentUser != null && users[currentUser] !== currentPassword) {
+      setError("Неверный текущий пароль");
       return;
     }
     if (!validatePassword(newPassword)) {
-      setError('Новый пароль: минимум 5 символов, хотя бы одна латинская буква и одна цифра');
+      setError("Новый пароль: минимум 5 символов, хотя бы одна латинская буква и одна цифра");
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError('Новый пароль и подтверждение не совпадают');
+      setError("Новый пароль и подтверждение не совпадают");
       return;
     }
     if (newPassword === currentPassword) {
-      setError('Новый пароль должен отличаться от текущего');
+      setError("Новый пароль должен отличаться от текущего");
       return;
     }
-    if (currentUser) {
+    if (currentUser != null) {
       users[currentUser] = newPassword;
-      localStorage.setItem('eco_users', JSON.stringify(users));
-      setSuccess('Пароль успешно изменён!');
+      localStorage.setItem("eco_users", JSON.stringify(users));
+      setSuccess("Пароль успешно изменён!");
       
       setTimeout(() => {
-        setCurrentPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
-        setError('');
-        setSuccess('');
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        setError("");
+        setSuccess("");
         onClose();
       }, 1500);
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {return null;}
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -114,14 +114,14 @@ const ChangePasswordModal = ({
         </div>
 
         <form onSubmit={handleSubmit}>
-          {error && <div className="modal-error">{error}</div>}
-          {success && <div className="modal-success">{success}</div>}
+          {error !== "" && <div className="modal-error">{error}</div>}
+          {success !== "" && <div className="modal-success">{success}</div>}
 
           <div className="modal-field">
             <label className="modal-label">Текущий пароль</label>
             <div className="password-input-wrapper">
               <input
-                type={showCurrentPassword ? 'text' : 'password'}
+                type={showCurrentPassword ? "text" : "password"}
                 className="modal-input"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
@@ -140,7 +140,7 @@ const ChangePasswordModal = ({
             <label className="modal-label">Новый пароль</label>
             <div className="password-input-wrapper">
               <input
-                type={showNewPassword ? 'text' : 'password'}
+                type={showNewPassword ? "text" : "password"}
                 className="modal-input"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -154,10 +154,10 @@ const ChangePasswordModal = ({
                 {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
-            {newPassword && getPasswordError(newPassword) && (
+            {newPassword.length > 0 && getPasswordError(newPassword) != null && (
               <div className="modal-hint-error">{getPasswordError(newPassword)}</div>
             )}
-            {newPassword && !getPasswordError(newPassword) && (
+            {newPassword.length > 0 && getPasswordError(newPassword) == null && (
               <div className="modal-hint-success">✓ Надёжный пароль</div>
             )}
           </div>
@@ -166,7 +166,7 @@ const ChangePasswordModal = ({
             <label className="modal-label">Подтверждение нового пароля</label>
             <div className="password-input-wrapper">
               <input
-                type={showConfirmPassword ? 'text' : 'password'}
+                type={showConfirmPassword ? "text" : "password"}
                 className="modal-input"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -180,7 +180,7 @@ const ChangePasswordModal = ({
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
-            {confirmPassword && newPassword !== confirmPassword && (
+            {confirmPassword.length > 0 && newPassword !== confirmPassword && (
               <div className="modal-hint-error">Пароли не совпадают</div>
             )}
           </div>

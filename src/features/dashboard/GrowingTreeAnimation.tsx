@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { TreeDeciduous, Leaf } from 'lucide-react';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { TreeDeciduous, Leaf } from "lucide-react";
 
 
 const CardWrapper = styled(motion.div)`
@@ -54,12 +54,12 @@ interface LeafConfig {
 }
 
 const leafConfigs: LeafConfig[] = [
-  { left: '20%', top: '30%', delay: 0 },
-  { left: '35%', top: '70%', delay: 0.3 },
-  { left: '50%', top: '30%', delay: 0.6 },
-  { left: '65%', top: '70%', delay: 0.9 },
-  { left: '80%', top: '30%', delay: 1.2 },
-  { left: '95%', top: '70%', delay: 1.5 },
+  { left: "20%", top: "30%", delay: 0 },
+  { left: "35%", top: "70%", delay: 0.3 },
+  { left: "50%", top: "30%", delay: 0.6 },
+  { left: "65%", top: "70%", delay: 0.9 },
+  { left: "80%", top: "30%", delay: 1.2 },
+  { left: "95%", top: "70%", delay: 1.5 },
 ];
 
 interface GrowingTreeProps {
@@ -80,8 +80,8 @@ export function GrowingTreeAnimation({ trees = 12 }: GrowingTreeProps) {
           transition={{ 
             duration: 3,         // длина одного цикла 3 секунды
             repeat: Infinity,    // повторять бесконечно
-            ease: 'easeInOut'    // плавное начало и конец
-        }}  
+            ease: "easeInOut",    // плавное начало и конец
+          }}  
         >
           <TreeDeciduous size={96} color="white" />  
         </IconContainer>
@@ -97,13 +97,13 @@ export function GrowingTreeAnimation({ trees = 12 }: GrowingTreeProps) {
           animate={{
             y: [0, -20, 0],           // движение вверх-вниз
             rotate: [0, 10, 0],        // лёгкое покачивание
-            opacity: [0.3, 0.6, 0.3]   // изменение прозрачности
-            }}
+            opacity: [0.3, 0.6, 0.3],   // изменение прозрачности
+          }}
           transition={{
             duration: 3 + i * 0.5,     // каждый следующий лист чуть медленнее
             repeat: Infinity,
-            delay: i * 0.3             // задержка старта, чтобы листья двигались не синхронно
-            }}
+            delay: i * 0.3,             // задержка старта, чтобы листья двигались не синхронно
+          }}
         >
           <Leaf size={32} color="rgba(255,255,255,0.2)" />  {/* text-white/20 */}
         </LeafWrapper>

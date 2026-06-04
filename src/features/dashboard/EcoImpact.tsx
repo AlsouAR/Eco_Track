@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { MetricCard } from './MetricCard';
-import { Droplet, Leaf, Recycle, Zap, TreeDeciduous } from 'lucide-react';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { MetricCard } from "./MetricCard";
+import { Droplet, Leaf, Recycle, Zap, TreeDeciduous } from "lucide-react";
 
 const HeaderSection = styled.div`
   align-items: center;
@@ -69,36 +69,36 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; color?: strin
 // Статический массив для случая, когда пропс metrics не передан
 const defaultMetrics = [
   {
-    title: 'Сэкономлено воды',
-    value: '1,250',
-    unit: 'литров',
-    iconId: 'water',
-    color: '#4FC3F7',
-    description: 'Это как 8 дней душа по 5 минут',
+    title: "Сэкономлено воды",
+    value: "1,250",
+    unit: "литров",
+    iconId: "water",
+    color: "#4FC3F7",
+    description: "Это как 8 дней душа по 5 минут",
   },
   {
-    title: 'Сокращено CO₂',
-    value: '45.8',
-    unit: 'кг',
-    iconId: 'bike',
-    color: '#4CAF50',
-    description: 'Эквивалент 120 км на авто',
+    title: "Сокращено CO₂",
+    value: "45.8",
+    unit: "кг",
+    iconId: "bike",
+    color: "#4CAF50",
+    description: "Эквивалент 120 км на авто",
   },
   {
-    title: 'Сохранено деревьев',
-    value: '12',
-    unit: 'эквивалентов',
-    iconId: 'sort',
-    color: '#66BB6A',
-    description: 'Ваш вклад в чистый воздух',
+    title: "Сохранено деревьев",
+    value: "12",
+    unit: "эквивалентов",
+    iconId: "sort",
+    color: "#66BB6A",
+    description: "Ваш вклад в чистый воздух",
   },
   {
-    title: 'Энергия сэкономлена',
-    value: '340',
-    unit: 'кВт·ч',
-    iconId: 'plastic',
-    color: '#FFA726',
-    description: 'Хватит на неделю работы ноутбука',
+    title: "Энергия сэкономлена",
+    value: "340",
+    unit: "кВт·ч",
+    iconId: "plastic",
+    color: "#FFA726",
+    description: "Хватит на неделю работы ноутбука",
   },
 ];
 

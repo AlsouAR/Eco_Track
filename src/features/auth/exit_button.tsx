@@ -1,15 +1,14 @@
-import { LogOut } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { logout } from './store/auth_slice';
-import './exit_button.css';
+import { LogOut } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { logout } from "./store/auth_slice";
+import "./exit_button.css";
 
 const ExitButton = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
-    console.log('Выход из аккаунта');
-    window.location.href = '/login';
+    window.location.href = "/login";
   };
   
 

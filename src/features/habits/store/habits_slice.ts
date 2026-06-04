@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 
 // 1. Описываем форму данных
@@ -16,13 +17,18 @@ export interface HabitsState {
 }
 
 // Вспомогательная функция для загрузки данных из памяти браузера
-const loadFromLocalStorage = () => {
-  if (typeof window === 'undefined') return undefined;
-  
+type PersistedHabitsData = {
+  habits?: Habit[];
+  history?: Record<string, string[]>;
+};
+
+const loadFromLocalStorage = (): PersistedHabitsData | undefined => {
+  if (typeof window === "undefined") {return undefined;}
+
   try {
-    const serializedState = localStorage.getItem('eco_track_data');
-    if (serializedState === null) return undefined;
-    return JSON.parse(serializedState);
+    const serializedState = localStorage.getItem("eco_track_data");
+    if (serializedState === null) {return undefined;}
+    return JSON.parse(serializedState) as PersistedHabitsData;
   } catch (err) {
     console.error("Не удалось загрузить данные из LocalStorage", err);
     return undefined;
@@ -30,11 +36,12 @@ const loadFromLocalStorage = () => {
 };
 
 const savedData = loadFromLocalStorage();
+const todayKey = format(new Date(), "yyyy-MM-dd");
 
 // 2. Начальное состояние (Initial State)
 const initialState: HabitsState = {
   // Если есть сохраненные привычки — берем их, иначе стандартный набор
-  habits: savedData?.habits || [
+  habits: savedData?.habits ?? [
     { id: 'plastic', label: 'Отказ от пластика', icon: 'ShoppingBag' },
     { id: 'bike', label: 'Поездка на велосипеде', icon: 'Bike' },
     { id: 'sort', label: 'Сортировка мусора', icon: 'Recycle' },
@@ -42,10 +49,10 @@ const initialState: HabitsState = {
     { id: 'local', label: 'Местные продукты', icon: 'Leaf' },
   ],
   // Загружаем сохраненную историю или пустой объект
-  history: savedData?.history || {}, 
-  selectedDate: format(new Date(), 'yyyy-MM-dd'),
+  history: savedData?.history ?? {},
+  selectedDate: todayKey,
   // Инициализируем черновик сразу для сегодняшней даты
-  currentDraft: (savedData?.history && savedData.history[format(new Date(), 'yyyy-MM-dd')]) || [],
+  currentDraft: savedData?.history?.[todayKey] ?? [],
 };
 
 // 3. Создаем Слайс

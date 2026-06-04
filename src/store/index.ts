@@ -1,4 +1,5 @@
-import { configureStore, Middleware } from '@reduxjs/toolkit';
+import type { Middleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import habitsReducer from '../features/habits/store/habits_slice';
 import authReducer from '../features/auth/store/auth_slice';
 import profileReducer from '../features/profile/store/profile_slice';
@@ -19,8 +20,7 @@ const localStorageMiddleware: Middleware = (storeApi) => (next) => (action: any)
     };
 
     try {
-      localStorage.setItem('eco_track_data', JSON.stringify(dataToSave));
-      console.log('Данные успешно зафиксированы в LocalStorage');
+      localStorage.setItem("eco_track_data", JSON.stringify(dataToSave));
     } catch (e) {
       console.warn('Ошибка при записи в LocalStorage:', e);
     }

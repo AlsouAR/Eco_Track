@@ -73,7 +73,7 @@ const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         <CheckIcon />
       </StyledIndicator>
     </StyledRoot>
-  )
+  ),
 );
 
 Checkbox.displayName = "Checkbox";

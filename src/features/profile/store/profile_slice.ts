@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface PriorityHabit {
   id: string;
@@ -16,8 +17,8 @@ const loadFromLocalStorage = () => {
   
   try {
     const saved = localStorage.getItem('eco_profile_habits');
-    if (saved) {
-      return JSON.parse(saved);
+    if (saved !== null) {
+      return JSON.parse(saved) as PriorityHabit[];
     }
   } catch (err) {
     console.error("Ошибка загрузки привычек", err);
@@ -37,7 +38,7 @@ const defaultHabits: PriorityHabit[] = [
 ];
 
 const initialState: ProfileState = {
-  priorityHabits: savedHabits || defaultHabits,
+  priorityHabits: savedHabits ?? defaultHabits,
 };
 
 export const profileSlice = createSlice({

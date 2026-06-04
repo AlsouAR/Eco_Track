@@ -1,32 +1,30 @@
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { MapMarker } from "./MapMarker";
-import { EcoLocation } from "../../components/map/types";
+import type { EcoLocation } from "../../components/map/types";
 import "leaflet/dist/leaflet.css";
 import "./MapContainerBlock.css";
 import { useEffect } from "react";
 
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
-    const map = useMap();
+  const map = useMap();
 
-    useEffect(() => {
-        if (center) {
-            map.setView(center, zoom);
-        }
-    }, [center, map, zoom]);
+  useEffect(() => {
+    map.setView(center, zoom);
+  }, [center, map, zoom]);
 
-    useEffect(() => {
-        const handleCenterOnUser = (event: Event) => {
-            const customEvent = event as CustomEvent<{ lat: number; lng: number }>;
-            if (customEvent.detail) {
-                map.setView([customEvent.detail.lat, customEvent.detail.lng], 15);
-            }
-        };
+  useEffect(() => {
+    const handleCenterOnUser = (event: Event) => {
+      const customEvent = event as CustomEvent<{ lat: number; lng: number }>;
+      if (customEvent.detail != null) {
+        map.setView([customEvent.detail.lat, customEvent.detail.lng], 15);
+      }
+    };
 
-        window.addEventListener("centerOnUser", handleCenterOnUser);
-        return () => window.removeEventListener("centerOnUser", handleCenterOnUser);
-    }, [map]);
+    window.addEventListener("centerOnUser", handleCenterOnUser);
+    return () => window.removeEventListener("centerOnUser", handleCenterOnUser);
+  }, [map]);
 
-    return null;
+  return null;
 }
 
 type MapContainerBlockProps = {
@@ -46,7 +44,7 @@ export function MapContainerBlock({ locations, userLocation, locationError, dele
   return (
     <div className="map-container-block">
       <div className="map-container-block__inner">
-        {locationError && (
+        {locationError != null && locationError !== "" && (
           <div className="location-error-banner">
             <span>{locationError}</span>
             <button onClick={() => window.location.reload()}>

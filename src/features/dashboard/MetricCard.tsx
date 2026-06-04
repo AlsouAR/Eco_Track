@@ -1,7 +1,7 @@
 // src/features/dashboard/MetricCard.tsx
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import React from "react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 const ContentCard = styled.div`
   font-family: sans-serif;
@@ -81,9 +81,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({ title, value, unit, icon
     </IconWrapper>
 
     <ContentCard>
-    <h3>{title}</h3>
-    <h1>{value} <span>{unit}</span></h1>
-    <p>{description}</p>
+      <h3>{title}</h3>
+      <h1>{value} <span>{unit}</span></h1>
+      <p>{description}</p>
     </ContentCard>
   </Card>
 );

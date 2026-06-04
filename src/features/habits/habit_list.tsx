@@ -1,23 +1,23 @@
 "use client";
 
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check, ShoppingBag, Bike, Recycle, Droplet, Leaf } from "lucide-react";
 import { Checkbox } from "../../components/ui/checkbox/checkbox"; 
 import { Progress } from "../../components/ui/progress/progress";
 
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { toggleHabit, saveDay } from './store/habits_slice';
-import { selectVisibleHabits } from './store/selectors';
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { toggleHabit, saveDay } from "./store/habits_slice";
+import { selectVisibleHabits } from "./store/selectors";
 
-import * as S from './habit_styles';
+import * as S from "./habit_styles";
 
 const IconMap: Record<string, any> = {
   ShoppingBag,
   Bike,
   Recycle,
   Droplet,
-  Leaf
+  Leaf,
 };
 
 export const TodayActions: React.FC = () => {
@@ -26,15 +26,14 @@ export const TodayActions: React.FC = () => {
   // Получаем только видимые (выбранные в профиле) привычки через селектор
   const visibleHabits = useAppSelector(selectVisibleHabits);
 
-  const {currentDraft, history, selectedDate } = useAppSelector((state) => state.habits);
-  const completedIds = history[selectedDate] || [];
+  const { currentDraft, history, selectedDate } = useAppSelector((state) => state.habits);
 
-  const hasChanges = JSON.stringify(currentDraft) !== JSON.stringify(history[selectedDate] || []);
+  const hasChanges = JSON.stringify(currentDraft) !== JSON.stringify(history[selectedDate] ?? []);
 
   const currentHabits = visibleHabits.map(habit => ({
     ...habit,
     completed: currentDraft.includes(habit.id),
-    iconComponent: IconMap[habit.icon] || Leaf 
+    iconComponent: IconMap[habit.icon] ?? Leaf, 
   }));
 
   const completedCount = currentHabits.filter((h) => h.completed).length;
@@ -115,11 +114,11 @@ export const TodayActions: React.FC = () => {
         <motion.div
           animate={{
             scale: progressValue === 100 ? [1, 1.2, 1] : 1,
-            rotate: progressValue === 100 ? [0, 10, -10, 0] : 0
+            rotate: progressValue === 100 ? [0, 10, -10, 0] : 0,
           }}
           transition={{ 
             repeat: progressValue === 100 ? Infinity : 0, 
-            duration: 1.5 
+            duration: 1.5, 
           }}
         >
           <Check size={20} />

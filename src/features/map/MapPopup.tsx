@@ -1,4 +1,4 @@
-import { EcoLocation } from "../../components/map/types";
+import type { EcoLocation } from "../../components/map/types";
 import { MapPin, Clock } from "lucide-react";
 import "./MapPopup.css";
 
@@ -10,7 +10,7 @@ export function MapPopup({
   onDelete?: () => void;
 }) {
   const handleDelete = () => {
-    if (!onDelete) return;
+    if (!onDelete) {return;}
     if (window.confirm("Удалить эту метку? Это действие нельзя отменить.")) {
       onDelete();
     }
@@ -26,15 +26,15 @@ export function MapPopup({
               location.type === "recycle"
                 ? "#4FC3F7"
                 : location.type === "bike"
-                ? "#66BB6A"
-                : "#FFA726",
+                  ? "#66BB6A"
+                  : "#FFA726",
           }}
         >
           {location.type === "recycle"
             ? "♻️"
             : location.type === "bike"
-            ? "🚲"
-            : "🌿"}
+              ? "🚲"
+              : "🌿"}
         </div>
 
         <div className="map-popup__info">

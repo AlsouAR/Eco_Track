@@ -1,11 +1,11 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { TrendingUp } from "lucide-react";
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from "../../store/hooks";
 // Добавляем импорт селектора видимых привычек
-import { selectWeeklyStats, selectVisibleHabits } from '../habits/store/selectors';
-import * as S from './weekly_progress_styles';
+import { selectWeeklyStats, selectVisibleHabits } from "../habits/store/selectors";
+import * as S from "./weekly_progress_styles";
 
 export const WeeklyProgress: React.FC = () => {
   const visibleHabits = useAppSelector(selectVisibleHabits);
@@ -39,7 +39,7 @@ export const WeeklyProgress: React.FC = () => {
                   transition={{ 
                     delay: index * 0.1, 
                     duration: 0.8, 
-                    ease: "easeOut" 
+                    ease: "easeOut", 
                   }}
                 />
               </S.ProgressTrack>
