@@ -6,7 +6,6 @@
   width: 100%;
 }
 
-/* ========== ЗЕЛЁНЫЙ ЗАГОЛОВОК ========== */
 .report-header {
   background: #2E7D32;
   border-radius: 24px;
@@ -45,7 +44,6 @@
   line-height: 1.4;
 }
 
-/* ========== ПРЕВЬЮ PDF-СТИЛЯ ========== */
 .report-preview-card {
   background: #F8FAF4;
   border-radius: 20px;
@@ -54,8 +52,6 @@
   border: 1px solid #E8EDE0;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-
 
 .preview-header {
   margin-bottom: 20px;
@@ -81,35 +77,35 @@
 /* ========== СТАТИСТИКА PDF ========== */
 .preview-stats {
   display: flex;
-  flex-direction: row;     /* ← изменить с column на row */
-  justify-content: space-between;  /* ← распределить равномерно */
-  gap: 16px;               /* ← расстояние между блоками */
+  flex-direction: row;     
+  justify-content: space-between;  
+  gap: 16px;               
 }
 
 .preview-stat {
   display: flex;
-  flex-direction: column;  /* ← изменить: цифра сверху, текст снизу */
-  align-items: center;     /* ← центрировать по горизонтали */
-  flex: 1;                 /* ← каждый блок занимает равную ширину */
+  flex-direction: column;  
+  align-items: center;     
+  flex: 1;                 
   padding: 8px 0;
   text-align: center;
 }
 
 .preview-stat-info {
   display: flex;
-  flex-direction: column;  /* ← вертикально: цифра сверху, текст снизу */
+  flex-direction: column;  
   align-items: center;
   gap: 4px;
 }
 
 .preview-stat-value {
-  font-size: 24px;         /* ← можно увеличить */
+  font-size: 24px;         
   font-weight: 800;
   color: #2E7D32;
 }
 
 .preview-stat-label {
-  font-size: 11px;         /* ← можно уменьшить */
+  font-size: 11px;         
   color: #7B8C6E;
   font-weight: 500;
 }
@@ -121,7 +117,7 @@
   gap: 10px;
   width: 100%;
   padding: 14px 20px;
-  background: linear-gradient(135deg, #4CAF50 0%, #2e7d32e7 100%);
+  background:  #4CAF50;
   border: none;
   border-radius: 20px;
   font-size: 15px;
@@ -144,4 +140,59 @@
 
 .report-download-btn svg {
   color: #FFFFFF;
+}
+
+.stats-section {
+  margin-bottom: 30px;
+}
+
+.stats-title {
+  color: #1B5E20;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-label {
+  padding: 8px 0;
+  border-bottom: 1px solid #E8EED9;
+}
+
+.stats-value {
+  text-align: right;
+  font-weight: bold;
+}
+.d-value {
+  text-align: left;
+  font-weight: bold;
+}
+
+.pdf-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pdf-main-title {
+  color: #1B5E20;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.pdf-month-title {
+  color: #FF9800;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.pdf-user-subtitle {
+  color: #7B8C6E;
+}
+
+.pdf-divider {
+  border: 1px solid #E8EED9;
+  margin: 20px 0;
 }

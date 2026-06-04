@@ -219,5 +219,5 @@ export function Achievements({
     </AchievementsCard>
   );
 }
-
+export { getAchievements };
 export default Achievements;

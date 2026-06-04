@@ -25,7 +25,6 @@
   transition: all 0.2s ease;
   font-family: inherit;
 
-
   background: #4CAF50;        
   color: #ffffff;             
 }
@@ -54,17 +53,4 @@
 
 .action-btn:hover {
   background: #3d9c41;        
-}
-
-.reset-btn {
-  background: #F5F7F0;        
-  color: #1B5E20;             
-}
-
-.reset-btn svg {
-  color: #1B5E20;             
-}
-
-.reset-btn:hover {
-  background: #E8EDE0;        
 }

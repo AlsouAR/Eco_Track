@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../store";
 import { subDays, format, startOfDay, parseISO, startOfToday, isSameDay, addDays } from "date-fns";
 import { ru } from "date-fns/locale";
+import { getAchievements } from '../../../features/dashboard/Achievements';
+import { calculateMetrics } from '../../../features/dashboard/calculateMetrics';
 
 const selectHabitState = (state: RootState) => state.habits;
 // Селектор для получения списка настроек отображения из профиля
@@ -137,5 +139,152 @@ export const selectTotalActiveDays = createSelector(
     }).length;
     
     return totalDays;
+  }
+);
+// 5. Селектор для эко-уровня
+export const selectHighestAchievement = createSelector(
+  [selectHabitState, selectStreakData],
+  (habitsState, streakData) => {
+    const { habits, history } = habitsState;
+    const metrics = calculateMetrics(habits, history, habits);
+    
+    const waterSaved = parseFloat(metrics.metricsCards.find(m => m.title === 'Сэкономлено воды')?.value.replace(/\s/g, '') || '0');
+    const co2Saved = parseFloat(metrics.metricsCards.find(m => m.title === 'Сокращено CO₂')?.value.replace(/\s/g, '') || '0');
+    const treesPlanted = metrics.treesPlanted;
+    const { currentStreak } = streakData;
+    
+    const achievements = getAchievements(currentStreak, waterSaved, treesPlanted, co2Saved);
+    
+    // Находим самое высокое разблокированное достижение (с максимальным id)
+    const highestUnlocked = achievements
+      .filter(a => a.unlocked)
+      .sort((a, b) => b.id - a.id)[0];
+    
+    if (highestUnlocked) {
+      return {
+        title: highestUnlocked.title,
+        description: highestUnlocked.description,
+        id: highestUnlocked.id
+      };
+    }
+    return { title: 'Начинающий', description: 'Сделайте первый шаг', id: 0 };
+  }
+);
+
+// 6. Селектор для статистики за текущий месяц
+export const selectMonthlyStats = createSelector(
+  [selectHabitState, selectVisibleHabits],
+  (habitsState, visibleHabits) => {
+    const { history } = habitsState;
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
+    
+    const monthDays = Object.keys(history).filter(dateKey => {
+      if (!dateKey) return false;
+      const parts = dateKey.split('-');
+      if (parts.length < 2) return false;
+      
+      const year = parts[0];
+      const month = parts[1];
+      
+      if (!year || !month) return false;
+      
+      return parseInt(year, 10) === currentYear && parseInt(month, 10) - 1 === currentMonth;
+    });
+    
+    let totalActions = 0;
+    let bestStreakInMonth = 0;
+    let currentStreakInMonth = 0;
+    let maxActionsInDay = 0;
+    let habitFrequency: Record<string, number> = {};
+    
+    // Сортируем дни по возрастанию
+    const sortedDays = [...monthDays].sort();
+    
+    // Проходим по дням месяца для расчёта серии
+    for (const dateKey of sortedDays) {
+      if (!dateKey) continue; // Защита от undefined
+      
+      const dayHabits = history[dateKey] || [];
+      
+      // Фильтруем только видимые привычки
+      const visibleHabitsCount = dayHabits.filter(id => 
+        visibleHabits.some(vh => vh.id === id)
+      ).length;
+      
+      totalActions += visibleHabitsCount;
+      
+      if (visibleHabitsCount > maxActionsInDay) {
+        maxActionsInDay = visibleHabitsCount;
+      }
+      
+      // Подсчёт частоты привычек
+      dayHabits.forEach(habitId => {
+        if (visibleHabits.some(vh => vh.id === habitId)) {
+          habitFrequency[habitId] = (habitFrequency[habitId] || 0) + 1;
+        }
+      });
+      
+      // Расчёт серии
+      if (visibleHabitsCount > 0) {
+        currentStreakInMonth++;
+        bestStreakInMonth = Math.max(bestStreakInMonth, currentStreakInMonth);
+      } else {
+        currentStreakInMonth = 0;
+      }
+    }
+    
+    // Находим самую частую привычку
+    let mostFrequentHabit: string | null = null;
+    let maxCount = 0;
+    for (const [habitId, count] of Object.entries(habitFrequency)) {
+      if (count > maxCount) {
+        maxCount = count;
+        const habit = visibleHabits.find(h => h.id === habitId);
+        mostFrequentHabit = habit ? habit.label : habitId;
+      }
+    }
+    
+    // Метрики за месяц
+    let waterCountMonth = 0;
+    let bikeCountMonth = 0;
+    let sortCountMonth = 0;
+    let plasticCountMonth = 0;
+    
+    for (const dateKey of monthDays) {
+      if (!dateKey) continue;
+      
+      const dayHabits = history[dateKey] || [];
+      if (dayHabits.includes('water')) waterCountMonth++;
+      if (dayHabits.includes('bike')) bikeCountMonth++;
+      if (dayHabits.includes('sort')) sortCountMonth++;
+      if (dayHabits.includes('plastic')) plasticCountMonth++;
+    }
+    
+    const COEFFICIENTS = { water: 50, bike: 2.5, sort: 0.04, plastic: 3 };
+    
+    // Подсчёт активных дней
+    let activeDaysCount = 0;
+    for (const dateKey of monthDays) {
+      if (!dateKey) continue;
+      const habits = history[dateKey];
+      if (habits && habits.length > 0) {
+        activeDaysCount++;
+      }
+    }
+    
+    return {
+      month: now.toLocaleString('ru-RU', { month: 'long', year: 'numeric' }),
+      daysActive: activeDaysCount,
+      totalActions,
+      bestStreak: bestStreakInMonth,
+      maxActionsInDay,
+      mostFrequentHabit,
+      waterSaved: waterCountMonth * COEFFICIENTS.water,
+      co2Reduced: bikeCountMonth * COEFFICIENTS.bike,
+      treesPlanted: sortCountMonth * COEFFICIENTS.sort,
+      energySaved: plasticCountMonth * COEFFICIENTS.plastic,
+    };
   }
 );

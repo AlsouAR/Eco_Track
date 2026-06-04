@@ -4,12 +4,32 @@ import { useAppDispatch } from '../../store/hooks';
 import { loginSuccess } from './store/auth_slice';
 import * as S from './auth_styles';
 import { updateUserData } from '../profile_components/userData';
+
 export const AuthForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const validatePassword = (password: string): boolean => {
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{5,}$/;
+      return passwordRegex.test(password);
+    };
+
+    const getPasswordError = (password: string): string | null => {
+      if (password.length === 0) return null;
+      if (password.length < 5) {
+        return 'Пароль должен содержать минимум 5 символов из цифр и латинских букв';
+      }
+      if (!/[A-Za-z]/.test(password)) {
+        return 'Пароль должен содержать хотя бы одну латинскую букву';
+      }
+      if (!/\d/.test(password)) {
+        return 'Пароль должен содержать хотя бы одну цифру';
+      }
+      return null;
+    };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +39,10 @@ export const AuthForm: React.FC = () => {
       setError('Заполните все поля');
       return;
     }
-
+    if (!isLoginMode && !validatePassword(password)) {
+        setError('Пароль: минимум 5 символов, хотя бы одна латинская буква и одна цифра');
+        return;
+    }
     const users = JSON.parse(localStorage.getItem('eco_users') || '{}');
 
     if (isLoginMode) {
@@ -40,7 +63,8 @@ export const AuthForm: React.FC = () => {
       }
     }
   };
-
+  
+  const passwordError = !isLoginMode ? getPasswordError(password) : null;
   return (
     <S.AuthContainer>
       <S.LogoWrapper>
