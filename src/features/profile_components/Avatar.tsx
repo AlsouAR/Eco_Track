@@ -29,11 +29,42 @@ function Avatar({ name, avatarImage }: AvatarProps) {
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      if (file.size > 1 * 1024 * 1024) {
+        alert('Изображение слишком большое. Максимум 1 МБ');
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        setImage(base64String);
-        localStorage.setItem(getStorageKey(), base64String);
+        const base64Size = new Blob([base64String]).size;
+        if (base64Size > 1.5 * 1024 * 1024) {
+          alert('Изображение слишком большое даже после кодирования');
+          return;
+        }
+
+        try {
+          const currentKey = getStorageKey();
+      
+          const oldAvatar = localStorage.getItem(currentKey);
+          
+          if (oldAvatar) {
+            localStorage.removeItem(currentKey);
+            console.log(`Старый аватар для ${name} удалён`);
+          }
+          
+          localStorage.setItem(currentKey, base64String);
+          setImage(base64String);
+          
+          console.log(`Новый аватар для ${name} сохранён`);
+          
+        } catch (error) {
+          console.error('Ошибка при сохранении аватара:', error);
+          
+          if (error === 'QuotaExceededError') {
+            alert('Недостаточно места в хранилище. Попробуйте изображение меньшего размера');
+          }
+        }
       };
       reader.readAsDataURL(file);
     }

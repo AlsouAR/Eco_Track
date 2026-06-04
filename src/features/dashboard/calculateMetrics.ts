@@ -42,8 +42,8 @@ export const calculateMetrics = (
   visibleHabits: Habit[]
 ) => {
   // Создаем массив ID только видимых привычек для быстрой фильтрации графиков
-  const visibleIds = visibleHabits.map(h => h.id);
-
+  const visibleIds = (visibleHabits || habits || []).map(h => h.id);
+  
   // --- Карточки EcoImpact ---
   const waterCount = countTotalExecutions('water', history);
   const bikeCount = countTotalExecutions('bike', history);

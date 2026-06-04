@@ -61,8 +61,15 @@ export const profileSlice = createSlice({
         localStorage.setItem('eco_profile_habits', JSON.stringify(state.priorityHabits));
       }
     },
+    // для полного сброса
+    resetAllProgress: (state) => {
+      state.priorityHabits = state.priorityHabits.map(h => ({ ...h, completed: true }));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('eco_profile_habits', JSON.stringify(state.priorityHabits));
+      }
+    },
   },
 });
 
-export const { togglePriorityHabit, resetPriorityHabits } = profileSlice.actions;
+export const { togglePriorityHabit, resetPriorityHabits, resetAllProgress } = profileSlice.actions;
 export default profileSlice.reducer;

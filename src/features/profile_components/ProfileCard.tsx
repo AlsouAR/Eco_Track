@@ -1,17 +1,18 @@
 import Avatar from './Avatar';
 import { userData } from './userData';
 import { useAppSelector } from '../../store/hooks';
-import { selectStreakData, selectTotalActiveDays } from '../habits/store/selectors';
+import { selectStreakData, selectTotalActiveDays, selectHighestAchievement } from '../habits/store/selectors';
 import './ProfileCard.css';
 
 function ProfileCard() {
   const { currentStreak, bestStreak } = useAppSelector(selectStreakData);
   const totalDays = useAppSelector(selectTotalActiveDays);
+  const highestAchievement = useAppSelector(selectHighestAchievement);
 
   return (
     <div className="profile-card">
       <Avatar name={userData.name} avatarImage={userData.avatar} />
-      
+
       <h1 className="profile-name">{userData.name}</h1>
       
       <p className="profile-status">
@@ -30,7 +31,7 @@ function ProfileCard() {
       </div>
       
       <div className="profile-level">
-        <h2 className="stat-value">Эко-герой</h2>
+        <p className = "level-title">{highestAchievement.title}</p>
         <p className="stat-label">Уровень</p>
       </div>
     </div>

@@ -67,12 +67,23 @@ export const habitsSlice = createSlice({
         state.currentDraft.push(habitId);
       }
     },
-    
     saveDay: (state) => {
       state.history[state.selectedDate] = [...state.currentDraft];
     },
+    // для сброса
+    resetAllProgress: (state) => {
+      state.history = {};
+      state.currentDraft = [];
+      
+      if (typeof window !== 'undefined') {
+        const savedData = { habits: state.habits, history: {} };
+        localStorage.setItem('eco_track_data', JSON.stringify(savedData));
+      }
+    },
+    
   },
 });
 
-export const { setSelectedDate, toggleHabit, saveDay } = habitsSlice.actions;
+
+export const { setSelectedDate, toggleHabit, saveDay, resetAllProgress } = habitsSlice.actions;
 export default habitsSlice.reducer;
