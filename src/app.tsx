@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { BackgroundLeaves } from "./components/BackgroundLeaves";
 import { AuthForm } from "./features/auth/AuthForm";
-import Header from "./features/header";
+import Header from "./features/header/Header";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import HomePage from "./pages/home/HomePage";
 import MainPage from "./pages/main/MainPage";

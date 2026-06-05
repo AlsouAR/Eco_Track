@@ -3,7 +3,7 @@ import React from "react";
 import { BarChart3, Leaf, MapPin, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
-import * as S from "./header_styles";
+import * as S from "./Header.styles";
 
 export function Header() {
   const location = useLocation();
