@@ -1,8 +1,8 @@
-import type { Middleware } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
-import habitsReducer from '../features/habits/store/habits_slice';
-import authReducer from '../features/auth/store/auth_slice';
-import profileReducer from '../features/profile/store/profile_slice';
+import type { Middleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import habitsReducer from "../features/habits/store/habits_slice";
+import authReducer from "../features/auth/store/auth_slice";
+import profileReducer from "../features/profile/store/profile_slice";
 // 1. Создаем Middleware для сохранения данных
 const localStorageMiddleware: Middleware = (storeApi) => (next) => (action: any) => {
   // Сначала даем экшену выполниться, чтобы обновить состояние в Redux
@@ -10,9 +10,9 @@ const localStorageMiddleware: Middleware = (storeApi) => (next) => (action: any)
 
   // 2. Проверяем, был ли это экшен сохранения дня
   // Redux Toolkit создает типы экшенов в формате 'имяСлайса/имяРедюсера'
-  if (action.type === 'habits/saveDay') {
+  if (action.type === "habits/saveDay") {
     const state = storeApi.getState();
-    
+
     // Подготавливаем данные для записи
     const dataToSave = {
       habits: state.habits.habits,
@@ -22,7 +22,7 @@ const localStorageMiddleware: Middleware = (storeApi) => (next) => (action: any)
     try {
       localStorage.setItem("eco_track_data", JSON.stringify(dataToSave));
     } catch (e) {
-      console.warn('Ошибка при записи в LocalStorage:', e);
+      console.warn("Ошибка при записи в LocalStorage:", e);
     }
   }
 
@@ -37,8 +37,7 @@ export const store = configureStore({
     profile: profileReducer,
   },
   // Добавляем прослойку к стандартным
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(localStorageMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

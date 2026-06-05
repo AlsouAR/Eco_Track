@@ -19,7 +19,7 @@ const MainGrid = styled.div`
   gap: 1.5rem;
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1fr 350px; 
+    grid-template-columns: 1fr 350px;
     align-items: start;
   }
 `;
@@ -36,16 +36,12 @@ const RightColumn = styled.div`
   gap: 1.5rem;
 `;
 
-
 const HomePage = () => {
   return (
     <PageContainer>
       <MainGrid>
         <LeftColumn>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <EcoCalendar />
           </motion.div>
 
@@ -54,8 +50,7 @@ const HomePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-
-            <TodayActions/>
+            <TodayActions />
           </motion.div>
         </LeftColumn>
 
@@ -73,7 +68,7 @@ const HomePage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <QuickStats/>
+            <QuickStats />
           </motion.div>
         </RightColumn>
       </MainGrid>

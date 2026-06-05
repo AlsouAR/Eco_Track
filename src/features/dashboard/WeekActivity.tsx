@@ -1,15 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const ActivityCard = styled(motion.div)`
   background: var(--card, #ffffff);
@@ -34,20 +26,20 @@ const HeaderSection = styled.div`
 
 const TooltipWrapper = styled.div`
   background: white;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 8px 12px;
 `;
 // День недели на графике
 const TooltipLabel = styled.p`
-  color: #1B5E20;
+  color: #1b5e20;
   font-weight: normal;
   margin: 0 0 4px;
 `;
 // значения при наведении на столбец
 const TooltipValue = styled.p`
-  color: #4CAF50;
+  color: #4caf50;
   margin: 0;
 `;
 // Отключение обводки при фокусе на графике для лучшего UX
@@ -95,7 +87,6 @@ interface WeeklyActivityProps {
 }
 
 export function WeeklyActivity({ data, maxTicks }: WeeklyActivityProps) {
-
   const weeklyData = data ?? defaultWeeklyData;
 
   const yAxisMax = maxTicks != null && maxTicks > 0 ? maxTicks : 5;
@@ -123,11 +114,7 @@ export function WeeklyActivity({ data, maxTicks }: WeeklyActivityProps) {
           <XAxis dataKey="day" stroke="#888" />
           <YAxis stroke="#888" domain={[0, yAxisMax]} allowDecimals={false} />
           <Tooltip content={<CustomTooltip />} />
-          <Bar
-            dataKey="value"
-            fill="url(#barGradient)"
-            radius={[12, 12, 0, 0]}
-          />
+          <Bar dataKey="value" fill="url(#barGradient)" radius={[12, 12, 0, 0]} />
         </BarChart>
       </StyledResponsiveContainer>
     </ActivityCard>

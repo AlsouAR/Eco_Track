@@ -24,7 +24,7 @@ export const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5rem; 
+  height: 5rem;
 `;
 
 export const LogoWrapper = styled(Link)`
@@ -67,11 +67,11 @@ export const NavItemBox = styled(motion.div)<{ isActive: boolean }>`
   border-radius: 0.75rem;
   position: relative;
   transition: all 0.2s;
-  color: ${props => props.isActive ? '#ffffff' : 'var(--foreground)'};
+  color: ${(props) => (props.isActive ? "#ffffff" : "var(--foreground)")};
   cursor: pointer;
 
   &:hover {
-    background-color: ${props => props.isActive ? 'transparent' : 'rgba(200, 230, 201, 0.3)'};
+    background-color: ${(props) => (props.isActive ? "transparent" : "rgba(200, 230, 201, 0.3)")};
   }
 `;
 
@@ -101,10 +101,10 @@ export const MobileNavItem = styled(motion.div)<{ isActive: boolean }>`
   border-radius: 0.75rem;
   position: relative;
   transition: all 0.2s;
-  color: ${props => props.isActive ? '#ffffff' : 'var(--foreground)'};
+  color: ${(props) => (props.isActive ? "#ffffff" : "var(--foreground)")};
   cursor: pointer;
 
   &:hover {
-    background-color: ${props => props.isActive ? 'transparent' : 'rgba(200, 230, 201, 0.3)'};
+    background-color: ${(props) => (props.isActive ? "transparent" : "rgba(200, 230, 201, 0.3)")};
   }
 `;

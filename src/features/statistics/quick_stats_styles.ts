@@ -5,17 +5,17 @@ export const StatsCard = styled(motion.div)`
   background: linear-gradient(135deg, var(--primary), var(--accent));
   border-radius: 1.875rem;
   padding: 1.5rem;
-  color: var(--primary-foreground); 
+  color: var(--primary-foreground);
   box-shadow: 0 8px 30px rgba(76, 175, 80, 0.15);
   display: flex;
   flex-direction: column;
-  height: 100%; 
+  height: 100%;
 `;
 
 export const IconWrapper = styled.div`
   margin-bottom: 1rem;
   opacity: 0.9;
-  
+
   svg {
     width: 2rem;
     height: 2rem;
@@ -52,6 +52,6 @@ export const BestStreakLabel = styled.div`
 `;
 
 export const BestStreakValue = styled.div`
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
   font-weight: 700;
 `;

@@ -13,7 +13,8 @@ type FormData = {
 };
 
 export function AddLocationModal({
-  close, onAdd,
+  close,
+  onAdd,
 }: {
   close: () => void;
   onAdd: (location: Omit<EcoLocation, "id">) => void;
@@ -58,16 +59,18 @@ export function AddLocationModal({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (name === "address") {
       setGeocodeError("");
     }
 
     if (errors[name as keyof FormData] !== undefined) {
-      setErrors(prev => ({ ...prev, [name as keyof FormData]: undefined }));
+      setErrors((prev) => ({ ...prev, [name as keyof FormData]: undefined }));
     }
   };
 
@@ -97,7 +100,9 @@ export function AddLocationModal({
     const coords = await geocodeAddress(formData.address);
 
     if (!coords) {
-      setGeocodeError("Не удалось определить координаты по указанному адресу. Пожалуйста, уточните адрес.");
+      setGeocodeError(
+        "Не удалось определить координаты по указанному адресу. Пожалуйста, уточните адрес.",
+      );
       return;
     }
 
@@ -160,7 +165,9 @@ export function AddLocationModal({
               placeholder="Например: Пункт приёма пластика"
               className={`add-location-modal__input ${errors.name != null && errors.name !== "" ? "error" : ""}`}
             />
-            {errors.name != null && errors.name !== "" && <span className="error-message">{errors.name}</span>}
+            {errors.name != null && errors.name !== "" && (
+              <span className="error-message">{errors.name}</span>
+            )}
           </div>
 
           {/* Тип */}
@@ -200,8 +207,12 @@ export function AddLocationModal({
                 </div>
               )}
             </div>
-            {errors.address != null && errors.address !== "" && <span className="error-message">{errors.address}</span>}
-            {geocodeError !== "" && <span className="error-message geocode-error">{geocodeError}</span>}
+            {errors.address != null && errors.address !== "" && (
+              <span className="error-message">{errors.address}</span>
+            )}
+            {geocodeError !== "" && (
+              <span className="error-message geocode-error">{geocodeError}</span>
+            )}
             <div className="address-hint">
               <Search className="w-3 h-3" />
               <span>Координаты определятся автоматически по адресу</span>
@@ -210,9 +221,7 @@ export function AddLocationModal({
 
           {/* Часы работы */}
           <div>
-            <label className="add-location-modal__field-label">
-              Часы работы
-            </label>
+            <label className="add-location-modal__field-label">Часы работы</label>
             <input
               type="text"
               name="hours"
@@ -236,7 +245,9 @@ export function AddLocationModal({
               placeholder="Расскажите подробнее"
               className={`add-location-modal__textarea ${errors.description != null && errors.description !== "" ? "error" : ""}`}
             />
-            {errors.description != null && errors.description !== "" && <span className="error-message">{errors.description}</span>}
+            {errors.description != null && errors.description !== "" && (
+              <span className="error-message">{errors.description}</span>
+            )}
           </div>
 
           {/* Кнопки */}

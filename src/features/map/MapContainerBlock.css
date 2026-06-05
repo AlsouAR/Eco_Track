@@ -29,9 +29,9 @@
   align-items: center;
   z-index: 1000;
   font-size: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
-  
+
   @media (min-width: 768px) {
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
@@ -47,7 +47,7 @@
   color: #ff9800;
   font-weight: 600;
   font-size: 0.75rem;
-  
+
   @media (min-width: 768px) {
     font-size: 0.875rem;
   }
@@ -62,7 +62,7 @@
     min-width: 200px !important;
     max-width: 250px !important;
   }
-  
+
   .leaflet-popup-content-wrapper {
     border-radius: 0.75rem !important;
   }

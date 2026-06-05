@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 import "./EcoGoals.css";
 import { Leaf } from "lucide-react";
 import { useAppSelector } from "../../store/hooks";
-import { 
-  selectTotalWeeklyActions, 
-  selectMaxWeeklyActions, 
+import {
+  selectTotalWeeklyActions,
+  selectMaxWeeklyActions,
   selectWeeklyProgressPercent,
-  selectPriorityHabits, 
+  selectPriorityHabits,
 } from "../profile/store/selectors";
 import { togglePriorityHabit } from "../profile/store/profile_slice";
 
-// Заголовок 
+// Заголовок
 const GoalsHeader = () => {
   return (
     <div className="goals-header">
@@ -26,28 +26,30 @@ const GoalsHeader = () => {
   );
 };
 
-//  Ползунок 
+//  Ползунок
 const TargetActions = () => {
   const totalActions = useAppSelector(selectTotalWeeklyActions);
   const maxActions = useAppSelector(selectMaxWeeklyActions);
   const percent = useAppSelector(selectWeeklyProgressPercent);
-  
+
   const [sliderValue, setSliderValue] = useState(totalActions);
 
   useEffect(() => {
     setSliderValue(totalActions);
   }, [totalActions]);
 
-  // Процент 
+  // Процент
   const percentForSlider = maxActions > 0 ? (sliderValue / maxActions) * 100 : 0;
 
   return (
     <div className="target-actions">
       <div className="target-label-row">
         <span className="target-label">Действий за неделю</span>
-        <span className="target-value">{totalActions} / {maxActions}</span>
+        <span className="target-value">
+          {totalActions} / {maxActions}
+        </span>
       </div>
-      
+
       <div className="slider-container">
         <span className="slider-min">0</span>
         <div className="slider-track">
@@ -65,7 +67,7 @@ const TargetActions = () => {
         </div>
         <span className="slider-max">{maxActions}</span>
       </div>
-      
+
       <div className="actions-hint">
         <span>0 действий</span>
         <span>{percent}% выполнено</span>
@@ -75,7 +77,7 @@ const TargetActions = () => {
   );
 };
 
-//  Приоритетные привычки 
+//  Приоритетные привычки
 const PriorityHabits = () => {
   const dispatch = useDispatch();
   const habits = useAppSelector(selectPriorityHabits);
@@ -87,7 +89,7 @@ const PriorityHabits = () => {
   return (
     <div className="priority-habits">
       <h3 className="habits-title">Приоритетные привычки</h3>
-      
+
       <div className="habits-list">
         {habits.map((habit) => (
           <label key={habit.id} className="habit-item">
@@ -97,9 +99,7 @@ const PriorityHabits = () => {
               onChange={() => handleToggle(habit.id)}
               className="habit-checkbox"
             />
-            <span className="habit-name">
-              {habit.name}
-            </span>
+            <span className="habit-name">{habit.name}</span>
           </label>
         ))}
       </div>

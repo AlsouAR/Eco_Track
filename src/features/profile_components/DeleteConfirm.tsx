@@ -29,14 +29,14 @@ const IconWrapper = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #FFF3E0;
+  background: #fff3e0;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  
+
   svg {
-    color: #FF9800;
+    color: #ff9800;
   }
 `;
 
@@ -45,38 +45,38 @@ const Title = styled.h3`
   font-weight: 600;
   text-align: center;
   margin: 0 0 8px 0;
-  color: #1B5E20;
+  color: #1b5e20;
 `;
 
 const Message = styled.p`
   font-size: 14px;
-  color: #64748B;
+  color: #64748b;
   text-align: center;
   margin: 0 0 20px 0;
   line-height: 1.5;
 `;
 
 const KeepList = styled.div`
-  background: #F5F7F0;
+  background: #f5f7f0;
   border-radius: 12px;
   padding: 12px 16px;
   margin-bottom: 20px;
-  
+
   p {
     font-size: 13px;
     font-weight: 600;
-    color: #1B5E20;
+    color: #1b5e20;
     margin: 0 0 8px 0;
   }
-  
+
   ul {
     margin: 0;
     padding-left: 20px;
   }
-  
+
   li {
     font-size: 13px;
-    color: #4CAF50;
+    color: #4caf50;
     margin: 4px 0;
   }
 `;
@@ -95,9 +95,9 @@ const CancelButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:hover {
-    background: #F8FAFC;
+    background: #f8fafc;
   }
 `;
 
@@ -106,12 +106,12 @@ const ConfirmButton = styled.button`
   padding: 10px;
   border-radius: 12px;
   border: none;
-  background: #DC2626;
+  background: #dc2626;
   color: white;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:hover {
     transform: scale(0.98);
   }
@@ -142,10 +142,10 @@ export const DeleteConfirm: React.FC<ConfirmModalProps> = ({ isOpen, onClose, on
             <IconWrapper>
               <AlertTriangle size={24} />
             </IconWrapper>
-            
+
             <Title>Сброс прогресса</Title>
             <Message>Вы уверены, что хотите сбросить весь прогресс?</Message>
-            
+
             <KeepList>
               <p>Останется только:</p>
               <ul>
@@ -153,7 +153,7 @@ export const DeleteConfirm: React.FC<ConfirmModalProps> = ({ isOpen, onClose, on
                 <li>Дата регистрации</li>
               </ul>
             </KeepList>
-            
+
             <ButtonGroup>
               <CancelButton onClick={onClose}>Отмена</CancelButton>
               <ConfirmButton onClick={onConfirm}>Сбросить</ConfirmButton>

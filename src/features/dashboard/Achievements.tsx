@@ -25,7 +25,7 @@ const IconBox = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #FFA726, #FF9800);
+  background: linear-gradient(135deg, #ffa726, #ff9800);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,9 +67,7 @@ const AchievementCardStyled = styled(motion.div)<AchievementCardStyledProps>`
   border-radius: 16px;
   border: 2px solid ${({ unlocked }) => (unlocked ? "#FFA726" : "#E5E7EB")};
   background: ${({ unlocked }) =>
-    unlocked
-      ? "linear-gradient(135deg, #FFF9E6, #FFF3D6)"
-      : "#F9FAFB"};
+    unlocked ? "linear-gradient(135deg, #FFF9E6, #FFF3D6)" : "#F9FAFB"};
   opacity: ${({ unlocked }) => (unlocked ? 1 : 0.5)};
   cursor: ${({ unlocked }) => (unlocked ? "pointer" : "default")};
   transition: all 0.2s ease;
@@ -87,9 +85,7 @@ const AchievementIconBox = styled.div<{ unlocked: boolean }>`
   align-items: center;
   justify-content: center;
   background: ${({ unlocked }) =>
-    unlocked
-      ? "linear-gradient(135deg, #FFA726, #FF9800)"
-      : "#D1D5DB"};
+    unlocked ? "linear-gradient(135deg, #FFA726, #FF9800)" : "#D1D5DB"};
   margin: 0 auto;
 `;
 
@@ -134,7 +130,7 @@ const getAchievements = (
     id: 1,
     title: "Эко-новичок",
     description: "Первые 7 дней",
-    unlocked: streak >= 7 ,
+    unlocked: streak >= 7,
   },
   {
     id: 2,
@@ -206,10 +202,7 @@ export function Achievements({
             whileHover={achievement.unlocked ? { scale: 1.05 } : {}}
           >
             <AchievementIconBox unlocked={achievement.unlocked}>
-              <Award
-                size={32}
-                color={achievement.unlocked ? "white" : "#9CA3AF"}
-              />
+              <Award size={32} color={achievement.unlocked ? "white" : "#9CA3AF"} />
             </AchievementIconBox>
             <AchievementTitle>{achievement.title}</AchievementTitle>
             <AchievementDesc>{achievement.description}</AchievementDesc>

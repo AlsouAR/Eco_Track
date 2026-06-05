@@ -1,14 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  Leaf, 
-  Calendar, 
-  BarChart3, 
-  Map, 
-  User, 
-  TreePine,
-  ArrowRight,
-} from "lucide-react";
+import { Leaf, Calendar, BarChart3, Map, User, TreePine, ArrowRight } from "lucide-react";
 import "./main_page.css";
 
 const MainPage = () => {
@@ -18,65 +10,81 @@ const MainPage = () => {
     {
       icon: <Calendar size={32} />,
       title: "Трекер привычек",
-      description: "Отмечайте ежедневные эко-привычки, следите за прогрессом в календаре и стройте непрерывные серии.",
+      description:
+        "Отмечайте ежедневные эко-привычки, следите за прогрессом в календаре и стройте непрерывные серии.",
       color: "#4CAF50",
     },
     {
       icon: <BarChart3 size={32} />,
       title: "Дашборд достижений",
-      description: "Визуализируйте свой вклад в экологию: сэкономленная вода, снижение CO₂, спасённые деревья.",
+      description:
+        "Визуализируйте свой вклад в экологию: сэкономленная вода, снижение CO₂, спасённые деревья.",
       color: "#66BB6A",
     },
     {
       icon: <Map size={32} />,
       title: "Эко-карта",
-      description: "Находите точки сбора вторсырья, велопарковки и эко-события. Делитесь своими локациями.",
+      description:
+        "Находите точки сбора вторсырья, велопарковки и эко-события. Делитесь своими локациями.",
       color: "#81C784",
     },
     {
       icon: <User size={32} />,
       title: "Личный профиль",
-      description: "Настраивайте цели, смотрите статистику, экспортируйте отчёты и получайте достижения.",
+      description:
+        "Настраивайте цели, смотрите статистику, экспортируйте отчёты и получайте достижения.",
       color: "#A5D6A7",
     },
   ];
 
   const steps = [
     { step: "01", title: "Зарегистрируйтесь", description: "Создайте аккаунт за 1 минуту" },
-    { step: "02", title: "Выберите привычки", description: "Отметьте эко-привычки, которые хотите развивать" },
-    { step: "03", title: "Отмечайте ежедневно", description: "Каждый день отмечайте выполненные действия" },
-    { step: "04", title: "Следите за прогрессом", description: "Наблюдайте за своим влиянием на экологию" },
+    {
+      step: "02",
+      title: "Выберите привычки",
+      description: "Отметьте эко-привычки, которые хотите развивать",
+    },
+    {
+      step: "03",
+      title: "Отмечайте ежедневно",
+      description: "Каждый день отмечайте выполненные действия",
+    },
+    {
+      step: "04",
+      title: "Следите за прогрессом",
+      description: "Наблюдайте за своим влиянием на экологию",
+    },
   ];
 
   return (
     <div className="main-page">
-      
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">
             <Leaf size={16} />
             <span>EcoTrack — ваш эко-помощник</span>
           </div>
-          
+
           <h1>
-            Превращайте{" "}
-            <span className="gradient-text">эко-привычки</span>
-            <br />
-            в реальные достижения
+            Превращайте <span className="gradient-text">эко-привычки</span>
+            <br />в реальные достижения
           </h1>
-          
+
           <p>
-            Отслеживайте свои экологические привычки, участвуйте в эко-инициативах
-            и смотрите, как ваши действия влияют на планету.
+            Отслеживайте свои экологические привычки, участвуйте в эко-инициативах и смотрите, как
+            ваши действия влияют на планету.
           </p>
-          
+
           <div className="hero-buttons">
             <button className="btn-primary" onClick={() => navigate("/login")}>
               Начать путь <ArrowRight size={18} />
             </button>
-            <button className="btn-secondary" onClick={() => {
-              document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
-            }}>
+            <button
+              className="btn-secondary"
+              onClick={() => {
+                document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
               Узнать больше
             </button>
           </div>
@@ -88,9 +96,7 @@ const MainPage = () => {
           <h2>
             Всё, что нужно для <span className="gradient-text">осознанного</span> развития
           </h2>
-          <p>
-            EcoTrack объединяет множество функций
-          </p>
+          <p>EcoTrack объединяет множество функций</p>
         </div>
 
         <div className="features-grid">
@@ -106,9 +112,7 @@ const MainPage = () => {
 
       <section className="how-it-works">
         <div className="section-header">
-          <h2>
-            Как начать?
-          </h2>
+          <h2>Как начать?</h2>
         </div>
 
         <div className="steps-container">
@@ -135,7 +139,9 @@ const MainPage = () => {
           <button className="btn-primary" onClick={() => navigate("/login")}>
             Создать аккаунт <ArrowRight size={18} />
           </button>
-          <p className="cta-note">Уже есть аккаунт? <span onClick={() => navigate("/login")}>Войти</span></p>
+          <p className="cta-note">
+            Уже есть аккаунт? <span onClick={() => navigate("/login")}>Войти</span>
+          </p>
         </div>
       </section>
 

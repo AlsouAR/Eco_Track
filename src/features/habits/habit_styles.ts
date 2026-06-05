@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 export const Container = styled(motion.div)`
   background: var(--card);
-  border-radius: 1.875rem; 
+  border-radius: 1.875rem;
   padding: 1.5rem;
   border: 1px solid var(--border);
   box-shadow: 0 8px 30px rgba(76, 175, 80, 0.08);
@@ -49,7 +49,9 @@ export const HabitCard = styled(motion.div)<{ $isCompleted: boolean }>`
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.12);
   }
 
-  ${props => props.$isCompleted && `
+  ${(props) =>
+    props.$isCompleted &&
+    `
     background: var(--muted); 
     border-color: var(--primary);
   `}
@@ -68,13 +70,13 @@ export const IconBox = styled.div<{ $isCompleted: boolean }>`
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  background: ${props => props.$isCompleted ? 'var(--primary)' : 'var(--input-background)'};
+  background: ${(props) => (props.$isCompleted ? "var(--primary)" : "var(--input-background)")};
 
   svg {
     width: 1.25rem;
     height: 1.25rem;
     transition: color 0.2s ease;
-    color: ${props => props.$isCompleted ? 'var(--primary-foreground)' : 'var(--primary)'};
+    color: ${(props) => (props.$isCompleted ? "var(--primary-foreground)" : "var(--primary)")};
   }
 
   @media (min-width: 1024px) {
@@ -89,7 +91,7 @@ export const HabitLabel = styled.span<{ $isCompleted: boolean }>`
   font-weight: var(--font-weight-medium);
   color: var(--foreground);
   transition: opacity 0.2s ease;
-  opacity: ${props => props.$isCompleted ? 0.7 : 1};
+  opacity: ${(props) => (props.$isCompleted ? 0.7 : 1)};
 `;
 
 export const CheckBadge = styled(motion.div)`
@@ -124,9 +126,15 @@ export const ProgressInfo = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 0.875rem;
-  
-  .label { font-weight: var(--font-weight-medium); color: var(--muted-foreground); }
-  .count { font-weight: 700; color: var(--primary); }
+
+  .label {
+    font-weight: var(--font-weight-medium);
+    color: var(--muted-foreground);
+  }
+  .count {
+    font-weight: 700;
+    color: var(--primary);
+  }
 `;
 
 export const SaveButton = styled(motion.button)<{ progress: number }>`
@@ -156,7 +164,9 @@ export const SaveButton = styled(motion.button)<{ progress: number }>`
     transform: scale(0.98);
   }
 
-  ${props => props.progress === 100 && `
+  ${(props) =>
+    props.progress === 100 &&
+    `
     background: var(--foreground);
     box-shadow: 0 8px 20px rgba(27, 94, 32, 0.2);
   `}

@@ -1,14 +1,14 @@
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 export const CalendarCard = styled(motion.div)`
   background: var(--card);
   border-radius: 1.875rem;
   padding: 1.5rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); 
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
   border: 1px solid var(--border);
   width: 100%;
-  
+
   @media (min-width: 1024px) {
     padding: 2.5rem;
   }
@@ -24,7 +24,7 @@ export const HeaderSection = styled.div`
     width: 3rem;
     height: 3rem;
     border-radius: 1rem;
-    background: var(--primary); 
+    background: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,7 +63,7 @@ export const CalendarWrapper = styled.div`
     align-items: center;
     margin-bottom: 2rem;
     gap: 8px;
-    
+
     button {
       background: none;
       border: none;
@@ -72,9 +72,13 @@ export const CalendarWrapper = styled.div`
       font-size: 1.25rem;
       min-width: 44px;
       border-radius: 0.5rem;
-      
-      &:hover { background: var(--muted); }
-      &:disabled { color: var(--muted-foreground); }
+
+      &:hover {
+        background: var(--muted);
+      }
+      &:disabled {
+        color: var(--muted-foreground);
+      }
     }
 
     .react-calendar__navigation__label {
@@ -82,7 +86,7 @@ export const CalendarWrapper = styled.div`
       font-weight: 700;
       font-size: 1.125rem;
       color: var(--foreground);
-      margin: 0 1rem; 
+      margin: 0 1rem;
     }
   }
 
@@ -106,12 +110,14 @@ export const CalendarWrapper = styled.div`
     color: var(--foreground);
     border-radius: 0.75rem;
     transition: all 0.2s;
-    
-    &:hover { background: var(--muted); }
+
+    &:hover {
+      background: var(--muted);
+    }
   }
 
   .react-calendar__month-view__days__day--weekend {
-    color: var(--destructive) !important; 
+    color: var(--destructive) !important;
   }
 
   .react-calendar__tile--active {

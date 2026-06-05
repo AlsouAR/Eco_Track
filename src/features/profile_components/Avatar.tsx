@@ -43,19 +43,18 @@ function Avatar({ name, avatarImage }: AvatarProps) {
 
         try {
           const currentKey = getStorageKey();
-      
+
           const oldAvatar = localStorage.getItem(currentKey);
-          
+
           if (oldAvatar != null) {
             localStorage.removeItem(currentKey);
           }
 
           localStorage.setItem(currentKey, base64String);
           setImage(base64String);
-          
         } catch (error) {
           console.error("Ошибка при сохранении аватара:", error);
-          
+
           if (error === "QuotaExceededError") {
             alert("Недостаточно места в хранилище. Попробуйте изображение меньшего размера");
           }
@@ -72,12 +71,12 @@ function Avatar({ name, avatarImage }: AvatarProps) {
       ) : (
         <div className="avatar-letter">{firstLetter}</div>
       )}
-      
+
       <label className="avatar-camera">
         <Camera size={16} strokeWidth={2} />
-        <input 
-          type="file" 
-          accept="image/*" 
+        <input
+          type="file"
+          accept="image/*"
           onChange={handlePhotoUpload}
           style={{ display: "none" }}
         />

@@ -1,5 +1,5 @@
 .report-preview {
-  background:  #2E7D32;
+  background: #2e7d32;
   border-radius: 28px;
   padding: 24px 20px 32px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
@@ -7,7 +7,7 @@
 }
 
 .report-header {
-  background: #2E7D32;
+  background: #2e7d32;
   border-radius: 24px;
   padding: 20px;
   margin-bottom: 20px;
@@ -33,7 +33,7 @@
 .report-header-title {
   font-size: 20px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0 0 6px 0;
 }
 
@@ -45,24 +45,26 @@
 }
 
 .report-preview-card {
-  background: #F8FAF4;
+  background: #f8faf4;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 24px;
-  border: 1px solid #E8EDE0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e8ede0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .preview-header {
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #E0E8D3;
+  border-bottom: 2px solid #e0e8d3;
 }
 
 .preview-month {
   font-size: 14px;
   font-weight: 600;
-  color: #7B8C6E;
+  color: #7b8c6e;
   margin: 0 0 4px 0;
   letter-spacing: 0.5px;
 }
@@ -70,43 +72,43 @@
 .preview-title {
   font-size: 18px;
   font-weight: 700;
-  color: #1B5E20;
+  color: #1b5e20;
   margin: 0;
 }
 
 /* ========== СТАТИСТИКА PDF ========== */
 .preview-stats {
   display: flex;
-  flex-direction: row;     
-  justify-content: space-between;  
-  gap: 16px;               
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .preview-stat {
   display: flex;
-  flex-direction: column;  
-  align-items: center;     
-  flex: 1;                 
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
   padding: 8px 0;
   text-align: center;
 }
 
 .preview-stat-info {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
 .preview-stat-value {
-  font-size: 24px;         
+  font-size: 24px;
   font-weight: 800;
-  color: #2E7D32;
+  color: #2e7d32;
 }
 
 .preview-stat-label {
-  font-size: 11px;         
-  color: #7B8C6E;
+  font-size: 11px;
+  color: #7b8c6e;
   font-weight: 500;
 }
 /* ========== КНОПКА СКАЧИВАНИЯ ========== */
@@ -117,12 +119,12 @@
   gap: 10px;
   width: 100%;
   padding: 14px 20px;
-  background:  #4CAF50;
+  background: #4caf50;
   border: none;
   border-radius: 20px;
   font-size: 15px;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -139,7 +141,7 @@
 }
 
 .report-download-btn svg {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .stats-section {
@@ -147,7 +149,7 @@
 }
 
 .stats-title {
-  color: #1B5E20;
+  color: #1b5e20;
   font-size: 18px;
   margin-bottom: 16px;
 }
@@ -159,7 +161,7 @@
 
 .stats-label {
   padding: 8px 0;
-  border-bottom: 1px solid #E8EED9;
+  border-bottom: 1px solid #e8eed9;
 }
 
 .stats-value {
@@ -177,22 +179,22 @@
 }
 
 .pdf-main-title {
-  color: #1B5E20;
+  color: #1b5e20;
   font-size: 28px;
   margin-bottom: 8px;
 }
 
 .pdf-month-title {
-  color: #FF9800;
+  color: #ff9800;
   font-size: 20px;
   margin-bottom: 8px;
 }
 
 .pdf-user-subtitle {
-  color: #7B8C6E;
+  color: #7b8c6e;
 }
 
 .pdf-divider {
-  border: 1px solid #E8EED9;
+  border: 1px solid #e8eed9;
   margin: 20px 0;
 }

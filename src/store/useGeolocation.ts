@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 type GeolocationState = {
   latitude: number | null;
@@ -17,7 +17,7 @@ export function useGeolocation() {
 
   useEffect(() => {
     if (!("geolocation" in navigator)) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         error: "Ваш браузер не поддерживает геолокацию",
         loading: false,
@@ -36,7 +36,7 @@ export function useGeolocation() {
       },
       (error) => {
         let errorMessage = "Не удалось определить местоположение";
-        
+
         switch (error.code) {
           case error.PERMISSION_DENIED:
             errorMessage = "Пожалуйста, разрешите доступ к геолокации";
@@ -48,7 +48,7 @@ export function useGeolocation() {
             errorMessage = "Время ожидания геолокации истекло";
             break;
         }
-        
+
         setState({
           latitude: null,
           longitude: null,
@@ -60,7 +60,7 @@ export function useGeolocation() {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
-      }
+      },
     );
   }, []);
 

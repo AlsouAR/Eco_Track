@@ -40,7 +40,7 @@ const HeaderSection = styled.div`
 
 const MetricsGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* 4 колонки по умолчанию */
+  grid-template-columns: repeat(4, 1fr); /* 4 колонки по умолчанию */
   gap: 24px;
 
   /* Планшет: 2 колонки */
@@ -108,7 +108,7 @@ interface MetricItem {
   value: string;
   unit: string;
   description: string;
-  iconId: string;   // ключ для iconMap
+  iconId: string; // ключ для iconMap
   color: string;
 }
 
@@ -129,10 +129,7 @@ export function EcoImpact({ metrics }: EcoImpactProps) {
           <p>Визуализация вашего влияния на планету</p>
         </div>
       </HeaderSection>
-      <MetricsGrid
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      <MetricsGrid initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         {metricsData.map((item) => {
           // Выбираем иконку по iconId, если нет – используем Leaf (запасной вариант)
           const IconComponent = iconMap[item.iconId] || Leaf;

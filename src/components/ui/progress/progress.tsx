@@ -6,11 +6,11 @@ import styled from "@emotion/styled";
 
 const StyledRoot = styled(ProgressPrimitive.Root)`
   position: relative;
-  height: 0.5rem; 
+  height: 0.5rem;
   width: 100%;
   overflow: hidden;
   border-radius: 9999px;
-  background: var(--muted); 
+  background: var(--muted);
   transform: translateZ(0);
 `;
 
@@ -27,18 +27,10 @@ interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPr
   value?: number;
 }
 
-const Progress = React.forwardRef<
-  HTMLDivElement,
-  ProgressProps
->(({ value, ...props }, ref) => {
+const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(({ value, ...props }, ref) => {
   return (
-    <StyledRoot
-      ref={ref}
-      {...props}
-    >
-      <StyledIndicator
-        style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}
-      />
+    <StyledRoot ref={ref} {...props}>
+      <StyledIndicator style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }} />
     </StyledRoot>
   );
 });

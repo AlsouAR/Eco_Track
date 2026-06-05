@@ -28,17 +28,22 @@ function MapController({ center, zoom }: { center: [number, number]; zoom: numbe
 }
 
 type MapContainerBlockProps = {
-    locations: EcoLocation[];
-    userLocation?: { lat: number; lng: number } | null;
-    locationError?: string | null;
+  locations: EcoLocation[];
+  userLocation?: { lat: number; lng: number } | null;
+  locationError?: string | null;
   deleteLocation?: (id: number) => void;
 };
 
-export function MapContainerBlock({ locations, userLocation, locationError, deleteLocation }: MapContainerBlockProps) {
+export function MapContainerBlock({
+  locations,
+  userLocation,
+  locationError,
+  deleteLocation,
+}: MapContainerBlockProps) {
   const center: [number, number] = userLocation
     ? [userLocation.lat, userLocation.lng]
     : [55.7558, 37.6173];
-  
+
   const zoom = userLocation ? 15 : 12;
 
   return (
@@ -47,24 +52,18 @@ export function MapContainerBlock({ locations, userLocation, locationError, dele
         {locationError != null && locationError !== "" && (
           <div className="location-error-banner">
             <span>{locationError}</span>
-            <button onClick={() => window.location.reload()}>
-              Попробовать снова
-            </button>
+            <button onClick={() => window.location.reload()}>Попробовать снова</button>
           </div>
         )}
-        
-        <MapContainer
-          center={center}
-          zoom={zoom}
-          className="map-container-block__map"
-        >
+
+        <MapContainer center={center} zoom={zoom} className="map-container-block__map">
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          
+
           <MapController center={center} zoom={zoom} />
-          
+
           {locations.map((loc) => (
             <MapMarker key={loc.id} location={loc} onDelete={deleteLocation} />
           ))}

@@ -14,7 +14,7 @@ export function EcoCalendar() {
   const dispatch = useAppDispatch();
 
   const selectedDateString = useAppSelector((state) => state.habits.selectedDate);
-  
+
   const date = parseISO(selectedDateString);
 
   const handleDateChange = (value: any) => {
@@ -22,12 +22,12 @@ export function EcoCalendar() {
     const formattedDate = format(newDate, "yyyy-MM-dd");
     dispatch(setSelectedDate(formattedDate));
   };
-  
+
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
       const todayFormatted = format(now, "yyyy-MM-dd");
-      
+
       if (todayFormatted !== selectedDateString && isToday(now)) {
         dispatch(setSelectedDate(todayFormatted));
       }
@@ -37,10 +37,7 @@ export function EcoCalendar() {
   }, [selectedDateString, dispatch]);
 
   return (
-    <S.CalendarCard
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
+    <S.CalendarCard initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <S.HeaderSection>
         <div className="logo-icon-box">
           <Leaf size={28} color="white" />

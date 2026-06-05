@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;                
+  width: 100%;
   padding: 24px 20px 32px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 28px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  max-width: 360px; 
+  max-width: 360px;
 }
 
 .action-btn {
@@ -18,23 +18,21 @@
   width: 100%;
   padding: 14px 20px;
   border: none;
-  border-radius: 20px;        
+  border-radius: 20px;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
 
-  background: #4CAF50;        
-  color: #ffffff;             
+  background: #4caf50;
+  color: #ffffff;
 }
-
 
 .action-btn svg {
   transition: transform 0.2s ease;
-  color: #ffffff;             
+  color: #ffffff;
 }
-
 
 .action-btn span {
   transition: transform 0.2s ease;
@@ -52,5 +50,5 @@
 }
 
 .action-btn:hover {
-  background: #3d9c41;        
+  background: #3d9c41;
 }

@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Styled компоненты 
+// Styled компоненты
 
 const ProgressCard = styled(motion.div)`
   background: var(--card, #ffffff);
@@ -33,7 +33,7 @@ const HeaderSection = styled.div`
   h2 {
     font-size: 24px;
     font-weight: 700;
-    color: var(--secondary-foreground); 
+    color: var(--secondary-foreground);
   }
 
   p {
@@ -56,20 +56,20 @@ const IconBox = styled.div`
 
 const TooltipWrapper = styled.div`
   background: white;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 8px 12px;
 `;
 
 const TooltipLabel = styled.p`
-  color: #1B5E20;
+  color: #1b5e20;
   font-weight: normal;
   margin: 0 0 4px;
 `;
 
 const TooltipValue = styled.p`
-  color: #4CAF50;
+  color: #4caf50;
   margin: 0;
 `;
 
@@ -91,7 +91,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
   return null;
 };
 
-// Обёртка для отключения обводки 
+// Обёртка для отключения обводки
 
 const StyledResponsiveContainer = styled(ResponsiveContainer)`
   & :focus {
@@ -102,7 +102,7 @@ const StyledResponsiveContainer = styled(ResponsiveContainer)`
   }
 `;
 
-// Статический массив 
+// Статический массив
 
 const staticProgressData = [
   { month: "Янв", co2: 24 },
@@ -111,22 +111,22 @@ const staticProgressData = [
   { month: "Апр", co2: 46 },
 ];
 
-// Интерфейс пропсов 
+// Интерфейс пропсов
 
 interface ProgressProps {
   data?: { month: string; value: number }[];
 }
 
-// Компонент 
+// Компонент
 
 export function Progress({ data }: ProgressProps) {
   // Преобразуем переданные данные в формат, ожидаемый графиком (поле co2)
   const chartData = data
-    ? data.map(item => ({ month: item.month, co2: item.value }))
+    ? data.map((item) => ({ month: item.month, co2: item.value }))
     : staticProgressData;
 
   // Максимальное значение для оси Y: либо из данных, либо 60
-  const maxY = Math.max(60, ...chartData.map(d => d.co2));
+  const maxY = Math.max(60, ...chartData.map((d) => d.co2));
 
   return (
     <ProgressCard

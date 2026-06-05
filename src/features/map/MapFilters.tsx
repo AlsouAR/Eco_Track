@@ -6,16 +6,16 @@ import "./MapFilters.css";
 type FilterType = LocationType | "all";
 
 type Filter = {
-    type: FilterType;
-    label: string;
-    icon: typeof MapPin;
-    color: string;
+  type: FilterType;
+  label: string;
+  icon: typeof MapPin;
+  color: string;
 };
 
 type Props = {
-    selectedType: FilterType;
-    setSelectedType: (t: FilterType) => void;
-    openModal: () => void;
+  selectedType: FilterType;
+  setSelectedType: (t: FilterType) => void;
+  openModal: () => void;
 };
 
 export function MapFilters({ selectedType, setSelectedType, openModal }: Props) {

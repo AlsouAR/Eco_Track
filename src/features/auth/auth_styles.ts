@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 export const AuthContainer = styled.div`
   display: flex;
@@ -33,14 +33,14 @@ export const Title = styled.h1`
   font-size: 1.75rem;
   font-weight: var(--font-weight-medium);
   margin-bottom: 1.5rem;
-  color: var(--foreground); 
+  color: var(--foreground);
   text-align: center;
 `;
 
 export const FormCard = styled(motion.div)`
   background-color: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius); 
+  border-radius: var(--radius);
   padding: 2rem;
   width: 100%;
   max-width: 360px;
@@ -85,7 +85,9 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: calc(var(--radius) - 4px);
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 
   &:hover {
     background-color: var(--accent);
@@ -119,7 +121,7 @@ export const ToggleModeCard = styled.div`
     padding: 0;
     margin-left: 5px;
     font-size: 0.875rem;
-    
+
     &:hover {
       text-decoration: underline;
       color: var(--accent);

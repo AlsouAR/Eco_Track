@@ -3,7 +3,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ShoppingBag, Bike, Recycle, Droplet, Leaf } from "lucide-react";
-import { Checkbox } from "../../components/ui/checkbox/checkbox"; 
+import { Checkbox } from "../../components/ui/checkbox/checkbox";
 import { Progress } from "../../components/ui/progress/progress";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
@@ -22,7 +22,7 @@ const IconMap: Record<string, any> = {
 
 export const TodayActions: React.FC = () => {
   const dispatch = useAppDispatch();
-  
+
   // Получаем только видимые (выбранные в профиле) привычки через селектор
   const visibleHabits = useAppSelector(selectVisibleHabits);
 
@@ -30,14 +30,15 @@ export const TodayActions: React.FC = () => {
 
   const hasChanges = JSON.stringify(currentDraft) !== JSON.stringify(history[selectedDate] ?? []);
 
-  const currentHabits = visibleHabits.map(habit => ({
+  const currentHabits = visibleHabits.map((habit) => ({
     ...habit,
     completed: currentDraft.includes(habit.id),
-    iconComponent: IconMap[habit.icon] ?? Leaf, 
+    iconComponent: IconMap[habit.icon] ?? Leaf,
   }));
 
   const completedCount = currentHabits.filter((h) => h.completed).length;
-  const progressValue = currentHabits.length > 0 ? (completedCount / currentHabits.length) * 100 : 0;
+  const progressValue =
+    currentHabits.length > 0 ? (completedCount / currentHabits.length) * 100 : 0;
 
   const handleToggle = (id: string) => {
     dispatch(toggleHabit(id));
@@ -67,16 +68,14 @@ export const TodayActions: React.FC = () => {
               <Checkbox
                 checked={habit.completed}
                 onCheckedChange={() => handleToggle(habit.id)}
-                onClick={(e) => e.stopPropagation()} 
+                onClick={(e) => e.stopPropagation()}
               />
 
               <S.IconBox $isCompleted={habit.completed}>
                 <Icon />
               </S.IconBox>
 
-              <S.HabitLabel $isCompleted={habit.completed}>
-                {habit.label}
-              </S.HabitLabel>
+              <S.HabitLabel $isCompleted={habit.completed}>{habit.label}</S.HabitLabel>
 
               <AnimatePresence>
                 {habit.completed && (
@@ -98,12 +97,14 @@ export const TodayActions: React.FC = () => {
       <S.Footer>
         <S.ProgressInfo>
           <span className="label">Дневная цель</span>
-          <span className="count">{completedCount} / {currentHabits.length}</span>
+          <span className="count">
+            {completedCount} / {currentHabits.length}
+          </span>
         </S.ProgressInfo>
         <Progress value={progressValue} />
       </S.Footer>
 
-      <S.SaveButton 
+      <S.SaveButton
         progress={progressValue}
         onClick={() => dispatch(saveDay())}
         disabled={!hasChanges}
@@ -116,9 +117,9 @@ export const TodayActions: React.FC = () => {
             scale: progressValue === 100 ? [1, 1.2, 1] : 1,
             rotate: progressValue === 100 ? [0, 10, -10, 0] : 0,
           }}
-          transition={{ 
-            repeat: progressValue === 100 ? Infinity : 0, 
-            duration: 1.5, 
+          transition={{
+            repeat: progressValue === 100 ? Infinity : 0,
+            duration: 1.5,
           }}
         >
           <Check size={20} />

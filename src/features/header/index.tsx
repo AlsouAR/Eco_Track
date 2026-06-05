@@ -17,16 +17,28 @@ export function Header() {
     <S.NavContainer>
       <S.NavInner>
         <S.FlexWrapper>
-          
           <S.LogoWrapper to="/">
             <div className="logo-icon">
               <Leaf size={28} color="white" />
             </div>
             <div>
-              <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--eco-primary)", lineHeight: 1 }}>
+              <h1
+                style={{
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  color: "var(--eco-primary)",
+                  lineHeight: 1,
+                }}
+              >
                 EcoTrack
               </h1>
-              <p style={{ fontSize: "0.75rem", color: "var(--muted-foreground)", marginTop: "-0.25rem" }}>
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--muted-foreground)",
+                  marginTop: "-0.25rem",
+                }}
+              >
                 Ваш эко-путь
               </p>
             </div>
@@ -34,14 +46,19 @@ export function Header() {
 
           <S.NavLinks>
             {navItems.map((item) => {
-              const isActive = item.path === "/" 
-                ? location.pathname === "/" 
-                : location.pathname.startsWith(item.path);
-              
+              const isActive =
+                item.path === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(item.path);
+
               const Icon = item.icon;
 
               return (
-                <Link key={item.path} to={item.path} style={{ textDecoration: "none", position: "relative" }}>
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  style={{ textDecoration: "none", position: "relative" }}
+                >
                   <S.NavItemBox
                     isActive={isActive}
                     whileHover={{ scale: 1.05 }}
@@ -65,17 +82,19 @@ export function Header() {
 
           <S.MobileNavLinks>
             {navItems.map((item) => {
-              const isActive = item.path === "/"
-                ? location.pathname === "/"
-                : location.pathname.startsWith(item.path);
+              const isActive =
+                item.path === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(item.path);
               const Icon = item.icon;
 
               return (
-                <Link key={item.path} to={item.path} style={{ textDecoration: "none", position: "relative" }}>
-                  <S.MobileNavItem
-                    isActive={isActive}
-                    whileTap={{ scale: 0.9 }}
-                  >
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  style={{ textDecoration: "none", position: "relative" }}
+                >
+                  <S.MobileNavItem isActive={isActive} whileTap={{ scale: 0.9 }}>
                     {isActive && <S.ActiveBackground />}
                     <Icon size={20} style={{ position: "relative", zIndex: 10 }} />
                   </S.MobileNavItem>
@@ -83,7 +102,6 @@ export function Header() {
               );
             })}
           </S.MobileNavLinks>
-
         </S.FlexWrapper>
       </S.NavInner>
     </S.NavContainer>

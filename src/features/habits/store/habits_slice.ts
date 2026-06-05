@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { format } from 'date-fns';
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { format } from "date-fns";
 
 // 1. Описываем форму данных
 export interface Habit {
@@ -11,7 +11,7 @@ export interface Habit {
 
 export interface HabitsState {
   habits: Habit[];
-  history: Record<string, string[]>; 
+  history: Record<string, string[]>;
   selectedDate: string;
   currentDraft: string[];
 }
@@ -23,11 +23,15 @@ type PersistedHabitsData = {
 };
 
 const loadFromLocalStorage = (): PersistedHabitsData | undefined => {
-  if (typeof window === "undefined") {return undefined;}
+  if (typeof window === "undefined") {
+    return undefined;
+  }
 
   try {
     const serializedState = localStorage.getItem("eco_track_data");
-    if (serializedState === null) {return undefined;}
+    if (serializedState === null) {
+      return undefined;
+    }
     return JSON.parse(serializedState) as PersistedHabitsData;
   } catch (err) {
     console.error("Не удалось загрузить данные из LocalStorage", err);
@@ -42,11 +46,11 @@ const todayKey = format(new Date(), "yyyy-MM-dd");
 const initialState: HabitsState = {
   // Если есть сохраненные привычки — берем их, иначе стандартный набор
   habits: savedData?.habits ?? [
-    { id: 'plastic', label: 'Отказ от пластика', icon: 'ShoppingBag' },
-    { id: 'bike', label: 'Поездка на велосипеде', icon: 'Bike' },
-    { id: 'sort', label: 'Сортировка мусора', icon: 'Recycle' },
-    { id: 'water', label: 'Экономия воды', icon: 'Droplet' },
-    { id: 'local', label: 'Местные продукты', icon: 'Leaf' },
+    { id: "plastic", label: "Отказ от пластика", icon: "ShoppingBag" },
+    { id: "bike", label: "Поездка на велосипеде", icon: "Bike" },
+    { id: "sort", label: "Сортировка мусора", icon: "Recycle" },
+    { id: "water", label: "Экономия воды", icon: "Droplet" },
+    { id: "local", label: "Местные продукты", icon: "Leaf" },
   ],
   // Загружаем сохраненную историю или пустой объект
   history: savedData?.history ?? {},
@@ -57,7 +61,7 @@ const initialState: HabitsState = {
 
 // 3. Создаем Слайс
 export const habitsSlice = createSlice({
-  name: 'habits',
+  name: "habits",
   initialState,
   reducers: {
     setSelectedDate: (state, action: PayloadAction<string>) => {
@@ -81,16 +85,14 @@ export const habitsSlice = createSlice({
     resetAllProgress: (state) => {
       state.history = {};
       state.currentDraft = [];
-      
-      if (typeof window !== 'undefined') {
+
+      if (typeof window !== "undefined") {
         const savedData = { habits: state.habits, history: {} };
-        localStorage.setItem('eco_track_data', JSON.stringify(savedData));
+        localStorage.setItem("eco_track_data", JSON.stringify(savedData));
       }
     },
-    
   },
 });
-
 
 export const { setSelectedDate, toggleHabit, saveDay, resetAllProgress } = habitsSlice.actions;
 export default habitsSlice.reducer;

@@ -1,7 +1,7 @@
-@import './fonts.css';
-@import './tailwind.css';
-@import './theme.css';
-@import './common.css';
+@import "./fonts.css";
+@import "./tailwind.css";
+@import "./theme.css";
+@import "./common.css";
 
 html {
   scroll-behavior: smooth;
@@ -27,7 +27,7 @@ html {
 }
 
 .neo-card {
-  box-shadow: 
+  box-shadow:
     8px 8px 16px rgba(76, 175, 80, 0.1),
     -8px -8px 16px rgba(255, 255, 255, 0.8);
 }

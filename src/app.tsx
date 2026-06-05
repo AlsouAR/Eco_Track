@@ -1,19 +1,22 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAppSelector } from "./store/hooks";
-import HomePage from "./pages/home";
+import HomePage from "./pages/home/homePage";
 import Header from "./features/header";
-import DashboardPage from "./pages/dashboard";
-import ProfilePage from "./pages/Profile";
+import DashboardPage from "./pages/dashboard/dashboardPage";
+import ProfilePage from "./pages/Profile/profilePage";
 import MapPage from "./pages/map/MapPage";
 import { BackgroundLeaves } from "./components/BackgroundLeaves";
 import { AuthForm } from "./features/auth/auth_form";
-import MainPage from "./pages/main/main_page";
+import MainPage from "./pages/main/mainPage";
 
-const NotFound = () => <div style={{ padding: "20px" }}><h1>404: Страница не найдена</h1></div>;
+const NotFound = () => (
+  <div style={{ padding: "20px" }}>
+    <h1>404: Страница не найдена</h1>
+  </div>
+);
 
 const App = () => {
-
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   if (!isAuthenticated) {
@@ -24,7 +27,6 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<AuthForm />} />
         </Routes>
-
       </>
     );
   }
@@ -32,11 +34,10 @@ const App = () => {
   return (
     <>
       <BackgroundLeaves />
-      <Header /> 
+      <Header />
       <Routes>
-                
         <Route path="/" element={<HomePage />} />
-                
+
         <Route path="/dashboard" element={<DashboardPage />} />
 
         <Route path="/map" element={<MapPage />} />

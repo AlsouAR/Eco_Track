@@ -4,7 +4,7 @@
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   margin: 0 auto;
 }
 
@@ -33,23 +33,23 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: white;           /* белый фон */
-  border: 2px solid #4CAF50;   /* зелёная обводка */
+  background: white; /* белый фон */
+  border: 2px solid #4caf50; /* зелёная обводка */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease;  /* плавное увеличение */
+  transition: transform 0.2s ease; /* плавное увеличение */
 }
 
 /* Цвет иконки внутри */
 .avatar-camera svg {
-  color: #4CAF50;              /* зелёная иконка */
+  color: #4caf50; /* зелёная иконка */
 }
 
 /* При наведении — увеличиваем */
 .avatar-camera:hover {
-  transform: scale(1.15);      /* увеличение на 15% */
+  transform: scale(1.15); /* увеличение на 15% */
 }
 
 /* При клике — эффект нажатия */

@@ -10,7 +10,7 @@ import * as S from "./weekly_progress_styles";
 export const WeeklyProgress: React.FC = () => {
   const visibleHabits = useAppSelector(selectVisibleHabits);
   const totalHabits = visibleHabits.length;
-  
+
   const stats = useAppSelector(selectWeeklyStats);
 
   return (
@@ -19,7 +19,7 @@ export const WeeklyProgress: React.FC = () => {
         <TrendingUp size={20} color="var(--primary)" />
         <S.Title>Неделя</S.Title>
       </S.Header>
-      
+
       <div>
         {stats.map((stat, index) => {
           const percentage = totalHabits > 0 ? (stat.completed / totalHabits) * 100 : 0;
@@ -31,15 +31,15 @@ export const WeeklyProgress: React.FC = () => {
                   {stat.completed}/{totalHabits}
                 </S.CountLabel>
               </S.DayInfo>
-              
+
               <S.ProgressTrack>
                 <S.ProgressBar
                   initial={{ width: 0 }}
                   animate={{ width: `${percentage}%` }}
-                  transition={{ 
-                    delay: index * 0.1, 
-                    duration: 0.8, 
-                    ease: "easeOut", 
+                  transition={{
+                    delay: index * 0.1,
+                    duration: 0.8,
+                    ease: "easeOut",
                   }}
                 />
               </S.ProgressTrack>

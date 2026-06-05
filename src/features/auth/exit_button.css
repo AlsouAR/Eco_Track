@@ -13,14 +13,14 @@
   transition: all 0.2s ease;
   font-family: inherit;
 
-  background: #F5F7F0;
-  color: #dc2626;           
-  border: 1px solid #fecaca; 
+  background: #f5f7f0;
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }
 
 .logout-btn svg {
   transition: transform 0.2s ease;
-  color: #dc2626;           
+  color: #dc2626;
 }
 
 .logout-btn span {
@@ -40,6 +40,6 @@
 }
 
 .logout-btn:hover {
-  background: #fef2f2;      
+  background: #fef2f2;
   border-color: #fca5a5;
 }

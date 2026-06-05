@@ -22,13 +22,7 @@ const SettingsItem = ({ icon, title, description, onClick }: SettingsItemProps) 
   );
 };
 
-const ChangePasswordModal = ({ 
-  isOpen, 
-  onClose, 
-}: { 
-  isOpen: boolean; 
-  onClose: () => void;
-}) => {
+const ChangePasswordModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,7 +31,7 @@ const ChangePasswordModal = ({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  
+
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
   const validatePassword = (password: string): boolean => {
@@ -46,7 +40,9 @@ const ChangePasswordModal = ({
   };
 
   const getPasswordError = (password: string): string | null => {
-    if (password.length === 0) {return null;}
+    if (password.length === 0) {
+      return null;
+    }
     if (password.length < 5) {
       return "Пароль должен содержать минимум 5 символов";
     }
@@ -64,7 +60,11 @@ const ChangePasswordModal = ({
     setError("");
     setSuccess("");
 
-    if (currentPassword.trim() === "" || newPassword.trim() === "" || confirmPassword.trim() === "") {
+    if (
+      currentPassword.trim() === "" ||
+      newPassword.trim() === "" ||
+      confirmPassword.trim() === ""
+    ) {
       setError("Заполните все поля");
       return;
     }
@@ -89,7 +89,7 @@ const ChangePasswordModal = ({
       users[currentUser] = newPassword;
       localStorage.setItem("eco_users", JSON.stringify(users));
       setSuccess("Пароль успешно изменён!");
-      
+
       setTimeout(() => {
         setCurrentPassword("");
         setNewPassword("");
@@ -101,7 +101,9 @@ const ChangePasswordModal = ({
     }
   };
 
-  if (!isOpen) {return null;}
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -202,7 +204,7 @@ function Settings() {
       <div className="settings-container">
         <h2 className="settings-title">Настройки</h2>
         <div className="settings-list">
-          <SettingsItem 
+          <SettingsItem
             icon={<Shield size={22} />}
             title="Конфиденциальность"
             description="Cмена пароля"
@@ -211,7 +213,7 @@ function Settings() {
         </div>
       </div>
 
-      <ChangePasswordModal 
+      <ChangePasswordModal
         isOpen={isPasswordModalOpen}
         onClose={() => setIsPasswordModalOpen(false)}
       />

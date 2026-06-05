@@ -30,10 +30,10 @@
   border-radius: 40px;
   font-size: 14px;
   font-weight: 500;
-  color: #4CAF50;
+  color: #4caf50;
   margin-bottom: 24px;
-  margin-left: auto; 
-  margin-right: auto; 
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-content h1 {
@@ -41,11 +41,11 @@
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 24px;
-  color: #1B5E20;
+  color: #1b5e20;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #4CAF50, #84cc16);
+  background: linear-gradient(135deg, #4caf50, #84cc16);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -54,7 +54,7 @@
 .hero-content p {
   font-size: 18px;
   line-height: 1.6;
-  color: #558B2F;
+  color: #558b2f;
   margin-bottom: 32px;
 }
 
@@ -77,13 +77,13 @@
 .section-header h2 {
   font-size: 40px;
   font-weight: 700;
-  color: #1B5E20;
+  color: #1b5e20;
   margin-bottom: 16px;
 }
 
 .section-header p {
   font-size: 18px;
-  color: #6B8C42;
+  color: #6b8c42;
 }
 
 .features-grid {
@@ -114,20 +114,20 @@
   /*background: rgba(76, 175, 80, 0.1);*/
   border-radius: 20px;
   margin-bottom: 24px;
-  color: var(--feature-color, #4CAF50);
+  color: var(--feature-color, #4caf50);
 }
 
 .feature-card h3 {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: #1B5E20;
+  color: #1b5e20;
 }
 
 .feature-card p {
   font-size: 15px;
   line-height: 1.5;
-  color: #7A8A6E;
+  color: #7a8a6e;
 }
 
 .how-it-works {
@@ -157,7 +157,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
   font-size: 18px;
   font-weight: 700;
@@ -169,11 +169,11 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #1B5E20;
+  color: #1b5e20;
 }
 
 .step-content p {
-  color: #8BA07A;
+  color: #8ba07a;
 }
 
 .step-line {
@@ -201,19 +201,19 @@
 
 .cta-icon {
   margin-bottom: 24px;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 .cta-card h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #1B5E20;
+  color: #1b5e20;
   margin-bottom: 16px;
 }
 
 .cta-card p {
   font-size: 18px;
-  color: #8BA07A;
+  color: #8ba07a;
   margin-bottom: 32px;
 }
 
@@ -223,7 +223,7 @@
 }
 
 .cta-note span {
-  color: #4CAF50;
+  color: #4caf50;
   cursor: pointer;
   font-weight: 600;
 }
@@ -233,8 +233,8 @@
 }
 .main-footer {
   padding: 40px 60px;
-  background: #1B5E20;
-  color: #A5D6A7;
+  background: #1b5e20;
+  color: #a5d6a7;
 }
 
 .footer-content {

@@ -10,7 +10,6 @@ const ExitButton = () => {
     dispatch(logout());
     window.location.href = "/login";
   };
-  
 
   return (
     <button className="logout-btn" onClick={handleLogout}>

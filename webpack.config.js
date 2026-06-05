@@ -12,19 +12,19 @@ export default {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    publicPath: "/", 
+    publicPath: "/",
     clean: true,
   },
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"),
     },
-    historyApiFallback: true, 
+    historyApiFallback: true,
     port: 3000,
     open: true,
     hot: true,
     devMiddleware: {
-      publicPath: "/", 
+      publicPath: "/",
     },
   },
 
@@ -36,12 +36,12 @@ export default {
     }),
     new CopyPlugin({
       patterns: [
-        { 
-          from: path.resolve(__dirname, "public"), 
+        {
+          from: path.resolve(__dirname, "public"),
           to: path.resolve(__dirname, "dist"),
           globOptions: {
             // Игнорируем favicon.ico, так как его уже обрабатывает HtmlWebpackPlugin
-            ignore: ["**/favicon.ico"], 
+            ignore: ["**/favicon.ico"],
           },
         },
       ],
@@ -60,7 +60,7 @@ export default {
               ["@babel/preset-react", { runtime: "automatic" }],
               "@babel/preset-typescript",
             ],
-           
+
             plugins: ["@emotion"],
           },
         },

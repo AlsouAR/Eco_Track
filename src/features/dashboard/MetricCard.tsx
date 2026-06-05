@@ -20,12 +20,12 @@ const ContentCard = styled.div`
     font-weight: 700;
     color: var(--secondary-foreground);
     margin: 0;
-    }
+  }
 
   h3 {
     font-size: 14px;
     font-weight: 600;
-    color: var(--muted-foreground);             
+    color: var(--muted-foreground);
     margin: 0;
     font-size: 14px;
     margin-bottom: 8px;
@@ -33,14 +33,14 @@ const ContentCard = styled.div`
 
   p {
     font-size: 12px;
-    color: var(--muted-foreground);  /* #558B2F */
+    color: var(--muted-foreground); /* #558B2F */
     margin: 0;
   }
 
   span {
     font-size: 14px;
     font-weight: normal;
-    color: var(--muted-foreground);  /* #558B2F */
+    color: var(--muted-foreground); /* #558B2F */
     margin: 0;
   }
 `;
@@ -48,7 +48,7 @@ const IconWrapper = styled.div<{ color: string }>`
   width: 3rem;
   height: 3rem;
   border-radius: 1rem;
-  background: ${({ color }) => color};  
+  background: ${({ color }) => color};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,8 +63,6 @@ const Card = styled(motion.div)`
   text-align: center;
 `;
 
-
-
 interface MetricCardProps {
   title: string;
   value: string;
@@ -74,7 +72,14 @@ interface MetricCardProps {
   description: string;
 }
 
-export const MetricCard: React.FC<MetricCardProps> = ({ title, value, unit, icon:Icon, color, description }) => (
+export const MetricCard: React.FC<MetricCardProps> = ({
+  title,
+  value,
+  unit,
+  icon: Icon,
+  color,
+  description,
+}) => (
   <Card whileHover={{ scale: 1.02 }}>
     <IconWrapper color={color}>
       <Icon size={32} color="white" />
@@ -82,7 +87,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({ title, value, unit, icon
 
     <ContentCard>
       <h3>{title}</h3>
-      <h1>{value} <span>{unit}</span></h1>
+      <h1>
+        {value} <span>{unit}</span>
+      </h1>
       <p>{description}</p>
     </ContentCard>
   </Card>

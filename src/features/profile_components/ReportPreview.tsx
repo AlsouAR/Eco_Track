@@ -11,23 +11,28 @@ import "./ReportPreview.css";
 
 function ReportPreview() {
   const reportRef = useRef<HTMLDivElement>(null);
-  
+
   const { currentStreak } = useAppSelector(selectStreakData);
   const monthlyStats = useAppSelector(selectMonthlyStats);
   const highestAchievement = useAppSelector(selectHighestAchievement);
   const habits = useAppSelector((state) => state.habits.habits);
   const history = useAppSelector((state) => state.habits.history);
   const visibleHabits = useAppSelector(selectVisibleHabits);
-  
+
   const metrics = calculateMetrics(habits, history, visibleHabits);
-  
+
   // Получаем все достижения
-  const waterSaved = parseFloat(metrics.metricsCards.find(m => m.title === "Сэкономлено воды")?.value.replace(/\s/g, "") ?? "0");
-  const co2Saved = parseFloat(metrics.metricsCards.find(m => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0");
+  const waterSaved = parseFloat(
+    metrics.metricsCards.find((m) => m.title === "Сэкономлено воды")?.value.replace(/\s/g, "") ??
+      "0",
+  );
+  const co2Saved = parseFloat(
+    metrics.metricsCards.find((m) => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0",
+  );
   const treesPlanted = metrics.treesPlanted;
   const allAchievements = getAchievements(currentStreak, waterSaved, treesPlanted, co2Saved);
-  const unlockedAchievements = allAchievements.filter(a => a.unlocked);
-  
+  const unlockedAchievements = allAchievements.filter((a) => a.unlocked);
+
   const handleDownloadPDF = () => {
     if (reportRef.current == null) {
       return;
@@ -51,14 +56,16 @@ function ReportPreview() {
 
       {/* Скрытая область для PDF */}
       <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
-        <div ref={reportRef} style={{ 
-          width: "210mm", 
-          padding: "20mm", 
-          background: "white", 
-          fontFamily: "Arial, sans-serif",
-          color: "#1B5E20",
-        }}>
-          
+        <div
+          ref={reportRef}
+          style={{
+            width: "210mm",
+            padding: "20mm",
+            background: "white",
+            fontFamily: "Arial, sans-serif",
+            color: "#1B5E20",
+          }}
+        >
           <div className="pdf-header">
             <h1 className="pdf-main-title"> Эко-отчёт</h1>
             <h2 className="pdf-month-title">{monthlyStats.month}</h2>
@@ -121,17 +128,32 @@ function ReportPreview() {
           <div style={{ marginBottom: "30px" }}>
             <h3 className="stats-label"> Достижения</h3>
             <div>
-              {unlockedAchievements.map(a => (
-                <div className="d-value" key={a.id} >
+              {unlockedAchievements.map((a) => (
+                <div className="d-value" key={a.id}>
                   {a.title}
                 </div>
               ))}
-              {unlockedAchievements.length === 0 && <p className="report-user-subtitle">Пока нет достижений. Продолжайте в том же духе!</p>}
+              {unlockedAchievements.length === 0 && (
+                <p className="report-user-subtitle">
+                  Пока нет достижений. Продолжайте в том же духе!
+                </p>
+              )}
             </div>
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "40px", padding: "20px", background: "#F5F7F0", borderRadius: "16px" }}>
-            <p style={{ fontSize: "16px", marginBottom: "8px" }}> Спасибо, что заботитесь о планете!</p>
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: "40px",
+              padding: "20px",
+              background: "#F5F7F0",
+              borderRadius: "16px",
+            }}
+          >
+            <p style={{ fontSize: "16px", marginBottom: "8px" }}>
+              {" "}
+              Спасибо, что заботитесь о планете!
+            </p>
             <p style={{ fontSize: "12px", color: "#7B8C6E" }}> EcoTrack</p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import "./index.css";
+import "./profilePage.css";
 import HeaderProfile from "../../features/profile_components/HeaderProfile";
 import ProfileCard from "../../features/profile_components/ProfileCard";
 import ActionButtons from "../../features/profile_components/ActionButtons";
@@ -21,9 +21,9 @@ function ProfilePage() {
         {/* ПРАВАЯ КОЛОНКА */}
         <div className="right-column">
           <EcoGoals />
-          <Settings/>
-          <ReportPreview/>
-          <ExitButton/>
+          <Settings />
+          <ReportPreview />
+          <ExitButton />
         </div>
       </div>
     </div>
