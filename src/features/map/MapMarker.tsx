@@ -1,8 +1,9 @@
 import { Marker, Popup } from "react-leaflet";
-import { EcoLocation } from "../../components/map/types";
-import { getMarkerIcon } from "../../components/map/lib/getMarketIcon";
+
 import { MapPopup } from "./MapPopup";
-import "./MapMarker.css";
+import { getMarkerIcon } from "../../components/map/lib/getMarketIcon";
+
+import type { EcoLocation } from "../../components/map/types";
 
 export function MapMarker({
   location,
@@ -12,10 +13,7 @@ export function MapMarker({
   onDelete?: ((id: number) => void) | undefined;
 }) {
   return (
-    <Marker
-      position={[location.lat, location.lng]}
-      icon={getMarkerIcon(location.type)}
-    >
+    <Marker position={[location.lat, location.lng]} icon={getMarkerIcon(location.type)}>
       <Popup className="custom-popup">
         <MapPopup location={location} onDelete={() => onDelete?.(location.id)} />
       </Popup>

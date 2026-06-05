@@ -1,20 +1,19 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { Leaf } from 'lucide-react';
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { Leaf } from "lucide-react";
 
 // Конфигурация листьев: позиция (в процентах от окна), задержка, размер
 const leaves = [
-  { left: '5%',  top: '15%', delay: 0, size: 40 },
-  { left: '90%', top: '20%', delay: 0.4, size: 32 },
-  { left: '15%', top: '80%', delay: 0.8, size: 36 },
-  { left: '85%', top: '70%', delay: 1.2, size: 28 },
+  { left: "5%", top: "15%", delay: 0, size: 40 },
+  { left: "90%", top: "20%", delay: 0.4, size: 32 },
+  { left: "15%", top: "80%", delay: 0.8, size: 36 },
+  { left: "85%", top: "70%", delay: 1.2, size: 28 },
 ];
 
 const LeafWrapper = styled(motion.div)`
-  position: fixed;          /* фиксированное положение относительно окна */
-  z-index: -1;               /* под всем контентом */
-  pointer-events: none;     /* чтобы не мешали кликам */
+  position: fixed; /* фиксированное положение относительно окна */
+  z-index: -1; /* под всем контентом */
+  pointer-events: none; /* чтобы не мешали кликам */
 `;
 
 export const BackgroundLeaves = () => (
@@ -32,7 +31,7 @@ export const BackgroundLeaves = () => (
           duration: 4 + i * 0.7,
           repeat: Infinity,
           delay: leaf.delay,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       >
         <Leaf size={leaf.size} color="#4CAF50" />

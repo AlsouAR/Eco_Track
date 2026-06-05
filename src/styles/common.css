@@ -1,0 +1,137 @@
+/* Common shared styles extracted to reduce duplication */
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-primary:hover {
+  background: #2e7d32;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 32px;
+  background: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(76, 175, 80, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Columns layout used in profile pages */
+.two-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.left-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.right-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Leaflet popup base styles used across map components */
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem !important;
+}
+
+.leaflet-popup-content {
+  font-family: inherit;
+}
+
+/* Buttons */
+@media (max-width: 768px) {
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .two-columns {
+    gap: 24px;
+  }
+
+  .left-column {
+    gap: 20px;
+  }
+
+  .right-column {
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .two-columns {
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .left-column {
+    flex: 1.2;
+    width: auto;
+  }
+
+  .right-column {
+    flex: 2.2;
+    width: auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .two-columns {
+    gap: 32px;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    flex: 2;
+  }
+}
+
+/* Small utilities */
+.text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

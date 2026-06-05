@@ -1,11 +1,11 @@
-import { Habit } from '../habits/store/habits_slice';
+import type { Habit } from "../habits/store/habitsSlice";
 
 // Коэффициенты пересчёта действий в экологические показатели
 const COEFFICIENTS = {
-  water: 50,    // литров за 1 выполнение "Экономия воды"
-  bike: 2.5,    // кг CO₂ за 1 поездку на велосипеде
-  sort: 0.04,   // эквивалент сохранённых деревьев за 1 сортировку
-  plastic: 3,   // кВт·ч сэкономленной энергии за 1 отказ от пластика
+  water: 50, // литров за 1 выполнение "Экономия воды"
+  bike: 2.5, // кг CO₂ за 1 поездку на велосипеде
+  sort: 0.04, // эквивалент сохранённых деревьев за 1 сортировку
+  plastic: 3, // кВт·ч сэкономленной энергии за 1 отказ от пластика
 };
 
 export interface MetricCardData {
@@ -13,25 +13,27 @@ export interface MetricCardData {
   value: string;
   unit: string;
   description: string;
-  iconId: string;   // ключ привычки, чтобы подставить иконку
+  iconId: string; // ключ привычки, чтобы подставить иконку
   color: string;
 }
 
 export interface MonthlyProgressData {
-  month: string;   // "Янв", "Фев" и т.д.
-  value: number;   // суммарное количество выполненных привычек за месяц
+  month: string; // "Янв", "Фев" и т.д.
+  value: number; // суммарное количество выполненных привычек за месяц
 }
 
 export interface WeeklyActivityData {
-  day: string;     // "ПН", "ВТ", ...
-  value: number;   // количество выполнений в этот день недели (текущая неделя)
+  day: string; // "ПН", "ВТ", ...
+  value: number; // количество выполнений в этот день недели (текущая неделя)
 }
 
 // Вспомогательная функция: подсчитать, сколько раз за всё время выполнена привычка с id
 const countTotalExecutions = (habitId: string, history: Record<string, string[]>): number => {
   let total = 0;
-  Object.values(history).forEach(dayHabits => {
-    if (dayHabits.includes(habitId)) total++;
+  Object.values(history).forEach((dayHabits) => {
+    if (dayHabits.includes(habitId)) {
+      total++;
+    }
   });
   return total;
 };
@@ -42,75 +44,88 @@ export const calculateMetrics = (
   visibleHabits: Habit[]
 ) => {
   // Создаем массив ID только видимых привычек для быстрой фильтрации графиков
-  const visibleIds = (visibleHabits || habits || []).map(h => h.id);
-  
+  const visibleIds = (visibleHabits.length > 0 ? visibleHabits : habits).map((h) => h.id);
+
   // --- Карточки EcoImpact ---
-  const waterCount = countTotalExecutions('water', history);
-  const bikeCount = countTotalExecutions('bike', history);
-  const sortCount = countTotalExecutions('sort', history);
-  const plasticCount = countTotalExecutions('plastic', history);
+  const waterCount = countTotalExecutions("water", history);
+  const bikeCount = countTotalExecutions("bike", history);
+  const sortCount = countTotalExecutions("sort", history);
+  const plasticCount = countTotalExecutions("plastic", history);
 
   const metricsCards: MetricCardData[] = [
     {
-      title: 'Сэкономлено воды',
-      value: (waterCount * COEFFICIENTS.water).toLocaleString('ru-RU'),
-      unit: 'литров',
-      description: 'Экономия воды в быту',
-      iconId: 'water',
-      color: '#4FC3F7',
+      title: "Сэкономлено воды",
+      value: (waterCount * COEFFICIENTS.water).toLocaleString("ru-RU"),
+      unit: "литров",
+      description: "Экономия воды в быту",
+      iconId: "water",
+      color: "#4FC3F7",
     },
     {
-      title: 'Сокращено CO₂',
-      value: (bikeCount * COEFFICIENTS.bike).toLocaleString('ru-RU'),
-      unit: 'кг',
-      description: 'Поездки на велосипеде',
-      iconId: 'bike',
-      color: '#4CAF50',
+      title: "Сокращено CO₂",
+      value: (bikeCount * COEFFICIENTS.bike).toLocaleString("ru-RU"),
+      unit: "кг",
+      description: "Поездки на велосипеде",
+      iconId: "bike",
+      color: "#4CAF50",
     },
     {
-      title: 'Сохранено деревьев',
+      title: "Сохранено деревьев",
       value: (sortCount * COEFFICIENTS.sort).toFixed(2),
-      unit: 'эквивалентов',
-      description: 'Сортировка отходов',
-      iconId: 'sort',
-      color: '#66BB6A',
+      unit: "эквивалентов",
+      description: "Сортировка отходов",
+      iconId: "sort",
+      color: "#66BB6A",
     },
     {
-      title: 'Энергия сэкономлена',
-      value: (plasticCount * COEFFICIENTS.plastic).toLocaleString('ru-RU'),
-      unit: 'кВт·ч',
-      description: 'Отказ от пластика',
-      iconId: 'plastic',
-      color: '#FFA726',
+      title: "Энергия сэкономлена",
+      value: (plasticCount * COEFFICIENTS.plastic).toLocaleString("ru-RU"),
+      unit: "кВт·ч",
+      description: "Отказ от пластика",
+      iconId: "plastic",
+      color: "#FFA726",
     },
   ];
 
   // --- Прогресс по месяцам (последние 4) ---
   const today = new Date();
   const monthlyProgress: MonthlyProgressData[] = [];
-  const monthNames = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  const monthNames = [
+    "Янв",
+    "Фев",
+    "Мар",
+    "Апр",
+    "Май",
+    "Июн",
+    "Июл",
+    "Авг",
+    "Сен",
+    "Окт",
+    "Ноя",
+    "Дек",
+  ];
 
   for (let i = 3; i >= 0; i--) {
     const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
     const year = d.getFullYear();
     const month = d.getMonth(); // 0..11
-    const prefix = `${year}-${String(month + 1).padStart(2, '0')}`; // "2026-04"
+    const prefix = `${year}-${String(month + 1).padStart(2, "0")}`; // "2026-04"
 
     let total = 0;
     Object.entries(history).forEach(([dateStr, ids]) => {
       if (dateStr.startsWith(prefix)) {
-        total += ids.filter(id => visibleIds.includes(id)).length;
+        total += ids.filter((id) => visibleIds.includes(id)).length;
       }
     });
 
     monthlyProgress.push({
-      month: monthNames[month] ?? 'Неизв',
+      month: monthNames[month] ?? "Неизв",
       value: total,
     });
   }
 
   // --- Активность за неделю (текущая календарная неделя: ПН–ВС) ---
-  const dayNames = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ']; // getDay(): 0=ВС, 1=ПН, ..., 6=СБ
+  const dayNames = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]; // getDay(): 0=ВС, 1=ПН, ..., 6=СБ
   const weeklyActivity: WeeklyActivityData[] = [];
 
   // Определяем понедельник текущей недели
@@ -124,14 +139,14 @@ export const calculateMetrics = (
   for (let i = 0; i < 7; i++) {
     const date = new Date(monday);
     date.setDate(monday.getDate() + i);
-    const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     const dayHabits = history[dateKey] || [];
 
     // ТЕПЕРЬ: Фильтруем массив выполненных за день ID, оставляя только видимые привычки
-    const visibleDayHabitsCount = dayHabits.filter(id => visibleIds.includes(id)).length;
+    const visibleDayHabitsCount = dayHabits.filter((id) => visibleIds.includes(id)).length;
 
     weeklyActivity.push({
-      day: dayNames[date.getDay()] ?? 'Неизв',
+      day: dayNames[date.getDay()] ?? "Неизв",
       value: visibleDayHabitsCount, // Высота столбца на графике теперь адаптивна!
     });
   }

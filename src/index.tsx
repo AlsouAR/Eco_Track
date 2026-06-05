@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './app';
-import 'leaflet/dist/leaflet.css';
-import './styles/index.css';
-import { Provider } from 'react-redux';
-import { store } from './store';      
+import "leaflet/dist/leaflet.css";
+import React from "react";
 
-const rootElement = document.getElementById('root');
-if (!rootElement) throw new Error('No root element found');
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./app";
+import { store } from "./store";
+import "./styles/index.css";
+
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("No root element found");
+}
 
 const root = ReactDOM.createRoot(rootElement);
 
