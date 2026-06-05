@@ -68,6 +68,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "fix": "npm run lint:fix && npm run format",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
