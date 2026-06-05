@@ -1,32 +1,30 @@
-import "./profilePage.css";
-import HeaderProfile from "../../features/profile_components/HeaderProfile";
-import ProfileCard from "../../features/profile_components/ProfileCard";
-import ActionButtons from "../../features/profile_components/ActionButtons";
-import EcoGoals from "../../features/profile_components/EcoGoals";
-import Settings from "../../features/profile_components/Settings";
-import ReportPreview from "../../features/profile_components/ReportPreview";
-import ExitButton from "../../features/auth/exit_button";
+import HeaderProfile from "../../features/profileComponents/HeaderProfile";
+import ProfileCard from "../../features/profileComponents/ProfileCard";
+import ActionButtons from "../../features/profileComponents/ActionButtons";
+import EcoGoals from "../../features/profileComponents/EcoGoals";
+import Settings from "../../features/profileComponents/Settings";
+import ReportPreview from "../../features/profileComponents/ReportPreview";
+import ExitButton from "../../features/auth/ExitButton";
+import * as S from "./ProfilePage.styles";
 
 function ProfilePage() {
   return (
-    <div className="app">
+    <S.PageContainer>
       <HeaderProfile />
-      <div className="two-columns">
-        {/* ЛЕВАЯ КОЛОНКА */}
-        <div className="left-column">
+      <S.TwoColumns>
+        <S.LeftColumn>
           <ProfileCard />
           <ActionButtons />
-        </div>
+        </S.LeftColumn>
 
-        {/* ПРАВАЯ КОЛОНКА */}
-        <div className="right-column">
+        <S.RightColumn>
           <EcoGoals />
           <Settings />
           <ReportPreview />
           <ExitButton />
-        </div>
-      </div>
-    </div>
+        </S.RightColumn>
+      </S.TwoColumns>
+    </S.PageContainer>
   );
 }
 

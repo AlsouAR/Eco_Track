@@ -1,8 +1,8 @@
 import type { Middleware } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
-import habitsReducer from "../features/habits/store/habits_slice";
-import authReducer from "../features/auth/store/auth_slice";
-import profileReducer from "../features/profile/store/profile_slice";
+import habitsReducer from "../features/habits/store/habitsSlice";
+import authReducer from "../features/auth/store/authSlice";
+import profileReducer from "../features/profile/store/profileSlice";
 // 1. Создаем Middleware для сохранения данных
 const localStorageMiddleware: Middleware = (storeApi) => (next) => (action: any) => {
   // Сначала даем экшену выполниться, чтобы обновить состояние в Redux

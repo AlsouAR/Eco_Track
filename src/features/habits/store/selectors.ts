@@ -116,7 +116,8 @@ export const selectStreakData = createSelector([selectHabitState], (habitsState)
     currentStreak,
     bestStreak: bestStreak > 0 ? bestStreak : currentStreak,
   };
-});
+},
+);
 
 // 3. Селектор для общего прогресса (в %) — ТЕПЕРЬ СЧИТАЕТ ОТ КОЛИЧЕСТВА ВЫБРАННЫХ ПРИВЫЧЕК
 export const selectDayProgress = createSelector(
@@ -129,7 +130,7 @@ export const selectDayProgress = createSelector(
 
     // Считаем только те выполненные привычки, которые сейчас отображаются на экране
     const visibleCompletedCount = currentDraft.filter((id) =>
-      visibleHabits.some((vh) => vh.id === id),
+      visibleHabits.some((vh) => vh.id === id)
     ).length;
 
     return Math.round((visibleCompletedCount / visibleHabits.length) * 100);
@@ -146,7 +147,8 @@ export const selectTotalActiveDays = createSelector([selectHabitState], (habitsS
   }).length;
 
   return totalDays;
-});
+},
+);
 // 5. Селектор для эко-уровня
 export const selectHighestAchievement = createSelector(
   [selectHabitState, selectStreakData],
@@ -156,10 +158,10 @@ export const selectHighestAchievement = createSelector(
 
     const waterSaved = parseFloat(
       metrics.metricsCards.find((m) => m.title === "Сэкономлено воды")?.value.replace(/\s/g, "") ??
-        "0",
+        "0"
     );
     const co2Saved = parseFloat(
-      metrics.metricsCards.find((m) => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0",
+      metrics.metricsCards.find((m) => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0"
     );
     const treesPlanted = metrics.treesPlanted;
     const { currentStreak } = streakData;
@@ -179,7 +181,7 @@ export const selectHighestAchievement = createSelector(
       };
     }
     return { title: "Начинающий", description: "Сделайте первый шаг", id: 0 };
-  },
+  }
 );
 
 // 6. Селектор для статистики за текущий месяц
@@ -229,7 +231,7 @@ export const selectMonthlyStats = createSelector(
 
       // Фильтруем только видимые привычки
       const visibleHabitsCount = dayHabits.filter((id) =>
-        visibleHabits.some((vh) => vh.id === id),
+        visibleHabits.some((vh) => vh.id === id)
       ).length;
 
       totalActions += visibleHabitsCount;
@@ -317,5 +319,5 @@ export const selectMonthlyStats = createSelector(
       treesPlanted: sortCountMonth * COEFFICIENTS.sort,
       energySaved: plasticCountMonth * COEFFICIENTS.plastic,
     };
-  },
+  }
 );

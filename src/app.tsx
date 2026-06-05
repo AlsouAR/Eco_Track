@@ -1,14 +1,13 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAppSelector } from "./store/hooks";
-import HomePage from "./pages/home/homePage";
+import HomePage from "./pages/home/HomePage";
 import Header from "./features/header";
-import DashboardPage from "./pages/dashboard/dashboardPage";
-import ProfilePage from "./pages/Profile/profilePage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import MapPage from "./pages/map/MapPage";
 import { BackgroundLeaves } from "./components/BackgroundLeaves";
-import { AuthForm } from "./features/auth/auth_form";
-import MainPage from "./pages/main/mainPage";
+import { AuthForm } from "./features/auth/AuthForm";
+import MainPage from "./pages/main/MainPage";
 
 const NotFound = () => (
   <div style={{ padding: "20px" }}>

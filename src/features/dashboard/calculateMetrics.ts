@@ -1,4 +1,4 @@
-import type { Habit } from "../habits/store/habits_slice";
+import type { Habit } from "../habits/store/habitsSlice";
 
 // Коэффициенты пересчёта действий в экологические показатели
 const COEFFICIENTS = {
@@ -41,7 +41,7 @@ const countTotalExecutions = (habitId: string, history: Record<string, string[]>
 export const calculateMetrics = (
   habits: Habit[],
   history: Record<string, string[]>,
-  visibleHabits: Habit[],
+  visibleHabits: Habit[]
 ) => {
   // Создаем массив ID только видимых привычек для быстрой фильтрации графиков
   const visibleIds = (visibleHabits.length > 0 ? visibleHabits : habits).map((h) => h.id);

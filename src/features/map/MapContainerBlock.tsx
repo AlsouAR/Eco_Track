@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { MapMarker } from "./MapMarker";
 import type { EcoLocation } from "../../components/map/types";
 import "leaflet/dist/leaflet.css";
-import "./MapContainerBlock.css";
+import * as S from "./MapContainerBlock.styles";
 import { useEffect } from "react";
 
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
@@ -47,13 +47,15 @@ export function MapContainerBlock({
   const zoom = userLocation ? 15 : 12;
 
   return (
-    <div className="map-container-block">
-      <div className="map-container-block__inner">
+    <S.BlockWrapper>
+      <S.BlockInner>
         {locationError != null && locationError !== "" && (
-          <div className="location-error-banner">
+          <S.ErrorBanner>
             <span>{locationError}</span>
-            <button onClick={() => window.location.reload()}>Попробовать снова</button>
-          </div>
+            <S.ErrorButton onClick={() => window.location.reload()}>
+              Попробовать снова
+            </S.ErrorButton>
+          </S.ErrorBanner>
         )}
 
         <MapContainer center={center} zoom={zoom} className="map-container-block__map">
@@ -68,7 +70,7 @@ export function MapContainerBlock({
             <MapMarker key={loc.id} location={loc} onDelete={deleteLocation} />
           ))}
         </MapContainer>
-      </div>
-    </div>
+      </S.BlockInner>
+    </S.BlockWrapper>
   );
 }

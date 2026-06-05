@@ -1,5 +1,3 @@
-import React from "react";
-import styled from "@emotion/styled";
 import { EcoImpact } from "../../features/dashboard/EcoImpact";
 import { Progress } from "../../features/dashboard/Progress";
 import { WeeklyActivity } from "../../features/dashboard/WeekActivity";
@@ -8,26 +6,7 @@ import { Achievements } from "../../features/dashboard/Achievements";
 import { useAppSelector } from "../../store/hooks";
 import { calculateMetrics } from "../../features/dashboard/calculateMetrics";
 import { selectStreakData, selectVisibleHabits } from "../../features/habits/store/selectors";
-
-const PageContainer = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  background: transparent;
-`;
-
-const ChartsRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
-`;
+import * as S from "./DashboardPage.styles";
 
 const DashboardPage = () => {
   //  Получаем данные из Redux
@@ -54,12 +33,12 @@ const DashboardPage = () => {
   );
 
   return (
-    <PageContainer>
+    <S.PageContainer>
       <EcoImpact metrics={metricsCards} />
-      <ChartsRow>
+      <S.ChartsRow>
         <Progress data={monthlyProgress} />
         <WeeklyActivity data={weeklyActivity} maxTicks={visibleHabits.length} />
-      </ChartsRow>
+      </S.ChartsRow>
       <GrowingTreeAnimation trees={treesPlanted} />
       <Achievements
         streak={bestStreak}
@@ -67,7 +46,7 @@ const DashboardPage = () => {
         treesPlanted={treesPlanted}
         co2Saved={co2Saved}
       />
-    </PageContainer>
+    </S.PageContainer>
   );
 };
 

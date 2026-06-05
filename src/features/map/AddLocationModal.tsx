@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { motion } from "motion/react";
 import { X, Plus, Search, Loader2 } from "lucide-react";
 import type { EcoLocation, LocationType } from "../../components/map/types";
-import "./AddLocationModal.css";
+import * as S from "./AddLocationModal.styles";
 
 type FormData = {
   name: string;
@@ -60,7 +59,7 @@ export function AddLocationModal({
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -70,7 +69,7 @@ export function AddLocationModal({
     }
 
     if (errors[name as keyof FormData] !== undefined) {
-      setErrors((prev) => ({ ...prev, [name as keyof FormData]: undefined }));
+      setErrors((prev) => ({ ...prev, [name as keyof FormData]: undefined, }));
     }
   };
 
@@ -101,7 +100,7 @@ export function AddLocationModal({
 
     if (!coords) {
       setGeocodeError(
-        "Не удалось определить координаты по указанному адресу. Пожалуйста, уточните адрес.",
+        "Не удалось определить координаты по указанному адресу. Пожалуйста, уточните адрес."
       );
       return;
     }
@@ -125,139 +124,119 @@ export function AddLocationModal({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="add-location-modal__overlay"
-      onClick={close}
-    >
-      <motion.div
+    <S.Overlay initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={close}>
+      <S.Card
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="add-location-modal__card"
       >
-        {/* Header */}
-        <div className="add-location-modal__header">
-          <div className="add-location-modal__title-row">
-            <div className="add-location-modal__icon">
+        <S.Header>
+          <S.TitleRow>
+            <S.IconBox>
               <Plus className="w-6 h-6" />
-            </div>
-            <h3 className="add-location-modal__title">Предложить точку</h3>
-          </div>
-          <button onClick={close} className="add-location-modal__close">
+            </S.IconBox>
+            <S.Title>Предложить точку</S.Title>
+          </S.TitleRow>
+          <S.CloseButton onClick={close}>
             <X className="w-5 h-5" />
-          </button>
-        </div>
+          </S.CloseButton>
+        </S.Header>
 
-        {/* Form */}
-        <div className="add-location-modal__form">
+        <S.Form>
           {/* Название места */}
           <div>
-            <label className="add-location-modal__field-label">
+            <S.FieldLabel>
               Название места <span style={{ color: "red" }}>*</span>
-            </label>
-            <input
+            </S.FieldLabel>
+            <S.Input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="Например: Пункт приёма пластика"
-              className={`add-location-modal__input ${errors.name != null && errors.name !== "" ? "error" : ""}`}
+              $hasError={errors.name != null && errors.name !== ""}
             />
             {errors.name != null && errors.name !== "" && (
-              <span className="error-message">{errors.name}</span>
+              <S.ErrorMessage>{errors.name}</S.ErrorMessage>
             )}
           </div>
 
           {/* Тип */}
           <div>
-            <label className="add-location-modal__field-label">
+            <S.FieldLabel>
               Тип <span style={{ color: "red" }}>*</span>
-            </label>
-            <select
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              className="add-location-modal__select"
-            >
+            </S.FieldLabel>
+            <S.Select name="type" value={formData.type} onChange={handleChange}>
               <option value="recycle">♻️ Приём пластика</option>
               <option value="bike">🚲 Велопарковка</option>
               <option value="event">🌿 Эко-ивент</option>
-            </select>
+            </S.Select>
           </div>
 
           {/* Адрес */}
           <div>
-            <label className="add-location-modal__field-label">
+            <S.FieldLabel>
               Адрес <span style={{ color: "red" }}>*</span>
-            </label>
-            <div className="address-input-wrapper">
-              <input
+            </S.FieldLabel>
+            <S.AddressFieldWrapper>
+              <S.Input
                 type="text"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Например: Москва, ул. Тверская, 15"
-                className={`add-location-modal__input ${(errors.address != null && errors.address !== "") || geocodeError !== "" ? "error" : ""}`}
+                $hasError={(errors.address != null && errors.address !== "") || geocodeError !== ""}
               />
               {isGeocoding && (
-                <div className="geocoding-spinner">
+                <S.GeocodingSpinner>
                   <Loader2 className="w-4 h-4 spin" />
-                </div>
+                </S.GeocodingSpinner>
               )}
-            </div>
+            </S.AddressFieldWrapper>
             {errors.address != null && errors.address !== "" && (
-              <span className="error-message">{errors.address}</span>
+              <S.ErrorMessage>{errors.address}</S.ErrorMessage>
             )}
-            {geocodeError !== "" && (
-              <span className="error-message geocode-error">{geocodeError}</span>
-            )}
-            <div className="address-hint">
+            {geocodeError !== "" && <S.GeocodeError>{geocodeError}</S.GeocodeError>}
+            <S.AddressHint>
               <Search className="w-3 h-3" />
               <span>Координаты определятся автоматически по адресу</span>
-            </div>
+            </S.AddressHint>
           </div>
 
           {/* Часы работы */}
           <div>
-            <label className="add-location-modal__field-label">Часы работы</label>
-            <input
+            <S.FieldLabel>Часы работы</S.FieldLabel>
+            <S.Input
               type="text"
               name="hours"
               value={formData.hours}
               onChange={handleChange}
               placeholder="Например: Пн-Пт: 9:00-18:00"
-              className="add-location-modal__input"
+              $hasError={false}
             />
           </div>
 
           {/* Описание */}
           <div>
-            <label className="add-location-modal__field-label">
+            <S.FieldLabel>
               Описание <span style={{ color: "red" }}>*</span>
-            </label>
-            <textarea
+            </S.FieldLabel>
+            <S.Textarea
               name="description"
               rows={3}
               value={formData.description}
               onChange={handleChange}
               placeholder="Расскажите подробнее"
-              className={`add-location-modal__textarea ${errors.description != null && errors.description !== "" ? "error" : ""}`}
+              $hasError={errors.description != null && errors.description !== ""}
             />
             {errors.description != null && errors.description !== "" && (
-              <span className="error-message">{errors.description}</span>
+              <S.ErrorMessage>{errors.description}</S.ErrorMessage>
             )}
           </div>
 
           {/* Кнопки */}
-          <div className="form-buttons">
-            <button
-              type="button"
-              onClick={handleAddToMyMap}
-              disabled={isGeocoding}
-              className="add-location-modal__submit add-location-modal__submit--primary"
-            >
+          <S.ButtonRow>
+            <S.PrimaryButton type="button" onClick={handleAddToMyMap} disabled={isGeocoding}>
               {isGeocoding ? (
                 <>
                   <Loader2 className="w-4 h-4 spin" />
@@ -266,18 +245,14 @@ export function AddLocationModal({
               ) : (
                 "Добавить себе"
               )}
-            </button>
+            </S.PrimaryButton>
 
-            <button
-              type="button"
-              onClick={handleSendSuggestion}
-              className="add-location-modal__submit add-location-modal__submit--secondary"
-            >
+            <S.SecondaryButton type="button" onClick={handleSendSuggestion}>
               Отправить предложение
-            </button>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
+            </S.SecondaryButton>
+          </S.ButtonRow>
+        </S.Form>
+      </S.Card>
+    </S.Overlay>
   );
 }

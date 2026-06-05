@@ -11,7 +11,8 @@ export const selectPriorityHabits = createSelector(
 
 export const selectTotalWeeklyActions = createSelector([selectWeeklyStats], (weeklyStats) => {
   return weeklyStats.reduce((sum, day) => sum + day.completed, 0);
-});
+},
+);
 
 export const selectMaxWeeklyActions = createSelector(
   [selectVisibleHabits],

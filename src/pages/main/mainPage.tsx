@@ -1,7 +1,6 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Leaf, Calendar, BarChart3, Map, User, TreePine, ArrowRight } from "lucide-react";
-import "./main_page.css";
+import * as S from "./MainPage.styles";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -57,16 +56,16 @@ const MainPage = () => {
   ];
 
   return (
-    <div className="main-page">
-      <section className="hero-section">
-        <div className="hero-content">
-          <div className="hero-badge">
+    <S.PageContainer>
+      <S.HeroSection>
+        <S.HeroContent>
+          <S.HeroBadge>
             <Leaf size={16} />
             <span>EcoTrack — ваш эко-помощник</span>
-          </div>
+          </S.HeroBadge>
 
           <h1>
-            Превращайте <span className="gradient-text">эко-привычки</span>
+            Превращайте <S.GradientText>эко-привычки</S.GradientText>
             <br />в реальные достижения
           </h1>
 
@@ -75,87 +74,87 @@ const MainPage = () => {
             ваши действия влияют на планету.
           </p>
 
-          <div className="hero-buttons">
-            <button className="btn-primary" onClick={() => navigate("/login")}>
+          <S.HeroButtons>
+            <S.ButtonPrimary onClick={() => navigate("/login")}>
               Начать путь <ArrowRight size={18} />
-            </button>
-            <button
-              className="btn-secondary"
+            </S.ButtonPrimary>
+            <S.ButtonSecondary
               onClick={() => {
                 document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               Узнать больше
-            </button>
-          </div>
-        </div>
-      </section>
+            </S.ButtonSecondary>
+          </S.HeroButtons>
+        </S.HeroContent>
+      </S.HeroSection>
 
-      <section id="features" className="features-section">
-        <div className="section-header">
+      <S.FeaturesSection id="features">
+        <S.SectionHeader>
           <h2>
-            Всё, что нужно для <span className="gradient-text">осознанного</span> развития
+            Всё, что нужно для <S.GradientText>осознанного</S.GradientText> развития
           </h2>
           <p>EcoTrack объединяет множество функций</p>
-        </div>
+        </S.SectionHeader>
 
-        <div className="features-grid">
+        <S.FeaturesGrid>
           {features.map((feature, index) => (
-            <div key={index} className="feature-card">
-              <div className="feature-icon">{feature.icon}</div>
+            <S.FeatureCard key={index}>
+              <S.FeatureIcon>{feature.icon}</S.FeatureIcon>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
-            </div>
+            </S.FeatureCard>
           ))}
-        </div>
-      </section>
+        </S.FeaturesGrid>
+      </S.FeaturesSection>
 
-      <section className="how-it-works">
-        <div className="section-header">
+      <S.HowItWorks>
+        <S.SectionHeader>
           <h2>Как начать?</h2>
-        </div>
+        </S.SectionHeader>
 
-        <div className="steps-container">
+        <S.StepsContainer>
           {steps.map((step, index) => (
-            <div key={index} className="step-item">
-              <div className="step-number">{step.step}</div>
-              <div className="step-content">
+            <S.StepItem key={index}>
+              <S.StepNumber>{step.step}</S.StepNumber>
+              <S.StepContent>
                 <h4>{step.title}</h4>
                 <p>{step.description}</p>
-              </div>
-              {index < steps.length - 1 && <div className="step-line" />}
-            </div>
+              </S.StepContent>
+              {index < steps.length - 1 && <S.StepLine />}
+            </S.StepItem>
           ))}
-        </div>
-      </section>
+        </S.StepsContainer>
+      </S.HowItWorks>
 
-      <section className="cta-section">
-        <div className="cta-card">
-          <div className="cta-icon">
+      <S.CTASection>
+        <S.CTACard>
+          <S.CTAIcon>
             <TreePine size={48} />
-          </div>
+          </S.CTAIcon>
           <h2>Готовы изменить мир к лучшему?</h2>
           <p>Начните с малого — каждая эко-привычка имеет значение</p>
-          <button className="btn-primary" onClick={() => navigate("/login")}>
+          <S.ButtonPrimary onClick={() => navigate("/login")}>
             Создать аккаунт <ArrowRight size={18} />
-          </button>
-          <p className="cta-note">
+          </S.ButtonPrimary>
+          <S.CTANote>
             Уже есть аккаунт? <span onClick={() => navigate("/login")}>Войти</span>
-          </p>
-        </div>
-      </section>
+          </S.CTANote>
+        </S.CTACard>
+      </S.CTASection>
 
-      <footer className="main-footer">
-        <div className="footer-content">
-          <div className="footer-logo">
+      <S.MainFooter>
+        <S.FooterContent>
+          <S.FooterLogo>
             <Leaf size={24} />
             <span>EcoTrack</span>
-          </div>
+          </S.FooterLogo>
           <p>Делаем экологичный образ жизни доступным каждому</p>
-        </div>
-      </footer>
-    </div>
+        </S.FooterContent>
+      </S.MainFooter>
+    </S.PageContainer>
   );
 };
 
 export default MainPage;
+
