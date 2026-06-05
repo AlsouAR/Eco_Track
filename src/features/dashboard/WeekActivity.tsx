@@ -1,5 +1,7 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+
 import * as S from "./WeekActivity.styles";
 
 interface CustomTooltipProps {

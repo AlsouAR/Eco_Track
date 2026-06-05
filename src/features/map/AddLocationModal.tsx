@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { X, Plus, Search, Loader2 } from "lucide-react";
-import type { EcoLocation, LocationType } from "../../components/map/types";
+
+import { Loader2, Plus, Search, X } from "lucide-react";
+
 import * as S from "./AddLocationModal.styles";
+
+import type { EcoLocation, LocationType } from "../../components/map/types";
 
 type FormData = {
   name: string;
@@ -38,7 +41,7 @@ export function AddLocationModal({
       // Используем Nominatim API (OpenStreetMap)
       const encodedAddress = encodeURIComponent(address);
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`,
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
       );
 
       const data = await response.json();
@@ -69,7 +72,7 @@ export function AddLocationModal({
     }
 
     if (errors[name as keyof FormData] !== undefined) {
-      setErrors((prev) => ({ ...prev, [name as keyof FormData]: undefined, }));
+      setErrors((prev) => ({ ...prev, [name as keyof FormData]: undefined }));
     }
   };
 

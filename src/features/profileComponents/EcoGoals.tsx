@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import * as S from "./EcoGoals.styles";
+import { useEffect, useState } from "react";
+
 import { Leaf } from "lucide-react";
+import { useDispatch } from "react-redux";
+
+import * as S from "./EcoGoals.styles";
 import { useAppSelector } from "../../store/hooks";
-import {
-  selectTotalWeeklyActions,
-  selectMaxWeeklyActions,
-  selectWeeklyProgressPercent,
-  selectPriorityHabits,
-} from "../profile/store/selectors";
 import { togglePriorityHabit } from "../profile/store/profileSlice";
+import {
+  selectMaxWeeklyActions,
+  selectPriorityHabits,
+  selectTotalWeeklyActions,
+  selectWeeklyProgressPercent,
+} from "../profile/store/selectors";
 
 // Заголовок
 const GoalsHeader = () => {

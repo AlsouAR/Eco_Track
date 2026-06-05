@@ -1,6 +1,8 @@
 import React from "react";
+
+import { BarChart3, Leaf, MapPin, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { Leaf, BarChart3, MapPin, User } from "lucide-react";
+
 import * as S from "./header_styles";
 
 export function Header() {

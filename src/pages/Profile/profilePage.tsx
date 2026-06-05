@@ -1,11 +1,11 @@
-import HeaderProfile from "../../features/profileComponents/HeaderProfile";
-import ProfileCard from "../../features/profileComponents/ProfileCard";
+import * as S from "./ProfilePage.styles";
+import ExitButton from "../../features/auth/ExitButton";
 import ActionButtons from "../../features/profileComponents/ActionButtons";
 import EcoGoals from "../../features/profileComponents/EcoGoals";
-import Settings from "../../features/profileComponents/Settings";
+import HeaderProfile from "../../features/profileComponents/HeaderProfile";
+import ProfileCard from "../../features/profileComponents/ProfileCard";
 import ReportPreview from "../../features/profileComponents/ReportPreview";
-import ExitButton from "../../features/auth/ExitButton";
-import * as S from "./ProfilePage.styles";
+import Settings from "../../features/profileComponents/Settings";
 
 function ProfilePage() {
   return (

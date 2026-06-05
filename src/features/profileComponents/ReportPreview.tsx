@@ -1,15 +1,19 @@
 import { useRef } from "react";
-import { FileText, Download } from "lucide-react";
+
+import html2pdf from "html2pdf.js";
+import { Download, FileText } from "lucide-react";
+
+import * as S from "./ReportPreview.styles";
+import { userData } from "./userData";
 import { useAppSelector } from "../../store/hooks";
-import { selectStreakData, selectMonthlyStats } from "../habits/store/selectors";
-import { selectHighestAchievement } from "../habits/store/selectors";
 import { getAchievements } from "../dashboard/Achievements";
 import { calculateMetrics } from "../dashboard/calculateMetrics";
-import { selectVisibleHabits } from "../habits/store/selectors";
-import { userData } from "./userData";
-import * as S from "./ReportPreview.styles";
-//@ts-ignore
-import html2pdf from "html2pdf.js";
+import {
+  selectHighestAchievement,
+  selectMonthlyStats,
+  selectStreakData,
+  selectVisibleHabits,
+} from "../habits/store/selectors";
 
 function ReportPreview() {
   const reportRef = useRef<HTMLDivElement>(null);
@@ -26,35 +30,37 @@ function ReportPreview() {
   // Получаем все достижения
   const waterSaved = parseFloat(
     metrics.metricsCards.find((m) => m.title === "Сэкономлено воды")?.value.replace(/\s/g, "") ??
-      "0",
+      "0"
   );
   const co2Saved = parseFloat(
-    metrics.metricsCards.find((m) => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0",
+    metrics.metricsCards.find((m) => m.title === "Сокращено CO₂")?.value.replace(/\s/g, "") ?? "0"
   );
   const treesPlanted = metrics.treesPlanted;
   const allAchievements = getAchievements(currentStreak, waterSaved, treesPlanted, co2Saved);
   const unlockedAchievements = allAchievements.filter((a) => a.unlocked);
 
   const handleDownloadPDF = () => {
-  const element = reportRef.current;
-  if (!element) return;
-  
-  const opt: {
-    margin: [number, number, number, number];
-    filename: string;
-    image: { type: 'jpeg'; quality: number };
-    html2canvas: { scale: number; letterRendering: boolean };
-    jsPDF: { unit: 'mm'; format: 'a4'; orientation: 'portrait' };
-  } = {
-    margin: [0.5, 0.5, 0.5, 0.5],
-    filename: `eco_report_${monthlyStats.month.replace(' ', '_')}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, letterRendering: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    const element = reportRef.current;
+    if (!element) {
+      return;
+    }
+
+    const opt: {
+      margin: [number, number, number, number];
+      filename: string;
+      image: { type: "jpeg"; quality: number };
+      html2canvas: { scale: number; letterRendering: boolean };
+      jsPDF: { unit: "mm"; format: "a4"; orientation: "portrait" };
+    } = {
+      margin: [0.5, 0.5, 0.5, 0.5],
+      filename: `eco_report_${monthlyStats.month.replace(" ", "_")}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, letterRendering: true },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    };
+
+    html2pdf().set(opt).from(element).save();
   };
-  
-  html2pdf().set(opt).from(element).save();
-};
 
   return (
     <S.ReportPreviewWrapper>

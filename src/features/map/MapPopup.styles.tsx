@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const MapPopupWrapper = styled.div`
   padding: 1rem;

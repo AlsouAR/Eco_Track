@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Check, ShoppingBag, Bike, Recycle, Droplet, Leaf } from "lucide-react";
-import { Checkbox } from "../../components/ui/checkbox/checkbox";
-import { Progress } from "../../components/ui/progress/progress";
 
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { toggleHabit, saveDay } from "./store/habitsSlice";
-import { selectVisibleHabits } from "./store/selectors";
+import { AnimatePresence, motion } from "framer-motion";
+import { Bike, Check, Droplet, Leaf, Recycle, ShoppingBag } from "lucide-react";
 
 import * as S from "./HabitList.styles";
+import { saveDay, toggleHabit } from "./store/habitsSlice";
+import { selectVisibleHabits } from "./store/selectors";
+import { Checkbox } from "../../components/ui/checkbox/checkbox";
+import { Progress } from "../../components/ui/progress/progress";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const IconMap: Record<string, any> = {
   ShoppingBag,

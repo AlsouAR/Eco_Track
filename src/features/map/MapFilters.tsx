@@ -1,7 +1,9 @@
+import { Bike, Leaf, MapPin, Plus, Recycle } from "lucide-react";
 import { motion } from "motion/react";
-import { MapPin, Recycle, Bike, Leaf, Plus } from "lucide-react";
-import type { LocationType } from "../../components/map/types";
+
 import * as S from "./MapFilters.styles";
+
+import type { LocationType } from "../../components/map/types";
 
 const MotionFilterButton = motion(S.FilterButton);
 const MotionActionButton = motion(S.ActionButton);

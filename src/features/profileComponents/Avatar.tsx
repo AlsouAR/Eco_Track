@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
-import * as S from "./Avatar.styles";
+import { useEffect, useState } from "react";
+
 import { Camera } from "lucide-react";
+
+import * as S from "./Avatar.styles";
 
 interface AvatarProps {
   name: string;

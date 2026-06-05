@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Calendar from "react-calendar";
-import { Leaf } from "lucide-react";
+import { useEffect } from "react";
+
 import { format, isToday, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
+import { Leaf } from "lucide-react";
+import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+
+import * as S from "./EcoCalendar.styles";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setSelectedDate } from "../habits/store/habitsSlice";
-import * as S from "./EcoCalendar.styles";
 
 export function EcoCalendar() {
   const dispatch = useAppDispatch();

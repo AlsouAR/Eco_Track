@@ -1,7 +1,8 @@
 import { LogOut } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { logout } from "./store/authSlice";
+
 import * as S from "./ExitButton.styles";
+import { logout } from "./store/authSlice";
 
 const ExitButton = () => {
   const dispatch = useDispatch();

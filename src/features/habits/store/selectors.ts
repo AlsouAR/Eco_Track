@@ -1,9 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
-import type { RootState } from "../../../store";
-import { subDays, format, startOfDay, parseISO, startOfToday, isSameDay, addDays } from "date-fns";
+import { addDays, format, isSameDay, parseISO, startOfDay, startOfToday, subDays } from "date-fns";
 import { ru } from "date-fns/locale";
+
 import { getAchievements } from "../../../features/dashboard/Achievements";
 import { calculateMetrics } from "../../../features/dashboard/calculateMetrics";
+
+import type { RootState } from "../../../store";
 
 const selectHabitState = (state: RootState) => state.habits;
 // Селектор для получения списка настроек отображения из профиля
@@ -17,7 +19,7 @@ export const selectVisibleHabits = createSelector(
     const activeIds = profileHabits.filter((h) => h.completed).map((h) => h.id);
     // Возвращаем из глобального списка привычек только выбранные пользователем
     return habitsState.habits.filter((habit) => activeIds.includes(habit.id));
-  },
+  }
 );
 
 // 1. Селектор для недельной статистики
@@ -49,7 +51,7 @@ export const selectWeeklyStats = createSelector(
         };
       })
       .reverse();
-  },
+  }
 );
 
 // 2. Селектор для расчета серий (Streaks)
@@ -116,8 +118,7 @@ export const selectStreakData = createSelector([selectHabitState], (habitsState)
     currentStreak,
     bestStreak: bestStreak > 0 ? bestStreak : currentStreak,
   };
-},
-);
+});
 
 // 3. Селектор для общего прогресса (в %) — ТЕПЕРЬ СЧИТАЕТ ОТ КОЛИЧЕСТВА ВЫБРАННЫХ ПРИВЫЧЕК
 export const selectDayProgress = createSelector(
@@ -134,7 +135,7 @@ export const selectDayProgress = createSelector(
     ).length;
 
     return Math.round((visibleCompletedCount / visibleHabits.length) * 100);
-  },
+  }
 );
 
 // 4. Селектор для общего количества дней с активностью (всего дней)
@@ -147,8 +148,7 @@ export const selectTotalActiveDays = createSelector([selectHabitState], (habitsS
   }).length;
 
   return totalDays;
-},
-);
+});
 // 5. Селектор для эко-уровня
 export const selectHighestAchievement = createSelector(
   [selectHabitState, selectStreakData],

@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { MapFilters } from "../../features/map/MapFilters";
-import { MapContainerBlock } from "../../features/map/MapContainerBlock";
-import { AddLocationModal } from "../../features/map/AddLocationModal";
-import type { LocationType, EcoLocation } from "../../components/map/types";
-import { useLocations } from "../../store/useLocations";
-import { useGeolocation } from "../../store/useGeolocation";
+
 import * as S from "./MapPage.styles";
+import { AddLocationModal } from "../../features/map/AddLocationModal";
+import { MapContainerBlock } from "../../features/map/MapContainerBlock";
+import { MapFilters } from "../../features/map/MapFilters";
+import { useGeolocation } from "../../store/useGeolocation";
+import { useLocations } from "../../store/useLocations";
+
+import type { EcoLocation, LocationType } from "../../components/map/types";
 
 export default function MapPage() {
   const [selectedType, setSelectedType] = useState<LocationType | "all">("all");

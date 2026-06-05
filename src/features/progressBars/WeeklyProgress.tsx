@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
+
 import { TrendingUp } from "lucide-react";
+
+import * as S from "./WeeklyProgress.styles";
 import { useAppSelector } from "../../store/hooks";
 // Добавляем импорт селектора видимых привычек
-import { selectWeeklyStats, selectVisibleHabits } from "../habits/store/selectors";
-import * as S from "./WeeklyProgress.styles";
+import { selectVisibleHabits, selectWeeklyStats } from "../habits/store/selectors";
 
 export const WeeklyProgress: React.FC = () => {
   const visibleHabits = useAppSelector(selectVisibleHabits);

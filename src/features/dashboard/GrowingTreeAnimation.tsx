@@ -1,4 +1,5 @@
-import { TreeDeciduous, Leaf } from "lucide-react";
+import { Leaf, TreeDeciduous } from "lucide-react";
+
 import * as S from "./GrowingTreeAnimation.styles";
 
 // Конфигурация листьев

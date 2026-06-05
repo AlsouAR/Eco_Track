@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const NavContainer = styled.nav`
   background-color: rgba(255, 255, 255, 0.8);

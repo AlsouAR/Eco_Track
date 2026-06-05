@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
-import type { EcoLocation } from "../components/map/types";
+import { useEffect, useState } from "react";
+
 import { locations as initialLocations } from "../components/map/data/locations";
+
+import type { EcoLocation } from "../components/map/types";
 
 const STORAGE_KEY = "eco_locations";
 

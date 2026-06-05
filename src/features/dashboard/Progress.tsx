@@ -1,13 +1,8 @@
 import React from "react";
+
 import { TrendingUp } from "lucide-react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
+import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+
 import * as S from "./Progress.styles";
 
 interface CustomTooltipProps {

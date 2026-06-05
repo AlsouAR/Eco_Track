@@ -1,6 +1,7 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { format } from "date-fns";
+
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 // 1. Описываем форму данных
 export interface Habit {

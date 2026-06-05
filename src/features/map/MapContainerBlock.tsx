@@ -1,9 +1,12 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import { MapMarker } from "./MapMarker";
-import type { EcoLocation } from "../../components/map/types";
 import "leaflet/dist/leaflet.css";
-import * as S from "./MapContainerBlock.styles";
 import { useEffect } from "react";
+
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+
+import * as S from "./MapContainerBlock.styles";
+import { MapMarker } from "./MapMarker";
+
+import type { EcoLocation } from "../../components/map/types";
 
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();

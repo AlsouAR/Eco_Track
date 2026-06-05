@@ -1,6 +1,8 @@
-import type { EcoLocation } from "../../components/map/types";
-import { MapPin, Clock } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
+
 import * as S from "./MapPopup.styles";
+
+import type { EcoLocation } from "../../components/map/types";
 
 export function MapPopup({ location, onDelete }: { location: EcoLocation; onDelete?: () => void }) {
   const handleDelete = () => {

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+
 import { Leaf } from "lucide-react";
-import { useAppDispatch } from "../../store/hooks";
-import { loginSuccess } from "./store/authSlice";
+
 import * as S from "./AuthForm.styles";
+import { useAppDispatch } from "../../store/hooks";
 import { updateUserData } from "../profileComponents/userData";
+import { loginSuccess } from "./store/authSlice";
 
 export const AuthForm: React.FC = () => {
   const dispatch = useAppDispatch();

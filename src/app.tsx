@@ -1,19 +1,14 @@
-import { Routes, Route } from "react-router-dom";
-import { useAppSelector } from "./store/hooks";
-import HomePage from "./pages/home/HomePage";
-import Header from "./features/header";
-import DashboardPage from "./pages/dashboard/DashboardPage";
-import ProfilePage from "./pages/profile/ProfilePage";
-import MapPage from "./pages/map/MapPage";
+import { Route, Routes } from "react-router-dom";
+
 import { BackgroundLeaves } from "./components/BackgroundLeaves";
 import { AuthForm } from "./features/auth/AuthForm";
+import Header from "./features/header";
+import DashboardPage from "./pages/dashboard/DashboardPage";
+import HomePage from "./pages/home/HomePage";
 import MainPage from "./pages/main/MainPage";
-
-const NotFound = () => (
-  <div style={{ padding: "20px" }}>
-    <h1>404: Страница не найдена</h1>
-  </div>
-);
+import MapPage from "./pages/map/MapPage";
+import ProfilePage from "./pages/profile/ProfilePage";
+import { useAppSelector } from "./store/hooks";
 
 const App = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -46,7 +41,7 @@ const App = () => {
         <Route path="/main" element={<MainPage />} />
         <Route path="/auth" element={<AuthForm />} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
     </>
   );

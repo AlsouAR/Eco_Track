@@ -1,12 +1,12 @@
 import Avatar from "./Avatar";
+import * as S from "./ProfileCard.styles";
 import { userData } from "./userData";
 import { useAppSelector } from "../../store/hooks";
 import {
+  selectHighestAchievement,
   selectStreakData,
   selectTotalActiveDays,
-  selectHighestAchievement,
 } from "../habits/store/selectors";
-import * as S from "./ProfileCard.styles";
 
 function ProfileCard() {
   const { currentStreak } = useAppSelector(selectStreakData);

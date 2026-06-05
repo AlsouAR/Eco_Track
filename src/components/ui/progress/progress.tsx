@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import * as ProgressPrimitive from "@radix-ui/react-progress";
+
 import styled from "@emotion/styled";
+import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 const StyledRoot = styled(ProgressPrimitive.Root)`
   position: relative;

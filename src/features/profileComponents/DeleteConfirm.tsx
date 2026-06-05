@@ -1,7 +1,9 @@
 import React from "react";
-import { AlertTriangle } from "lucide-react";
-import * as S from "./DeleteConfirm.styles";
+
 import { AnimatePresence } from "framer-motion";
+import { AlertTriangle } from "lucide-react";
+
+import * as S from "./DeleteConfirm.styles";
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -48,5 +50,5 @@ export const DeleteConfirm: React.FC<ConfirmModalProps> = ({ isOpen, onClose, on
         </S.Overlay>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};

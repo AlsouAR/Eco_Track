@@ -1,11 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./app";
 import "leaflet/dist/leaflet.css";
-import "./styles/index.css";
+import React from "react";
+
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./app";
 import { store } from "./store";
+import "./styles/index.css";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -21,5 +23,5 @@ root.render(
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

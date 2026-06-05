@@ -1,7 +1,9 @@
 import React from "react";
-import { MetricCard } from "./MetricCard";
-import { Droplet, Leaf, Recycle, Zap, TreeDeciduous } from "lucide-react";
+
+import { Droplet, Leaf, Recycle, TreeDeciduous, Zap } from "lucide-react";
+
 import * as S from "./EcoImpact.styles";
+import { MetricCard } from "./MetricCard";
 
 // ==================== Вспомогательные данные ====================
 // Соответствие iconId (из calculateMetrics) → компонент иконки

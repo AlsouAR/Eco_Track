@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type GeolocationState = {
   latitude: number | null;
@@ -60,7 +60,7 @@ export function useGeolocation() {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
-      },
+      }
     );
   }, []);
 

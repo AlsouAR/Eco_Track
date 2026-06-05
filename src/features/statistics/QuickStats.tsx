@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { Leaf } from "lucide-react";
+
+import * as S from "./QuickStats.styles";
 import { useAppSelector } from "../../store/hooks";
 import { selectStreakData } from "../habits/store/selectors";
-import * as S from "./QuickStats.styles";
 
 export const QuickStats: React.FC = () => {
   const { currentStreak, bestStreak } = useAppSelector(selectStreakData);

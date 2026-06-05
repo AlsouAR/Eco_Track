@@ -1,4 +1,5 @@
 import { Award } from "lucide-react";
+
 import * as S from "./Achievements.styles";
 
 interface Achievement {

@@ -1,9 +1,10 @@
-import { WeeklyProgress } from "../../features/progressBars/WeeklyProgress";
-import { EcoCalendar } from "../../features/calendar/EcoCalendar";
-import { QuickStats } from "../../features/statistics/QuickStats";
-import { TodayActions } from "../../features/habits/HabitList";
 import { motion } from "framer-motion";
+
 import * as S from "./HomePage.styles";
+import { EcoCalendar } from "../../features/calendar/EcoCalendar";
+import { TodayActions } from "../../features/habits/HabitList";
+import { WeeklyProgress } from "../../features/progressBars/WeeklyProgress";
+import { QuickStats } from "../../features/statistics/QuickStats";
 
 const HomePage = () => {
   return (

@@ -99,7 +99,7 @@ export const ButtonPrimary = styled.button`
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 40px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -107,6 +107,7 @@ export const ButtonPrimary = styled.button`
   align-items: center;
   gap: 8px;
   transition: all 0.3s ease;
+  display: inline-flex;
 
   &:hover {
     background: #45a049;
@@ -120,7 +121,7 @@ export const ButtonSecondary = styled.button`
   color: #4caf50;
   border: 2px solid #4caf50;
   padding: 10px 24px;
-  border-radius: 8px;
+  border-radius: 40px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;

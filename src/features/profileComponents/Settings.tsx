@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Shield, X, Eye, EyeOff } from "lucide-react";
-import { useAppSelector } from "../../store/hooks";
+
+import { Eye, EyeOff, Shield, X } from "lucide-react";
+
 import * as S from "./Settings.styles";
+import { useAppSelector } from "../../store/hooks";
 
 interface SettingsItemProps {
   icon: React.ReactNode;

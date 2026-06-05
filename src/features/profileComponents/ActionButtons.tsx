@@ -1,10 +1,12 @@
 import { useState } from "react";
+
 import { Trash2 } from "lucide-react";
+
+import * as S from "./ActionButtons.styles";
+import { DeleteConfirm } from "./DeleteConfirm";
 import { useAppDispatch } from "../../store/hooks";
 import { resetAllProgress as resetHabitsProgress } from "../habits/store/habitsSlice";
 import { resetAllProgress as resetProfileProgress } from "../profile/store/profileSlice";
-import { DeleteConfirm } from "./DeleteConfirm";
-import * as S from "./ActionButtons.styles";
 
 function ActionButtons() {
   const dispatch = useAppDispatch();

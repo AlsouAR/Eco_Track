@@ -1,5 +1,6 @@
+import { ArrowRight, BarChart3, Calendar, Leaf, Map, TreePine, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Leaf, Calendar, BarChart3, Map, User, TreePine, ArrowRight } from "lucide-react";
+
 import * as S from "./MainPage.styles";
 
 const MainPage = () => {
@@ -157,4 +158,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-

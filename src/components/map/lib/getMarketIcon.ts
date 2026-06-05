@@ -1,4 +1,5 @@
 import L from "leaflet";
+
 import type { LocationType } from "../types";
 
 export const getMarkerIcon = (type: LocationType) => {
