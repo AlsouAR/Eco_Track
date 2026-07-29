@@ -1,3 +1,3 @@
 # Eco_Track
 
-npm install - установка зависимостей
+https://ecotracker-66862.web.app/ - ссылка на сайт
